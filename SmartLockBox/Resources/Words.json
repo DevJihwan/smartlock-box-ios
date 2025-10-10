@@ -1,24 +1,724 @@
 {
   "words": [
-    "바다", "꽃", "책", "노래", "꿈",
-    "별", "사랑", "여행", "커피", "비",
-    "하늘", "시간", "추억", "길", "창문",
-    "음악", "그림", "봄", "가을", "결심",
-    "희망", "미래", "열정", "평화", "자유",
-    "행복", "친구", "가족", "집", "학교",
-    "핸드폰", "컴퓨터", "책상", "거울", "시계",
-    "우산", "신발", "오이", "타임머신", "우주",
-    "산", "강", "숲", "불", "물",
-    "바람", "눈", "구름", "해", "달",
-    "동물", "식물", "나무", "풀", "꽃배달",
-    "열쇠", "문", "담", "다리", "지붕",
-    "방", "부엌", "화장실", "거실", "침대",
-    "요리", "식사", "빵", "물", "주스",
-    "자동차", "버스", "지하철", "비행기", "기차",
-    "자전거", "오토바이", "배", "택시", "트럭",
-    "헤드폰", "이어폰", "스피커", "마이크", "리모컨",
-    "게임", "영화", "드라마", "만화", "애니메이션",
-    "통화", "문자", "이메일", "편지", "엽서",
-    "운동", "축구", "야구", "농구", "테니스"
+    {
+      "id": 1,
+      "word": "바다",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 2,
+      "word": "하늘",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 3,
+      "word": "꿈",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 4,
+      "word": "별",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 5,
+      "word": "꽃",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 6,
+      "word": "책",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 7,
+      "word": "노래",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 8,
+      "word": "사랑",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 9,
+      "word": "여행",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 10,
+      "word": "커피",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 11,
+      "word": "비",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 12,
+      "word": "시간",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 13,
+      "word": "추억",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 14,
+      "word": "길",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 15,
+      "word": "창문",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 16,
+      "word": "음악",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 17,
+      "word": "그림",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 18,
+      "word": "봄",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 19,
+      "word": "가을",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 20,
+      "word": "겨울",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 21,
+      "word": "여름",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 22,
+      "word": "친구",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 23,
+      "word": "가족",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 24,
+      "word": "집",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 25,
+      "word": "학교",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 26,
+      "word": "산",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 27,
+      "word": "강",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 28,
+      "word": "숲",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 29,
+      "word": "달",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 30,
+      "word": "해",
+      "category": "명사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 31,
+      "word": "달리다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 32,
+      "word": "걷다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 33,
+      "word": "먹다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 34,
+      "word": "자다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 35,
+      "word": "읽다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 36,
+      "word": "쓰다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 37,
+      "word": "보다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 38,
+      "word": "듣다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 39,
+      "word": "말하다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 40,
+      "word": "생각하다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 41,
+      "word": "웃다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 42,
+      "word": "울다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 43,
+      "word": "춤추다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 44,
+      "word": "노래하다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 45,
+      "word": "그리다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 46,
+      "word": "만들다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 47,
+      "word": "고치다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 48,
+      "word": "열다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 49,
+      "word": "닫다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 50,
+      "word": "시작하다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 51,
+      "word": "끝나다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 52,
+      "word": "배우다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 53,
+      "word": "가르치다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 54,
+      "word": "찾다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 55,
+      "word": "잃다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 56,
+      "word": "기다리다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 57,
+      "word": "돕다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 58,
+      "word": "사랑하다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 59,
+      "word": "미워하다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 60,
+      "word": "믿다",
+      "category": "동사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 61,
+      "word": "아름답다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 62,
+      "word": "행복하다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 63,
+      "word": "슬프다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 64,
+      "word": "즐겁다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 65,
+      "word": "크다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 66,
+      "word": "작다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 67,
+      "word": "높다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 68,
+      "word": "낮다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 69,
+      "word": "빠르다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 70,
+      "word": "느리다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 71,
+      "word": "밝다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 72,
+      "word": "어둡다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 73,
+      "word": "따뜻하다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 74,
+      "word": "차갑다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 75,
+      "word": "새롭다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 76,
+      "word": "오래되다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 77,
+      "word": "깨끗하다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 78,
+      "word": "더럽다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 79,
+      "word": "부드럽다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 80,
+      "word": "딱딱하다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 81,
+      "word": "무겁다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 82,
+      "word": "가볍다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 83,
+      "word": "달다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 84,
+      "word": "쓰다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 85,
+      "word": "맵다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 86,
+      "word": "짜다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 87,
+      "word": "시다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 88,
+      "word": "맛있다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 89,
+      "word": "향기롭다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 90,
+      "word": "시끄럽다",
+      "category": "형용사",
+      "difficulty": "easy"
+    },
+    {
+      "id": 91,
+      "word": "희망",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 92,
+      "word": "미래",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 93,
+      "word": "과거",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 94,
+      "word": "현재",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 95,
+      "word": "열정",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 96,
+      "word": "평화",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 97,
+      "word": "자유",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 98,
+      "word": "진리",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 99,
+      "word": "정의",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 100,
+      "word": "용기",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 101,
+      "word": "지혜",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 102,
+      "word": "아픔",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 103,
+      "word": "기쁨",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 104,
+      "word": "슬픔",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 105,
+      "word": "분노",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 106,
+      "word": "두려움",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 107,
+      "word": "외로움",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 108,
+      "word": "그리움",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 109,
+      "word": "기억",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 110,
+      "word": "망각",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 111,
+      "word": "변화",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 112,
+      "word": "성장",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 113,
+      "word": "실패",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 114,
+      "word": "성공",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 115,
+      "word": "도전",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 116,
+      "word": "목표",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 117,
+      "word": "결심",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 118,
+      "word": "선택",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 119,
+      "word": "운명",
+      "category": "추상명사",
+      "difficulty": "medium"
+    },
+    {
+      "id": 120,
+      "word": "행운",
+      "category": "추상명사",
+      "difficulty": "medium"
+    }
   ]
 }
