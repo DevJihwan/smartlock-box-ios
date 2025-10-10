@@ -1,72 +1,151 @@
-# 바보상자자물쇠 (SmartLock Box)
+# 🔒 바보상자자물쇠 (SmartLock Box)
 
-[![iOS](https://img.shields.io/badge/iOS-15.0+-blue.svg)](https://developer.apple.com/ios/)
-[![Swift](https://img.shields.io/badge/Swift-5.5+-orange.svg)](https://swift.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+> 창의력으로 해제하는 스마트 디지털 디톡스 앱
 
-> 창의적 사고를 통해 스마트폰 사용을 제한하는 iOS 앱
+## 🎯 프로젝트 개요
 
-## 📱 프로젝트 소개
+바보상자자물쇠는 iOS 사용자들이 건강한 디지털 라이프스타일을 유지할 수 있도록 돕는 혁신적인 스마트폰 사용 시간 관리 앱입니다.
 
-바보상자자물쇠는 스마트폰 과사용 문제를 해결하기 위한 혁신적인 iOS 앱입니다. 기존의 단순한 시간 제한 방식과 달리, AI 기반의 창의적 문제 해결을 통해서만 조기 해제가 가능한 시스템을 제공합니다.
+### 주요 특징
 
-## ✨ 주요 기능
-
-### 🔒 스마트 잠금 시스템
-- 사용자 설정 시간 초과 시 자동 잠금
-- 전화, SMS 등 필수 기능은 접근 가능
-- 다음날 자동 해제
-
-### 🎨 창의적 해제 시스템
-- 20,000개 한국어 단어 데이터베이스
-- 랜덤 2단어 조합 문제 출제
-- ChatGPT & Claude API 이중 창의력 검증
-
-### 📊 사용 분석
-- 실시간 사용량 모니터링
-- 일별/주별/월별 통계
-- 개인 맞춤형 리포트
+- 📊 **동기부여 중심 UI**: GitHub 커밋 히트맵 스타일의 월간 목표 달성 현황 시각화
+- 🎯 **실시간 모니터링**: 오늘 사용시간, 주간 통계, 잠금까지 남은 시간 표시
+- 🧠 **AI 기반 창의적 해제**: ChatGPT와 Claude의 이중 검증 시스템
+- 🔒 **스마트 잠금**: 설정 시간 초과 시 자동 잠금
+- 📊 **상세 통계**: 일별/주별/월별 사용 패턴 분석
 
 ## 🛠 기술 스택
 
+- **플랫폼**: iOS 15.0+
 - **언어**: Swift 5.5+
-- **최소 지원**: iOS 15.0
-- **아키텍처**: MVVM
-- **주요 프레임워크**:
-  - Screen Time API
-  - Core Data
-  - UserNotifications
-  - URLSession
+- **UI 프레임워크**: SwiftUI
+- **아키텍처**: MVVM (Model-View-ViewModel)
+- **데이터 저장**: Core Data
+- **API**: 
+  - OpenAI GPT-4 API
+  - Anthropic Claude API
+  - iOS Screen Time API
 
-## 📋 문서
+## 📱 화면 구성
 
-- [📄 요구사항정의서](REQUIREMENTS.md)
-- [🚀 설치 가이드](docs/INSTALLATION.md) *(예정)*
-- [📖 API 문서](docs/API.md) *(예정)*
+### 1. 메인 화면
+- 오늘의 목표 달성률 (실시간 업데이트)
+- 잠금까지 남은 시간 카운트다운
+- 이번 주 사용 현황
+- 월간 목표 달성 히트맵 (GitHub 스타일)
 
-## 🗓 개발 로드맵
+### 2. 잠금 화면
+- 자물쇠 상태 표시
+- 자동 해제까지 남은 시간
+- 창의적 해제 버튼
+- 응급 통화 버튼
 
-- [x] 요구사항 정의 및 프로젝트 설정
-- [ ] UI/UX 디자인 및 프로토타입
-- [ ] Screen Time API 연동
-- [ ] 단어 데이터베이스 구축
-- [ ] AI API 연동 및 창의력 평가 시스템
-- [ ] 테스트 및 최적화
-- [ ] 앱스토어 출시
+### 3. 창의적 해제 화면
+- 랜덤 단어 2개 제시
+- 창의적 문장 입력
+- AI 평가 진행 상황 표시
+- 평가 결과 표시
 
-## 🤝 기여하기
+### 4. 설정 화면
+- 일일 목표 시간 설정
+- 자동 해제 시간 설정
+- 알림 설정
+- Screen Time 권한 관리
 
-이 프로젝트는 개인 학습 및 포트폴리오 목적으로 진행됩니다. 
+### 5. 상세 통계 화면
+- 기간별 통계 (주간/월간/연간)
+- 사용 패턴 그래프
+- 일별 상세 기록
 
-## 📄 라이선스
+## 📚 프로젝트 구조
 
-이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
+```
+SmartLockBox/
+├── SmartLockBoxApp.swift          # 앱 진입점
+├── ContentView.swift              # 메인 컨텐츠 뷰
+├── Models/                        # 데이터 모델
+│   ├── AppState.swift
+│   └── UnlockChallenge.swift
+├── ViewModels/                    # 뷰모델
+│   ├── AppStateManager.swift
+│   ├── MainViewModel.swift
+│   └── UnlockChallengeViewModel.swift
+├── Views/                         # 뷰
+│   ├── MainView.swift
+│   ├── LockScreenView.swift
+│   ├── UnlockChallengeView.swift
+│   ├── SettingsView.swift
+│   ├── DetailedStatsView.swift
+│   └── Components/
+│       ├── TodayGoalCard.swift
+│       ├── TimeUntilLockCard.swift
+│       ├── WeeklyStatsCard.swift
+│       └── MonthlyHeatmapCard.swift
+├── Services/                      # 서비스 레이어
+│   ├── WordService.swift
+│   ├── AIEvaluationService.swift
+│   ├── UsageDataService.swift
+│   └── PersistenceController.swift
+├── Resources/                     # 리소스 파일
+│   └── Words.json
+└── SmartLockBox.xcdatamodeld/    # Core Data 모델
 
-## 👨‍💻 개발자
+```
+
+## 🚀 시작하기
+
+### 전제 조건
+
+- Xcode 14.0 이상
+- iOS 15.0 이상
+- OpenAI API 키
+- Anthropic API 키
+
+### 설치 및 실행
+
+1. 리포지토리 클론
+```bash
+git clone https://github.com/DevJihwan/smartlock-box-ios.git
+cd smartlock-box-ios
+```
+
+2. Xcode로 프로젝트 열기
+```bash
+open SmartLockBox.xcodeproj
+```
+
+3. API 키 설정
+- `AIEvaluationService.swift` 파일에서 API 키 설정
+- 또는 환경 변수로 관리
+
+4. 빌드 및 실행
+- Xcode에서 `Cmd + R` 누르기
+
+## 📝 TODO
+
+- [ ] Screen Time API 실제 연동
+- [ ] OpenAI API 실제 구현
+- [ ] Anthropic Claude API 실제 구현
+- [ ] Core Data 저장 로직 완성
+- [ ] 20,000개 한국어 단어 데이터베이스 구축
+- [ ] 차트 라이브러리 연동 (사용 패턴 그래프)
+- [ ] 알림 기능 구현
+- [ ] 단위 테스트 작성
+- [ ] UI/UX 테스트 및 개선
+
+## 📄 문서
+
+자세한 요구사항은 [REQUIREMENTS.md](REQUIREMENTS.md)를 참조하세요.
+
+## 📝 라이선스
+
+MIT License
+
+## 👤 개발자
 
 **DevJihwan**
 - GitHub: [@DevJihwan](https://github.com/DevJihwan)
 
 ---
 
-*"창의적 사고로 디지털 웰빙을 실현하다"*
+❤️ Made with passion for digital wellbeing

@@ -1,0 +1,54 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		SmartLockBoxApp.swift in Sources */ = {isa = PBXBuildFile; };
+		ContentView.swift in Sources */ = {isa = PBXBuildFile; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		SmartLockBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartLockBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		 = {
+			isa = PBXGroup;
+			children = (
+				SmartLockBox,
+				Products,
+			);
+			sourceTree = "<group>";
+		};
+		Products = {
+			isa = PBXGroup;
+			children = (
+				SmartLockBox.app,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = Build configuration list for PBXProject "SmartLockBox" */;
+			compatibilityVersion = "Xcode 14.0";
+			mainGroup = ;
+			productRefGroup = Products;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				SmartLockBox,
+			);
+		};
+/* End PBXProject section */
+
+};
+rootObject = Project object */;
+}
