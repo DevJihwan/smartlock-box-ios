@@ -3,52 +3,580 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		SmartLockBoxApp.swift in Sources */ = {isa = PBXBuildFile; };
-		ContentView.swift in Sources */ = {isa = PBXBuildFile; };
-/* End PBXBuildFile section */
+/* Begin PBXContainerItemProxy section */
+		EE201F2E2E9906C30025EA5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE201F102E9906C20025EA5D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE201F172E9906C20025EA5D;
+			remoteInfo = SmartLockBox;
+		};
+		EE201F382E9906C30025EA5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE201F102E9906C20025EA5D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE201F172E9906C20025EA5D;
+			remoteInfo = SmartLockBox;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		SmartLockBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartLockBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE201F182E9906C20025EA5D /* SmartLockBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartLockBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE201F2D2E9906C30025EA5D /* SmartLockBoxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartLockBoxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE201F372E9906C30025EA5D /* SmartLockBoxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartLockBoxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		EE201FDB2E994FC40025EA5D /* Exceptions for "SmartLockBox" folder in "SmartLockBox" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = EE201F172E9906C20025EA5D /* SmartLockBox */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		EE201F1A2E9906C20025EA5D /* SmartLockBox */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EE201FDB2E994FC40025EA5D /* Exceptions for "SmartLockBox" folder in "SmartLockBox" target */,
+			);
+			path = SmartLockBox;
+			sourceTree = "<group>";
+		};
+		EE201F302E9906C30025EA5D /* SmartLockBoxTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SmartLockBoxTests;
+			sourceTree = "<group>";
+		};
+		EE201F3A2E9906C30025EA5D /* SmartLockBoxUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SmartLockBoxUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EE201F152E9906C20025EA5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE201F2A2E9906C30025EA5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE201F342E9906C30025EA5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
-		 = {
+		EE201F0F2E9906C20025EA5D = {
 			isa = PBXGroup;
 			children = (
-				SmartLockBox,
-				Products,
+				EE201F1A2E9906C20025EA5D /* SmartLockBox */,
+				EE201F302E9906C30025EA5D /* SmartLockBoxTests */,
+				EE201F3A2E9906C30025EA5D /* SmartLockBoxUITests */,
+				EE201F192E9906C20025EA5D /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		Products = {
+		EE201F192E9906C20025EA5D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				SmartLockBox.app,
+				EE201F182E9906C20025EA5D /* SmartLockBox.app */,
+				EE201F2D2E9906C30025EA5D /* SmartLockBoxTests.xctest */,
+				EE201F372E9906C30025EA5D /* SmartLockBoxUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXNativeTarget section */
+		EE201F172E9906C20025EA5D /* SmartLockBox */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE201F412E9906C30025EA5D /* Build configuration list for PBXNativeTarget "SmartLockBox" */;
+			buildPhases = (
+				EE201F142E9906C20025EA5D /* Sources */,
+				EE201F152E9906C20025EA5D /* Frameworks */,
+				EE201F162E9906C20025EA5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				EE201F1A2E9906C20025EA5D /* SmartLockBox */,
+			);
+			name = SmartLockBox;
+			packageProductDependencies = (
+			);
+			productName = SmartLockBox;
+			productReference = EE201F182E9906C20025EA5D /* SmartLockBox.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EE201F2C2E9906C30025EA5D /* SmartLockBoxTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE201F442E9906C30025EA5D /* Build configuration list for PBXNativeTarget "SmartLockBoxTests" */;
+			buildPhases = (
+				EE201F292E9906C30025EA5D /* Sources */,
+				EE201F2A2E9906C30025EA5D /* Frameworks */,
+				EE201F2B2E9906C30025EA5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE201F2F2E9906C30025EA5D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EE201F302E9906C30025EA5D /* SmartLockBoxTests */,
+			);
+			name = SmartLockBoxTests;
+			packageProductDependencies = (
+			);
+			productName = SmartLockBoxTests;
+			productReference = EE201F2D2E9906C30025EA5D /* SmartLockBoxTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EE201F362E9906C30025EA5D /* SmartLockBoxUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE201F472E9906C30025EA5D /* Build configuration list for PBXNativeTarget "SmartLockBoxUITests" */;
+			buildPhases = (
+				EE201F332E9906C30025EA5D /* Sources */,
+				EE201F342E9906C30025EA5D /* Frameworks */,
+				EE201F352E9906C30025EA5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE201F392E9906C30025EA5D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EE201F3A2E9906C30025EA5D /* SmartLockBoxUITests */,
+			);
+			name = SmartLockBoxUITests;
+			packageProductDependencies = (
+			);
+			productName = SmartLockBoxUITests;
+			productReference = EE201F372E9906C30025EA5D /* SmartLockBoxUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
-		Project object */ = {
+		EE201F102E9906C20025EA5D /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = Build configuration list for PBXProject "SmartLockBox" */;
-			compatibilityVersion = "Xcode 14.0";
-			mainGroup = ;
-			productRefGroup = Products;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					EE201F172E9906C20025EA5D = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					EE201F2C2E9906C30025EA5D = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = EE201F172E9906C20025EA5D;
+					};
+					EE201F362E9906C30025EA5D = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = EE201F172E9906C20025EA5D;
+					};
+				};
+			};
+			buildConfigurationList = EE201F132E9906C20025EA5D /* Build configuration list for PBXProject "SmartLockBox" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EE201F0F2E9906C20025EA5D;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = EE201F192E9906C20025EA5D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				SmartLockBox,
+				EE201F172E9906C20025EA5D /* SmartLockBox */,
+				EE201F2C2E9906C30025EA5D /* SmartLockBoxTests */,
+				EE201F362E9906C30025EA5D /* SmartLockBoxUITests */,
 			);
 		};
 /* End PBXProject section */
 
-};
-rootObject = Project object */;
+/* Begin PBXResourcesBuildPhase section */
+		EE201F162E9906C20025EA5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE201F2B2E9906C30025EA5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE201F352E9906C30025EA5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE201F142E9906C20025EA5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE201F292E9906C30025EA5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE201F332E9906C30025EA5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EE201F2F2E9906C30025EA5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE201F172E9906C20025EA5D /* SmartLockBox */;
+			targetProxy = EE201F2E2E9906C30025EA5D /* PBXContainerItemProxy */;
+		};
+		EE201F392E9906C30025EA5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE201F172E9906C20025EA5D /* SmartLockBox */;
+			targetProxy = EE201F382E9906C30025EA5D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		EE201F3F2E9906C30025EA5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EE201F402E9906C30025EA5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EE201F422E9906C30025EA5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SmartLockBox/SmartLockBox.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"SmartLockBox/Preview Content\"";
+				DEVELOPMENT_TEAM = JVUXYR66CL;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				"INFOPLIST_FILE[sdk=*]" = SmartLockBox/Info.plist;
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "앱 사용 시간을 모니터링하기 위해 Screen Time 권한이 필요합니다.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.devjihwan.cardnewsapp.SmartLockBox;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EE201F432E9906C30025EA5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SmartLockBox/SmartLockBox.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"SmartLockBox/Preview Content\"";
+				DEVELOPMENT_TEAM = JVUXYR66CL;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				"INFOPLIST_FILE[sdk=*]" = SmartLockBox/Info.plist;
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "앱 사용 시간을 모니터링하기 위해 Screen Time 권한이 필요합니다.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.devjihwan.cardnewsapp.SmartLockBox;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EE201F452E9906C30025EA5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JVUXYR66CL;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.devjihwan.cardnewsapp.SmartLockBoxTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmartLockBox.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SmartLockBox";
+			};
+			name = Debug;
+		};
+		EE201F462E9906C30025EA5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JVUXYR66CL;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.devjihwan.cardnewsapp.SmartLockBoxTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmartLockBox.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SmartLockBox";
+			};
+			name = Release;
+		};
+		EE201F482E9906C30025EA5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JVUXYR66CL;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.devjihwan.cardnewsapp.SmartLockBoxUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SmartLockBox;
+			};
+			name = Debug;
+		};
+		EE201F492E9906C30025EA5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JVUXYR66CL;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.devjihwan.cardnewsapp.SmartLockBoxUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SmartLockBox;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE201F132E9906C20025EA5D /* Build configuration list for PBXProject "SmartLockBox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE201F3F2E9906C30025EA5D /* Debug */,
+				EE201F402E9906C30025EA5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE201F412E9906C30025EA5D /* Build configuration list for PBXNativeTarget "SmartLockBox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE201F422E9906C30025EA5D /* Debug */,
+				EE201F432E9906C30025EA5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE201F442E9906C30025EA5D /* Build configuration list for PBXNativeTarget "SmartLockBoxTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE201F452E9906C30025EA5D /* Debug */,
+				EE201F462E9906C30025EA5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE201F472E9906C30025EA5D /* Build configuration list for PBXNativeTarget "SmartLockBoxUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE201F482E9906C30025EA5D /* Debug */,
+				EE201F492E9906C30025EA5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EE201F102E9906C20025EA5D /* Project object */;
 }
