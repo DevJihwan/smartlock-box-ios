@@ -90,6 +90,7 @@ fastlane/test_output
 iOSInjectionProject/
 
 # API Keys (보안)
+Config.plist
 *.plist.secret
 Secrets.swift
 APIKeys.swift
