@@ -1,0 +1,169 @@
+/* 
+  Localizable.strings (Korean)
+  SmartLockBox
+  
+  Created by DevJihwan on 2025-10-10.
+*/
+
+// MARK: - Common
+"app_name" = "바보상자자물쇠";
+"ok" = "확인";
+"cancel" = "취소";
+"yes" = "예";
+"no" = "아니오";
+"save" = "저장";
+"delete" = "삭제";
+"edit" = "수정";
+"done" = "완료";
+"close" = "닫기";
+"retry" = "재시도";
+"loading" = "로딩 중...";
+"error" = "오류";
+"success" = "성공";
+
+// MARK: - Main Screen
+"main_title" = "바보상자자물쇠";
+"today_goal" = "오늘의 목표 달성률";
+"time_until_lock" = "잠금까지 남은 시간";
+"weekly_stats" = "이번 주 사용 현황";
+"monthly_heatmap" = "월간 목표 달성 현황";
+"settings" = "설정";
+"detailed_stats" = "상세통계";
+
+// MARK: - Goal Card
+"goal_format" = "%d분 / %d분";
+"goal_achieved" = "목표 달성!";
+"goal_progress" = "%d%%";
+"minutes_used" = "%d분 사용";
+"minutes_remaining" = "%d분 남음";
+
+// MARK: - Time Until Lock
+"minutes_format" = "%d분";
+"hours_minutes_format" = "%d시간 %d분";
+"lock_time_format" = "(오후 %d:%02d 잠금)";
+"already_locked" = "잠김";
+"auto_unlock_in" = "%@후 자동 해제";
+
+// MARK: - Weekly Stats
+"weekly_total" = "총 %d시간 %d분 / %d시간";
+"weekly_average" = "평균: %d시간 %d분/일";
+"goal_completion" = "목표 달성률: %d%%";
+
+// MARK: - Monthly Heatmap
+"goal_achieved_day" = "목표 달성";
+"goal_not_achieved" = "목표 미달성";
+"monthly_achievement_rate" = "이번 달 달성률: %d%% (%d/%d일)";
+"consecutive_days" = "연속 %d일 달성";
+
+// MARK: - Lock Screen
+"phone_locked" = "스마트폰이 잠겨있습니다";
+"usage_completed" = "오늘 %d분 사용 완료";
+"auto_unlock_time" = "%@후 자동 해제";
+"unlock_with_creativity" = "창의력으로 해제하기";
+"emergency_call" = "응급상황 연락";
+
+// MARK: - Unlock Challenge
+"unlock_challenge_title" = "창의적 해제 도전";
+"challenge_description" = "제시단어 2개를 포함한 창의적인\n문장을 만들어 자물쇠를 풀어보세요!";
+"enter_sentence" = "여기에 문장을 입력하세요...";
+"character_count" = "최소 10글자 이상 (현재: %d글자)";
+"change_words" = "다른 단어로 변경";
+"submit" = "제출하기";
+"refresh_limit" = "오늘의 새로고침 횟수를 모두 사용했습니다 (%d/3)";
+"remaining_refreshes" = "남은 새로고침: %d회";
+
+// MARK: - AI Evaluation
+"evaluating" = "AI가 평가 중입니다";
+"evaluation_progress" = "입력된 문장:";
+"chatgpt_evaluating" = "ChatGPT 평가: ⏳ 진행중...";
+"claude_evaluating" = "Claude 평가: ⏳ 대기중...";
+"chatgpt_result" = "ChatGPT 평가: %@";
+"claude_result" = "Claude 평가: %@";
+"evaluation_pass" = "PASS ✅";
+"evaluation_fail" = "FAIL ❌";
+
+// MARK: - Unlock Result
+"unlock_success" = "해제 성공!";
+"unlock_failed" = "해제 실패";
+"lock_unlocked" = "🔓 자물쇠가 열렸습니다!";
+"both_pass_required" = "두 AI 모두 통과해야 해제됩니다";
+"try_again" = "다시 도전하기";
+"back_to_lock" = "잠금 화면으로";
+"back_to_main" = "메인으로 돌아가기";
+"daily_attempt_limit" = "오늘의 도전 횟수를 모두 사용했습니다 (10/10)";
+"remaining_attempts" = "남은 시도 횟수: %d회";
+
+// MARK: - Settings
+"settings_title" = "설정";
+"goal_time_setting" = "목표 시간 설정";
+"daily_goal" = "일일 목표";
+"hours_format" = "%d시간";
+"minutes_short" = "%d분";
+"auto_unlock_time_setting" = "자동 해제 시간";
+"midnight" = "자정 (00:00)";
+"custom_time" = "사용자 지정";
+"notification_settings" = "알림 설정";
+"goal_reminder" = "목표 10분 전 알림";
+"lock_notification" = "잠금 알림";
+"unlock_notification" = "해제 알림";
+"screen_time_permission" = "Screen Time 권한";
+"permission_granted" = "승인됨";
+"permission_denied" = "거부됨";
+"request_permission" = "권한 요청";
+"data_management" = "데이터 관리";
+"reset_all_data" = "모든 데이터 초기화";
+"reset_confirmation" = "정말로 모든 데이터를 삭제하시겠습니까?";
+"app_info" = "앱 정보";
+"version" = "버전";
+"open_source_licenses" = "오픈소스 라이선스";
+
+// MARK: - Detailed Stats
+"detailed_stats_title" = "상세 통계";
+"daily_stats" = "일별 통계";
+"weekly_stats_detail" = "주간 통계";
+"monthly_stats_detail" = "월간 통계";
+"usage_pattern" = "사용 패턴";
+"peak_usage_time" = "최다 사용 시간대";
+"unlock_attempts_history" = "해제 시도 이력";
+"success_rate" = "성공률: %d%%";
+"total_attempts" = "총 시도: %d회";
+"successful_unlocks" = "성공: %d회";
+
+// MARK: - Permissions
+"permission_required" = "권한 필요";
+"screen_time_permission_desc" = "앱 사용 시간을 추적하고 관리하기 위해\nScreen Time 권한이 필요합니다.";
+"notification_permission_desc" = "목표 시간 알림을 받기 위해\n알림 권한이 필요합니다.";
+"grant_permission" = "권한 허용";
+"skip" = "건너뛰기";
+
+// MARK: - Errors
+"error_network" = "네트워크 연결을 확인해주세요";
+"error_api" = "API 오류가 발생했습니다";
+"error_permission" = "권한이 필요합니다";
+"error_unknown" = "알 수 없는 오류가 발생했습니다";
+"error_sentence_too_short" = "문장은 최소 10글자 이상이어야 합니다";
+"error_words_not_included" = "두 단어가 모두 포함되어야 합니다";
+"error_daily_limit_reached" = "일일 사용 제한에 도달했습니다";
+
+// MARK: - Days of Week
+"monday" = "월";
+"tuesday" = "화";
+"wednesday" = "수";
+"thursday" = "목";
+"friday" = "금";
+"saturday" = "토";
+"sunday" = "일";
+
+// MARK: - Months
+"january" = "1월";
+"february" = "2월";
+"march" = "3월";
+"april" = "4월";
+"may" = "5월";
+"june" = "6월";
+"july" = "7월";
+"august" = "8월";
+"september" = "9월";
+"october" = "10월";
+"november" = "11월";
+"december" = "12월";
