@@ -9,161 +9,92 @@
 "app_name" = "SmartLock Box";
 "ok" = "OK";
 "cancel" = "Cancel";
-"yes" = "Yes";
-"no" = "No";
-"save" = "Save";
+"confirm" = "Confirm";
 "delete" = "Delete";
-"edit" = "Edit";
-"done" = "Done";
+"save" = "Save";
 "close" = "Close";
-"retry" = "Retry";
-"loading" = "Loading...";
-"error" = "Error";
-"success" = "Success";
+"settings" = "Settings";
 
-// MARK: - Main Screen
-"main_title" = "SmartLock Box";
+// MARK: - Main View
 "today_goal" = "Today's Goal Achievement";
 "time_until_lock" = "Time Until Lock";
-"weekly_stats" = "Weekly Usage";
-"monthly_heatmap" = "Monthly Achievement";
-"settings" = "Settings";
+"weekly_stats" = "This Week's Usage";
+"monthly_heatmap" = "Monthly Goal Achievement";
 "detailed_stats" = "Detailed Stats";
-
-// MARK: - Goal Card
-"goal_format" = "%d min / %d min";
-"goal_achieved" = "Goal Achieved!";
-"goal_progress" = "%d%%";
-"minutes_used" = "%d min used";
-"minutes_remaining" = "%d min left";
-
-// MARK: - Time Until Lock
-"minutes_format" = "%d min";
-"hours_minutes_format" = "%dh %dm";
-"lock_time_format" = "(Lock at %d:%02d PM)";
-"already_locked" = "Locked";
-"auto_unlock_in" = "Auto unlock in %@";
-
-// MARK: - Weekly Stats
-"weekly_total" = "Total %dh %dm / %dh";
-"weekly_average" = "Average: %dh %dm/day";
-"goal_completion" = "Achievement Rate: %d%%";
-
-// MARK: - Monthly Heatmap
-"goal_achieved_day" = "Goal Achieved";
-"goal_not_achieved" = "Goal Not Met";
-"monthly_achievement_rate" = "This Month: %d%% (%d/%d days)";
-"consecutive_days" = "%d days streak";
+"goal_achievement" = "Goal Achievement";
+"average_per_day" = "Avg/Day";
+"achievement_rate" = "Achievement Rate";
+"goal_achieved" = "Goal Achieved";
+"goal_not_achieved" = "Goal Not Achieved";
 
 // MARK: - Lock Screen
-"phone_locked" = "Phone is Locked";
-"usage_completed" = "Today's usage: %d minutes";
-"auto_unlock_time" = "Auto unlock in %@";
+"locked" = "Locked";
+"phone_locked" = "Your phone is locked";
+"used_today" = "Used %@ today";
+"auto_unlock_in" = "Auto unlock in %@";
 "unlock_with_creativity" = "Unlock with Creativity";
-"emergency_call" = "Emergency Contact";
+"emergency_call" = "Emergency Call";
 
 // MARK: - Unlock Challenge
-"unlock_challenge_title" = "Creative Unlock Challenge";
-"challenge_description" = "Create a creative sentence using\nboth words to unlock!";
+"unlock_challenge" = "Creative Unlock Challenge";
+"challenge_description" = "Create a creative sentence using the 2 provided words to unlock!";
+"word1" = "Word 1";
+"word2" = "Word 2";
 "enter_sentence" = "Enter your sentence here...";
-"character_count" = "Min 10 characters (Current: %d)";
+"minimum_characters" = "Minimum 10 characters";
+"current_characters" = "Current: %d characters";
 "change_words" = "Change Words";
 "submit" = "Submit";
-"refresh_limit" = "Daily refresh limit reached (%d/3)";
-"remaining_refreshes" = "Remaining refreshes: %d";
-
-// MARK: - AI Evaluation
-"evaluating" = "AI is Evaluating";
-"evaluation_progress" = "Your sentence:";
-"chatgpt_evaluating" = "ChatGPT: ⏳ Evaluating...";
-"claude_evaluating" = "Claude: ⏳ Waiting...";
-"chatgpt_result" = "ChatGPT: %@";
-"claude_result" = "Claude: %@";
-"evaluation_pass" = "PASS ✅";
-"evaluation_fail" = "FAIL ❌";
-
-// MARK: - Unlock Result
-"unlock_success" = "Unlock Successful!";
+"evaluating" = "AI is evaluating";
+"unlock_success" = "Unlock Success!";
 "unlock_failed" = "Unlock Failed";
-"lock_unlocked" = "🔓 Lock has been opened!";
-"both_pass_required" = "Both AIs must pass to unlock";
+"both_ai_required" = "Both AIs must approve to unlock";
 "try_again" = "Try Again";
-"back_to_lock" = "Back to Lock Screen";
-"back_to_main" = "Back to Main";
-"daily_attempt_limit" = "Daily attempt limit reached (10/10)";
-"remaining_attempts" = "Remaining attempts: %d";
+"back_to_lock_screen" = "Back to Lock Screen";
+"refresh_limit_reached" = "You've used all word refreshes for today";
+"remaining_refreshes" = "Remaining refreshes: %d";
+"evaluation_limit_reached" = "You've used all evaluations for today";
+"remaining_evaluations" = "Remaining evaluations: %d";
 
 // MARK: - Settings
-"settings_title" = "Settings";
-"goal_time_setting" = "Goal Time";
-"daily_goal" = "Daily Goal";
-"hours_format" = "%dh";
-"minutes_short" = "%dm";
-"auto_unlock_time_setting" = "Auto Unlock Time";
-"midnight" = "Midnight (00:00)";
-"custom_time" = "Custom";
-"notification_settings" = "Notifications";
-"goal_reminder" = "10-min Goal Reminder";
-"lock_notification" = "Lock Notification";
-"unlock_notification" = "Unlock Notification";
+"daily_goal" = "Daily Goal Time";
+"auto_unlock_time" = "Auto Unlock Time";
+"notifications" = "Notifications";
 "screen_time_permission" = "Screen Time Permission";
-"permission_granted" = "Granted";
-"permission_denied" = "Denied";
-"request_permission" = "Request Permission";
+"language" = "Language";
 "data_management" = "Data Management";
-"reset_all_data" = "Reset All Data";
-"reset_confirmation" = "Are you sure you want to delete all data?";
-"app_info" = "App Info";
+"delete_all_data" = "Delete All Data";
 "version" = "Version";
-"open_source_licenses" = "Open Source Licenses";
+"licenses" = "Open Source Licenses";
 
-// MARK: - Detailed Stats
-"detailed_stats_title" = "Detailed Statistics";
-"daily_stats" = "Daily Stats";
-"weekly_stats_detail" = "Weekly Stats";
-"monthly_stats_detail" = "Monthly Stats";
-"usage_pattern" = "Usage Pattern";
-"peak_usage_time" = "Peak Usage Time";
-"unlock_attempts_history" = "Unlock Attempts History";
-"success_rate" = "Success Rate: %d%%";
-"total_attempts" = "Total Attempts: %d";
-"successful_unlocks" = "Successful: %d";
+// MARK: - Time
+"hours" = "hours";
+"minutes" = "minutes";
+"seconds" = "seconds";
+"hours_short" = "h";
+"minutes_short" = "m";
+"seconds_short" = "s";
 
-// MARK: - Permissions
-"permission_required" = "Permission Required";
-"screen_time_permission_desc" = "Screen Time permission is required\nto track and manage app usage.";
-"notification_permission_desc" = "Notification permission is required\nfor goal reminders.";
-"grant_permission" = "Grant Permission";
-"skip" = "Skip";
+// MARK: - Days
+"monday" = "Monday";
+"tuesday" = "Tuesday";
+"wednesday" = "Wednesday";
+"thursday" = "Thursday";
+"friday" = "Friday";
+"saturday" = "Saturday";
+"sunday" = "Sunday";
 
 // MARK: - Errors
-"error_network" = "Please check your network connection";
-"error_api" = "API error occurred";
-"error_permission" = "Permission required";
-"error_unknown" = "Unknown error occurred";
-"error_sentence_too_short" = "Sentence must be at least 10 characters";
-"error_words_not_included" = "Both words must be included";
-"error_daily_limit_reached" = "Daily usage limit reached";
+"error" = "Error";
+"network_error" = "A network error occurred";
+"api_error" = "An API error occurred";
+"permission_denied" = "Permission denied";
+"unknown_error" = "An unknown error occurred";
 
-// MARK: - Days of Week
-"monday" = "Mon";
-"tuesday" = "Tue";
-"wednesday" = "Wed";
-"thursday" = "Thu";
-"friday" = "Fri";
-"saturday" = "Sat";
-"sunday" = "Sun";
-
-// MARK: - Months
-"january" = "Jan";
-"february" = "Feb";
-"march" = "Mar";
-"april" = "Apr";
-"may" = "May";
-"june" = "Jun";
-"july" = "Jul";
-"august" = "Aug";
-"september" = "Sep";
-"october" = "Oct";
-"november" = "Nov";
-"december" = "Dec";
+// MARK: - AI Evaluation
+"creative" = "Creative and emotional expression";
+"not_creative" = "Simple word listing";
+"good_grammar" = "Grammatically correct";
+"poor_grammar" = "Grammatical errors";
+"meaningful_connection" = "Meaningful connection";
+"lacking_connection" = "Lacking connection";
