@@ -98,3 +98,20 @@
 "poor_grammar" = "Grammatical errors";
 "meaningful_connection" = "Meaningful connection";
 "lacking_connection" = "Lacking connection";
+
+// MARK: - Notifications
+"notification_goal_approaching_title" = "⚠️ Goal Time Approaching";
+"notification_goal_approaching_body" = "Only %d minutes left until your goal time!";
+"notification_locked_title" = "🔒 Phone Locked";
+"notification_locked_body" = "You've reached today's goal. Your phone is now locked.";
+"notification_unlocked_title" = "🔓 Phone Unlocked";
+"notification_unlocked_creative_body" = "Unlocked with creativity! Congratulations!";
+"notification_unlocked_auto_body" = "Auto-unlock time reached. Your phone is now unlocked.";
+"notification_daily_report_title" = "📊 Daily Usage Report";
+"notification_daily_report_body" = "Check your daily phone usage stats!";
+"notification_motivation_title" = "💪 Stay Motivated";
+"notification_motivation_1" = "You're achieving your goals today! Keep it up!";
+"notification_motivation_2" = "You're awesome for practicing digital detox!";
+"notification_motivation_3" = "Healthy digital life starts with you!";
+"notification_motivation_4" = "Small actions create big changes!";
+"notification_motivation_5" = "Focus on things more important than your phone!";
