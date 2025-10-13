@@ -98,3 +98,20 @@
 "poor_grammar" = "문법적 오류 있음";
 "meaningful_connection" = "의미적 연관성 있음";
 "lacking_connection" = "의미적 연관성 부족";
+
+// MARK: - Notifications
+"notification_goal_approaching_title" = "⚠️ 목표 시간 임박";
+"notification_goal_approaching_body" = "목표 시간까지 %d분 남았습니다!";
+"notification_locked_title" = "🔒 스마트폰 잠금";
+"notification_locked_body" = "오늘 목표 시간을 달성했습니다. 스마트폰이 잠겼습니다.";
+"notification_unlocked_title" = "🔓 스마트폰 해제";
+"notification_unlocked_creative_body" = "창의력으로 해제에 성공했습니다! 축하합니다!";
+"notification_unlocked_auto_body" = "자동 해제 시간이 되어 잠금이 해제되었습니다.";
+"notification_daily_report_title" = "📊 일일 사용 리포트";
+"notification_daily_report_body" = "오늘의 스마트폰 사용 현황을 확인해보세요!";
+"notification_motivation_title" = "💪 동기부여";
+"notification_motivation_1" = "오늘도 목표를 달성하고 있어요! 잘하고 있습니다!";
+"notification_motivation_2" = "디지털 디톡스를 실천하는 당신이 멋져요!";
+"notification_motivation_3" = "건강한 디지털 생활, 당신이 주인공입니다!";
+"notification_motivation_4" = "작은 실천이 큰 변화를 만듭니다!";
+"notification_motivation_5" = "스마트폰보다 소중한 것들에 집중하는 시간을 가져보세요!";
