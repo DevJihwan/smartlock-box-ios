@@ -11,80 +11,140 @@ struct SettingsView: View {
     @EnvironmentObject var appState: AppStateManager
     @State private var dailyGoalHours: Double = 3
     @State private var autoUnlockTime: Date = Calendar.current.date(from: DateComponents(hour: 0, minute: 0))!
+    @State private var isShowingResetAlert = false
     
     var body: some View {
         Form {
-            Section(header: Text("목표 설정")) {
+            // Goal Settings
+            Section(header: Text("settings_goal_header".localized)) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("일일 목표 시간: \(Int(dailyGoalHours))시간")
+                    Text("settings_daily_goal".localized(with: Int(dailyGoalHours)))
                         .font(.headline)
                     
                     Slider(value: $dailyGoalHours, in: 1...8, step: 0.5) {
-                        Text("목표 시간")
+                        Text("settings_goal_slider".localized)
                     }
                     .onChange(of: dailyGoalHours) { newValue in
                         appState.dailyGoalMinutes = Int(newValue * 60)
                     }
                     
-                    Text("하루 \(Int(dailyGoalHours))시간 사용 후 자동 잠금됩니다")
+                    Text("settings_goal_explanation".localized(with: Int(dailyGoalHours)))
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
             }
             
-            Section(header: Text("자동 해제 시간")) {
-                DatePicker("해제 시간", selection: $autoUnlockTime, displayedComponents: .hourAndMinute)
+            // Unlock Settings
+            Section(header: Text("settings_unlock_header".localized)) {
+                DatePicker("settings_auto_unlock_time".localized, 
+                           selection: $autoUnlockTime, 
+                           displayedComponents: .hourAndMinute)
+                    .onChange(of: autoUnlockTime) { newValue in
+                        let calendar = Calendar.current
+                        let hour = calendar.component(.hour, from: newValue)
+                        let minute = calendar.component(.minute, from: newValue)
+                        appState.autoUnlockTime = (hour: hour, minute: minute)
+                    }
                 
-                Text("매일 설정한 시간에 자동으로 해제됩니다")
+                Text("settings_auto_unlock_explanation".localized)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
             
-            Section(header: Text("창의적 해제 설정")) {
-                Toggle("창의적 해제 활성화", isOn: .constant(true))
+            // Creative Challenge Settings
+            Section(header: Text("settings_challenge_header".localized)) {
+                Toggle("settings_enable_creative".localized, isOn: .constant(true))
                 
                 HStack {
-                    Text("일일 도전 횟수")
+                    Text("settings_daily_attempts".localized)
                     Spacer()
-                    Text("10회")
+                    Text("10")
                         .foregroundColor(.secondary)
                 }
                 
                 HStack {
-                    Text("단어 변경 횟수")
+                    Text("settings_word_refresh".localized)
                     Spacer()
-                    Text("3회")
+                    Text("3")
                         .foregroundColor(.secondary)
                 }
             }
             
-            Section(header: Text("알림 설정")) {
-                Toggle("목표 근접 알림 (10분 전)", isOn: .constant(true))
-                Toggle("일일 리포트 알림", isOn: .constant(true))
+            // Notification Settings
+            NotificationSettingsView()
+            
+            // Language Settings
+            Section(header: Text("settings_language_header".localized)) {
+                LanguagePickerView()
             }
             
-            Section(header: Text("앱 정보")) {
+            // App Info & Actions
+            Section(header: Text("settings_app_info_header".localized)) {
                 HStack {
-                    Text("버전")
+                    Text("settings_version".localized)
                     Spacer()
                     Text("1.0.0")
                         .foregroundColor(.secondary)
                 }
                 
-                Button("Screen Time 권한 설정") {
-                    // TODO: Screen Time 권한 요청
+                Button(action: {
+                    // Screen Time permission request
+                    Task {
+                        await appState.screenTimeManager?.requestAuthorization()
+                    }
+                }) {
+                    Text("settings_screen_time_permission".localized)
                 }
                 
-                Button("데이터 초기화") {
-                    // TODO: 데이터 초기화 확인
+                Button(action: {
+                    isShowingResetAlert = true
+                }) {
+                    HStack {
+                        Image(systemName: "trash")
+                            .foregroundColor(.red)
+                        Text("settings_reset_data".localized)
+                            .foregroundColor(.red)
+                    }
                 }
-                .foregroundColor(.red)
+                .alert(isPresented: $isShowingResetAlert) {
+                    Alert(
+                        title: Text("settings_reset_confirm_title".localized),
+                        message: Text("settings_reset_confirm_message".localized),
+                        primaryButton: .destructive(Text("settings_reset_confirm_button".localized)) {
+                            // Perform data reset
+                            resetAllData()
+                        },
+                        secondaryButton: .cancel(Text("settings_reset_cancel_button".localized))
+                    )
+                }
             }
         }
-        .navigationTitle("설정")
+        .navigationTitle("settings_title".localized)
         .onAppear {
             dailyGoalHours = Double(appState.dailyGoalMinutes) / 60.0
+            
+            // Set auto unlock time from app state
+            let calendar = Calendar.current
+            var components = DateComponents()
+            components.hour = appState.autoUnlockTime.hour
+            components.minute = appState.autoUnlockTime.minute
+            if let date = calendar.date(from: components) {
+                autoUnlockTime = date
+            }
         }
+        .animation(.easeInOut, value: dailyGoalHours)
+    }
+    
+    private func resetAllData() {
+        // Reset all data in the app
+        appState.resetAllData()
+        
+        // Reset notifications
+        NotificationManager.shared.cancelAllNotifications()
+        
+        // Show confirmation
+        let feedback = UINotificationFeedbackGenerator()
+        feedback.notificationOccurred(.success)
     }
 }
 
