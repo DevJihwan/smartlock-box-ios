@@ -43,13 +43,13 @@ struct MainView: View {
                         // Lock status and action
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
-                                Text(appState.isLocked 
+                                Text(appState.currentState == .locked 
                                      ? "status_locked".localized
                                      : "status_unlocked".localized)
                                     .font(.headline)
-                                    .foregroundColor(appState.isLocked ? AppColors.lock : AppColors.unlock)
+                                    .foregroundColor(appState.currentState == .locked ? AppColors.lock : AppColors.unlock)
                                 
-                                Text(appState.isLocked
+                                Text(appState.currentState == .locked
                                      ? "tap_to_unlock".localized
                                      : "auto_locks".localized(with: Int(appState.usagePercentage)))
                                     .font(.subheadline)
@@ -59,9 +59,12 @@ struct MainView: View {
                             Spacer()
                             
                             PulsatingLockButton(
-                                isLocked: $appState.isLocked,
+                                isLocked: Binding<Bool>(
+                                    get: { appState.currentState == .locked },
+                                    set: { _ in }
+                                ),
                                 onTap: {
-                                    if appState.isLocked {
+                                    if appState.currentState == .locked {
                                         navigateToUnlock()
                                     }
                                 },
@@ -171,7 +174,7 @@ struct MainView: View {
     
     private func navigateToUnlock() {
         // Navigate to unlock challenge view
-        appState.currentView = .unlockChallenge
+        appState.startUnlockChallenge()
     }
 }
 
