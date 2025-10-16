@@ -11,6 +11,7 @@ struct MainView: View {
     @EnvironmentObject var appState: AppStateManager
     @StateObject private var viewModel = MainViewModel()
     @State private var showNotificationPermissionAlert = false
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         NavigationView {
@@ -27,6 +28,7 @@ struct MainView: View {
                     VStack(spacing: 16) {
                         Text("today_goal".localized)
                             .font(.title2.bold())
+                            .foregroundColor(AppColors.text)
                         
                         AnimatedProgressBarWithLabel(
                             value: Double(appState.todayUsageMinutes),
@@ -35,7 +37,7 @@ struct MainView: View {
                             subtitle: appState.usagePercentage < 100 
                                 ? "remaining_minutes".localized(with: max(0, appState.remainingMinutes))
                                 : "goal_exceeded".localized(with: appState.todayUsageMinutes - appState.dailyGoalMinutes),
-                            foregroundColor: appState.progressColor
+                            foregroundColor: AppColors.progressColor(percentage: appState.usagePercentage)
                         )
                         
                         // Lock status and action
@@ -45,13 +47,13 @@ struct MainView: View {
                                      ? "status_locked".localized
                                      : "status_unlocked".localized)
                                     .font(.headline)
-                                    .foregroundColor(appState.isLocked ? .red : .green)
+                                    .foregroundColor(appState.isLocked ? AppColors.lock : AppColors.unlock)
                                 
                                 Text(appState.isLocked
                                      ? "tap_to_unlock".localized
                                      : "auto_locks".localized(with: Int(appState.usagePercentage)))
                                     .font(.subheadline)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(AppColors.secondaryText)
                             }
                             
                             Spacer()
@@ -69,14 +71,14 @@ struct MainView: View {
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 16)
-                                .fill(Color(.systemGray6))
+                                .fill(AppColors.secondaryBackground)
                         )
                     }
                     .padding()
                     .background(
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(Color(.systemBackground))
-                            .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+                            .fill(AppColors.cardBackground)
+                            .adaptiveShadow()
                     )
                     
                     // Time until lock
@@ -91,23 +93,36 @@ struct MainView: View {
                     // Weekly stats
                     if let weeklyStats = viewModel.weeklyStats {
                         WeeklyStatsCard(stats: weeklyStats)
+                            .background(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(AppColors.cardBackground)
+                                    .adaptiveShadow()
+                            )
                     }
                     
                     // Monthly heatmap
                     if let monthlyStats = viewModel.monthlyStats {
                         MonthlyHeatmapCard(stats: monthlyStats)
+                            .background(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(AppColors.cardBackground)
+                                    .adaptiveShadow()
+                            )
                     }
                     
                     Spacer(minLength: 20)
                 }
                 .padding()
             }
+            .background(AppColors.background.ignoresSafeArea())
             .navigationTitle("app_name".localized)
+            .foregroundColor(AppColors.text)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: DetailedStatsView()) {
                         Image(systemName: "chart.bar.fill")
                             .imageScale(.large)
+                            .foregroundColor(AppColors.accent)
                     }
                 }
                 
@@ -115,6 +130,7 @@ struct MainView: View {
                     NavigationLink(destination: SettingsView()) {
                         Image(systemName: "gear")
                             .imageScale(.large)
+                            .foregroundColor(AppColors.accent)
                     }
                 }
             }
@@ -130,9 +146,10 @@ struct MainView: View {
                 primaryButton: .default(Text("notification_request".localized)) {
                     requestNotificationPermission()
                 },
-                secondaryButton: .cancel()
+                secondaryButton: .cancel(Text("cancel".localized))
             )
         }
+        .preferredColorScheme(nil) // 시스템 설정 사용
     }
     
     private func checkNotificationPermission() {
@@ -163,36 +180,38 @@ struct TimeRemainingView: View {
     let expectedLockTime: Date
     
     @State private var isAnimating = false
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         VStack(spacing: 12) {
             Text("time_until_lock".localized)
                 .font(.headline)
+                .foregroundColor(AppColors.text)
             
             HStack(spacing: 20) {
                 VStack {
                     Text("\(remainingMinutes / 60)")
                         .font(.system(size: 36, weight: .bold, design: .rounded))
-                        .foregroundColor(.primary)
+                        .foregroundColor(AppColors.text)
                     Text("hours".localized)
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.secondaryText)
                 }
                 .frame(width: 80)
                 .scaleEffect(isAnimating ? 1.05 : 1.0)
                 
                 Text(":")
                     .font(.system(size: 36, weight: .bold))
-                    .foregroundColor(.secondary)
+                    .foregroundColor(AppColors.secondaryText)
                     .offset(y: -4)
                 
                 VStack {
                     Text("\(remainingMinutes % 60)")
                         .font(.system(size: 36, weight: .bold, design: .rounded))
-                        .foregroundColor(.primary)
+                        .foregroundColor(AppColors.text)
                     Text("minutes".localized)
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.secondaryText)
                 }
                 .frame(width: 80)
                 .scaleEffect(isAnimating ? 1.05 : 1.0)
@@ -201,13 +220,13 @@ struct TimeRemainingView: View {
             
             Text("expected_lock_time".localized(with: expectedLockTime.formatted(date: .omitted, time: .shortened)))
                 .font(.subheadline)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppColors.secondaryText)
         }
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color(.systemBackground))
-                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+                .fill(AppColors.cardBackground)
+                .adaptiveShadow()
         )
         .onAppear {
             // Start pulsating animation
@@ -220,7 +239,16 @@ struct TimeRemainingView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
-            .environmentObject(AppStateManager())
+        Group {
+            MainView()
+                .environmentObject(AppStateManager())
+                .preferredColorScheme(.light)
+                .previewDisplayName("Light Mode")
+            
+            MainView()
+                .environmentObject(AppStateManager())
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Dark Mode")
+        }
     }
 }
