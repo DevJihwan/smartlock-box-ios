@@ -119,11 +119,11 @@ extension View {
                 x: 0,
                 y: 5
             )
-            .environment(\.colorScheme, colorScheme)
+            .modifier(ColorSchemeModifier(colorScheme: colorScheme))
     }
     
     /// 현재 colorScheme 가져오기
-    @ViewBuilder func environment(\.colorScheme, _ colorScheme: ColorScheme?) -> some View {
+    @ViewBuilder func environment(key: EnvironmentKey, _ colorScheme: ColorScheme?) -> some View {
         self.environment(\.colorScheme, colorScheme ?? .light)
     }
     
@@ -135,5 +135,14 @@ extension View {
             x: 0,
             y: y
         )
+    }
+}
+
+// Helper modifier to avoid environment key error
+struct ColorSchemeModifier: ViewModifier {
+    let colorScheme: ColorScheme
+    
+    func body(content: Content) -> some View {
+        content.environment(\.colorScheme, colorScheme)
     }
 }
