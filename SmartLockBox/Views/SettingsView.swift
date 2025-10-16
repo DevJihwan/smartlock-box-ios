@@ -12,33 +12,40 @@ struct SettingsView: View {
     @State private var dailyGoalHours: Double = 3
     @State private var autoUnlockTime: Date = Calendar.current.date(from: DateComponents(hour: 0, minute: 0))!
     @State private var isShowingResetAlert = false
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         Form {
             // Goal Settings
-            Section(header: Text("settings_goal_header".localized)) {
+            Section(header: Text("settings_goal_header".localized)
+                        .foregroundColor(AppColors.accent)) {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("settings_daily_goal".localized(with: Int(dailyGoalHours)))
                         .font(.headline)
+                        .foregroundColor(AppColors.text)
                     
                     Slider(value: $dailyGoalHours, in: 1...8, step: 0.5) {
                         Text("settings_goal_slider".localized)
                     }
+                    .accentColor(AppColors.accent)
                     .onChange(of: dailyGoalHours) { newValue in
                         appState.dailyGoalMinutes = Int(newValue * 60)
                     }
                     
                     Text("settings_goal_explanation".localized(with: Int(dailyGoalHours)))
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.secondaryText)
                 }
             }
             
             // Unlock Settings
-            Section(header: Text("settings_unlock_header".localized)) {
+            Section(header: Text("settings_unlock_header".localized)
+                        .foregroundColor(AppColors.accent)) {
                 DatePicker("settings_auto_unlock_time".localized, 
                            selection: $autoUnlockTime, 
                            displayedComponents: .hourAndMinute)
+                    .foregroundColor(AppColors.text)
+                    .accentColor(AppColors.accent)
                     .onChange(of: autoUnlockTime) { newValue in
                         let calendar = Calendar.current
                         let hour = calendar.component(.hour, from: newValue)
@@ -48,25 +55,30 @@ struct SettingsView: View {
                 
                 Text("settings_auto_unlock_explanation".localized)
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(AppColors.secondaryText)
             }
             
             // Creative Challenge Settings
-            Section(header: Text("settings_challenge_header".localized)) {
+            Section(header: Text("settings_challenge_header".localized)
+                        .foregroundColor(AppColors.accent)) {
                 Toggle("settings_enable_creative".localized, isOn: .constant(true))
+                    .foregroundColor(AppColors.text)
+                    .toggleStyle(SwitchToggleStyle(tint: AppColors.accent))
                 
                 HStack {
                     Text("settings_daily_attempts".localized)
+                        .foregroundColor(AppColors.text)
                     Spacer()
                     Text("10")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.secondaryText)
                 }
                 
                 HStack {
                     Text("settings_word_refresh".localized)
+                        .foregroundColor(AppColors.text)
                     Spacer()
                     Text("3")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.secondaryText)
                 }
             }
             
@@ -74,17 +86,20 @@ struct SettingsView: View {
             NotificationSettingsView()
             
             // Language Settings
-            Section(header: Text("settings_language_header".localized)) {
+            Section(header: Text("settings_language_header".localized)
+                        .foregroundColor(AppColors.accent)) {
                 LanguagePickerView()
             }
             
             // App Info & Actions
-            Section(header: Text("settings_app_info_header".localized)) {
+            Section(header: Text("settings_app_info_header".localized)
+                        .foregroundColor(AppColors.accent)) {
                 HStack {
                     Text("settings_version".localized)
+                        .foregroundColor(AppColors.text)
                     Spacer()
                     Text("1.0.0")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.secondaryText)
                 }
                 
                 Button(action: {
@@ -94,6 +109,7 @@ struct SettingsView: View {
                     }
                 }) {
                     Text("settings_screen_time_permission".localized)
+                        .foregroundColor(AppColors.accent)
                 }
                 
                 Button(action: {
@@ -101,9 +117,9 @@ struct SettingsView: View {
                 }) {
                     HStack {
                         Image(systemName: "trash")
-                            .foregroundColor(.red)
+                            .foregroundColor(AppColors.warning)
                         Text("settings_reset_data".localized)
-                            .foregroundColor(.red)
+                            .foregroundColor(AppColors.warning)
                     }
                 }
                 .alert(isPresented: $isShowingResetAlert) {
@@ -120,6 +136,7 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("settings_title".localized)
+        .background(AppColors.background)
         .onAppear {
             dailyGoalHours = Double(appState.dailyGoalMinutes) / 60.0
             
@@ -150,9 +167,20 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            SettingsView()
-                .environmentObject(AppStateManager())
+        Group {
+            NavigationView {
+                SettingsView()
+                    .environmentObject(AppStateManager())
+            }
+            .preferredColorScheme(.light)
+            .previewDisplayName("Light Mode")
+            
+            NavigationView {
+                SettingsView()
+                    .environmentObject(AppStateManager())
+            }
+            .preferredColorScheme(.dark)
+            .previewDisplayName("Dark Mode")
         }
     }
 }
