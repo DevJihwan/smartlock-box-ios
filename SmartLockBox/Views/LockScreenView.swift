@@ -20,19 +20,17 @@ struct LockScreenView: View {
     @State private var rotationAnimation = false
     @State private var buttonScale: CGFloat = 1.0
     
+    @Environment(\.colorScheme) private var colorScheme
+    
     var body: some View {
         ZStack {
-            // Background gradient
-            LinearGradient(
-                gradient: Gradient(colors: [Color.red.opacity(0.2), Color.orange.opacity(0.2)]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
+            // Background gradient - adapt to dark mode
+            AppColors.lockScreenGradient
+                .ignoresSafeArea()
             
             // Animated particles
             ForEach(0..<20) { _ in
-                LockParticle()
+                LockParticle(isDarkMode: colorScheme == .dark)
             }
             
             VStack(spacing: 40) {
@@ -49,8 +47,8 @@ struct LockScreenView: View {
                 AnimatedLockView(
                     isLocked: .constant(true),
                     size: 150,
-                    lockColor: .red,
-                    unlockColor: .green
+                    lockColor: AppColors.lock,
+                    unlockColor: AppColors.unlock
                 )
                 .scaleEffect(pulseAnimation ? 1.05 : 1.0)
                 .rotationEffect(Angle(degrees: rotationAnimation ? 10 : -10))
@@ -60,10 +58,11 @@ struct LockScreenView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.center)
+                        .foregroundColor(AppColors.text)
                     
                     Text("lock_screen_usage".localized(with: formatTime(appState.todayUsageMinutes)))
                         .font(.title3)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppColors.secondaryText)
                 }
                 .padding()
                 
@@ -71,6 +70,7 @@ struct LockScreenView: View {
                 VStack(spacing: 24) {
                     Text("lock_screen_remaining".localized)
                         .font(.headline)
+                        .foregroundColor(AppColors.text)
                     
                     HStack(spacing: 5) {
                         TimeDigitView(value: hours, label: "hours".localized)
@@ -84,8 +84,8 @@ struct LockScreenView: View {
                 .padding(.horizontal, 30)
                 .background(
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.white.opacity(0.9))
-                        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
+                        .fill(AppColors.cardBackground)
+                        .adaptiveShadow()
                 )
                 
                 Spacer()
@@ -119,15 +119,11 @@ struct LockScreenView: View {
                         Text("lock_screen_challenge".localized)
                             .font(.headline)
                     }
-                    .foregroundColor(.white)
+                    .foregroundColor(Color.white)
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color.blue, Color.purple]),
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
+                        AppColors.primaryGradient
                     )
                     .cornerRadius(15)
                     .shadow(radius: 5)
@@ -147,7 +143,7 @@ struct LockScreenView: View {
                         Text("lock_screen_emergency".localized)
                     }
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(AppColors.secondaryText)
                 }
                 .padding(.bottom, 40)
             }
@@ -233,6 +229,8 @@ struct TimeDigitView: View {
     let value: Int
     let label: String
     
+    @Environment(\.colorScheme) private var colorScheme
+    
     var body: some View {
         VStack(spacing: 4) {
             Text("\(value)")
@@ -240,23 +238,25 @@ struct TimeDigitView: View {
                 .frame(width: 60, height: 60)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(Color(.systemGray6))
+                        .fill(AppColors.secondaryBackground)
                 )
-                .foregroundColor(.primary)
+                .foregroundColor(AppColors.text)
             
             Text(label)
                 .font(.caption)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppColors.secondaryText)
         }
     }
 }
 
 // Time separator component
 struct TimeSeparator: View {
+    @Environment(\.colorScheme) private var colorScheme
+    
     var body: some View {
         Text(":")
             .font(.system(size: 32, weight: .bold))
-            .foregroundColor(Color(.systemGray))
+            .foregroundColor(AppColors.secondaryText)
             .offset(y: -12)
     }
 }
@@ -272,10 +272,21 @@ struct LockParticle: View {
     @State private var rotation: Double = Double.random(in: 0...360)
     @State private var speed: TimeInterval = TimeInterval.random(in: 5...10)
     
+    let isDarkMode: Bool
+    
+    // Specify color explicitly so we can control opacity separately
+    var color: Color {
+        isDarkMode ? Color.red.opacity(0.7) : Color.red.opacity(0.5)
+    }
+    
+    init(isDarkMode: Bool = false) {
+        self.isDarkMode = isDarkMode
+    }
+    
     var body: some View {
         Image(systemName: "lock.fill")
             .font(.system(size: 20))
-            .foregroundColor(.red)
+            .foregroundColor(color)
             .opacity(opacity)
             .scaleEffect(scale)
             .rotationEffect(Angle(degrees: rotation))
@@ -295,7 +306,16 @@ struct LockParticle: View {
 
 struct LockScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        LockScreenView()
-            .environmentObject(AppStateManager())
+        Group {
+            LockScreenView()
+                .environmentObject(AppStateManager())
+                .preferredColorScheme(.light)
+                .previewDisplayName("Light Mode")
+            
+            LockScreenView()
+                .environmentObject(AppStateManager())
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Dark Mode")
+        }
     }
 }
