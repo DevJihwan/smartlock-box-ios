@@ -1,0 +1,80 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "colors" : [
+    {
+      "idiom" : "universal",
+      "filename" : "Background.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "CardBackground.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "SecondaryBackground.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "Text.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "SecondaryText.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "Accent.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "ProgressColor.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "LockColor.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "UnlockColor.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "WarningColor.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "SuccessColor.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "ProgressLow.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "ProgressMedium.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "ProgressHigh.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "GradientStart.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "GradientEnd.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "LockGradientStart.colorset"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "LockGradientEnd.colorset"
+    }
+  ]
+}
