@@ -14,127 +14,137 @@ struct MainView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(spacing: 24) {
-                    // Language switcher
-                    HStack {
-                        Spacer()
-                        LanguageSwitcher()
-                            .padding(.top, 4)
-                    }
+        if #available(iOS 16.0, *) {
+            NavigationStack {
+                mainContent
+            }
+        } else {
+            NavigationView {
+                mainContent
+            }
+        }
+    }
+    
+    private var mainContent: some View {
+        ScrollView {
+            VStack(spacing: 24) {
+                // Language switcher
+                HStack {
+                    Spacer()
+                    LanguageSwitcher()
+                        .padding(.top, 4)
+                }
+                
+                // Today's goal achievement
+                VStack(spacing: 16) {
+                    Text("today_goal".localized)
+                        .font(.title2.bold())
+                        .foregroundColor(AppColors.text)
                     
-                    // Today's goal achievement
-                    VStack(spacing: 16) {
-                        Text("today_goal".localized)
-                            .font(.title2.bold())
-                            .foregroundColor(AppColors.text)
-                        
-                        AnimatedProgressBarWithLabel(
-                            value: Double(appState.todayUsageMinutes),
-                            maxValue: Double(appState.dailyGoalMinutes),
-                            title: "usage_minutes".localized(with: appState.todayUsageMinutes),
-                            subtitle: appState.usagePercentage < 100 
-                                ? "remaining_minutes".localized(with: max(0, appState.remainingMinutes))
-                                : "goal_exceeded".localized(with: appState.todayUsageMinutes - appState.dailyGoalMinutes),
-                            foregroundColor: AppColors.progressColor(percentage: appState.usagePercentage)
-                        )
-                        
-                        // Lock status and action
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(appState.currentState == .locked 
-                                     ? "status_locked".localized
-                                     : "status_unlocked".localized)
-                                    .font(.headline)
-                                    .foregroundColor(appState.currentState == .locked ? AppColors.lock : AppColors.unlock)
-                                
-                                Text(appState.currentState == .locked
-                                     ? "tap_to_unlock".localized
-                                     : "auto_locks".localized(with: Int(appState.usagePercentage)))
-                                    .font(.subheadline)
-                                    .foregroundColor(AppColors.secondaryText)
-                            }
+                    AnimatedProgressBarWithLabel(
+                        value: Double(appState.todayUsageMinutes),
+                        maxValue: Double(appState.dailyGoalMinutes),
+                        title: "usage_minutes".localized(with: appState.todayUsageMinutes),
+                        subtitle: appState.usagePercentage < 100 
+                            ? "remaining_minutes".localized(with: max(0, appState.remainingMinutes))
+                            : "goal_exceeded".localized(with: appState.todayUsageMinutes - appState.dailyGoalMinutes),
+                        foregroundColor: AppColors.progressColor(percentage: appState.usagePercentage)
+                    )
+                    
+                    // Lock status and action
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(appState.currentState == .locked 
+                                 ? "status_locked".localized
+                                 : "status_unlocked".localized)
+                                .font(.headline)
+                                .foregroundColor(appState.currentState == .locked ? AppColors.lock : AppColors.unlock)
                             
-                            Spacer()
-                            
-                            PulsatingLockButton(
-                                isLocked: Binding<Bool>(
-                                    get: { appState.currentState == .locked },
-                                    set: { _ in }
-                                ),
-                                onTap: {
-                                    if appState.currentState == .locked {
-                                        navigateToUnlock()
-                                    }
-                                },
-                                size: 60
-                            )
+                            Text(appState.currentState == .locked
+                                 ? "tap_to_unlock".localized
+                                 : "auto_locks".localized(with: Int(appState.usagePercentage)))
+                                .font(.subheadline)
+                                .foregroundColor(AppColors.secondaryText)
                         }
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 16)
-                                .fill(AppColors.secondaryBackground)
+                        
+                        Spacer()
+                        
+                        PulsatingLockButton(
+                            isLocked: Binding<Bool>(
+                                get: { appState.currentState == .locked },
+                                set: { _ in }
+                            ),
+                            onTap: {
+                                if appState.currentState == .locked {
+                                    navigateToUnlock()
+                                }
+                            },
+                            size: 60
                         )
                     }
                     .padding()
                     .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(AppColors.cardBackground)
-                            .adaptiveShadow()
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(AppColors.secondaryBackground)
                     )
-                    
-                    // Time until lock
-                    TimeRemainingView(
-                        remainingMinutes: appState.remainingMinutes,
-                        expectedLockTime: viewModel.getExpectedLockTime(
-                            currentMinutes: appState.todayUsageMinutes,
-                            goalMinutes: appState.dailyGoalMinutes
-                        )
-                    )
-                    
-                    // Weekly stats
-                    if let weeklyStats = viewModel.weeklyStats {
-                        WeeklyStatsCard(stats: weeklyStats)
-                            .background(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .fill(AppColors.cardBackground)
-                                    .adaptiveShadow()
-                            )
-                    }
-                    
-                    // Monthly heatmap
-                    if let monthlyStats = viewModel.monthlyStats {
-                        MonthlyHeatmapCard(stats: monthlyStats)
-                            .background(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .fill(AppColors.cardBackground)
-                                    .adaptiveShadow()
-                            )
-                    }
-                    
-                    Spacer(minLength: 20)
                 }
                 .padding()
-            }
-            .background(AppColors.background.ignoresSafeArea())
-            .navigationTitle("app_name".localized)
-            .foregroundColor(AppColors.text)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: DetailedStatsView()) {
-                        Image(systemName: "chart.bar.fill")
-                            .imageScale(.large)
-                            .foregroundColor(AppColors.accent)
-                    }
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(AppColors.cardBackground)
+                        .adaptiveShadow()
+                )
+                
+                // Time until lock
+                TimeRemainingView(
+                    remainingMinutes: appState.remainingMinutes,
+                    expectedLockTime: viewModel.getExpectedLockTime(
+                        currentMinutes: appState.todayUsageMinutes,
+                        goalMinutes: appState.dailyGoalMinutes
+                    )
+                )
+                
+                // Weekly stats
+                if let weeklyStats = viewModel.weeklyStats {
+                    WeeklyStatsCard(stats: weeklyStats)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(AppColors.cardBackground)
+                                .adaptiveShadow()
+                        )
                 }
                 
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: SettingsView()) {
-                        Image(systemName: "gear")
-                            .imageScale(.large)
-                            .foregroundColor(AppColors.accent)
-                    }
+                // Monthly heatmap
+                if let monthlyStats = viewModel.monthlyStats {
+                    MonthlyHeatmapCard(stats: monthlyStats)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(AppColors.cardBackground)
+                                .adaptiveShadow()
+                        )
+                }
+                
+                Spacer(minLength: 20)
+            }
+            .padding()
+        }
+        .background(AppColors.background.ignoresSafeArea())
+        .navigationTitle("app_name".localized)
+        .foregroundColor(AppColors.text)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(destination: DetailedStatsView()) {
+                    Image(systemName: "chart.bar.fill")
+                        .imageScale(.large)
+                        .foregroundColor(AppColors.accent)
+                }
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(destination: SettingsView()) {
+                    Image(systemName: "gear")
+                        .imageScale(.large)
+                        .foregroundColor(AppColors.accent)
                 }
             }
         }
@@ -221,7 +231,7 @@ struct TimeRemainingView: View {
             }
             .padding()
             
-            Text("expected_lock_time".localized(with: expectedLockTime.formatted(date: .omitted, time: .shortened)))
+            Text("expected_lock_time".localized(with: expectedLockTime.formatted(date: .omitted, time: .shortened) as CVarArg))
                 .font(.subheadline)
                 .foregroundColor(AppColors.secondaryText)
         }
