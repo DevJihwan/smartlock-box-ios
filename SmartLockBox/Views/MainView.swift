@@ -44,10 +44,10 @@ struct MainView: View {
                     AnimatedProgressBarWithLabel(
                         value: Double(appState.todayUsageMinutes),
                         maxValue: Double(appState.dailyGoalMinutes),
-                        title: "usage_minutes".localized(with: appState.todayUsageMinutes),
+                        title: "usage_minutes".localizedFormat(with: appState.todayUsageMinutes),
                         subtitle: appState.usagePercentage < 100 
-                            ? "remaining_minutes".localized(with: max(0, appState.remainingMinutes))
-                            : "goal_exceeded".localized(with: appState.todayUsageMinutes - appState.dailyGoalMinutes),
+                            ? "remaining_minutes".localizedFormat(with: max(0, appState.remainingMinutes))
+                            : "goal_exceeded".localizedFormat(with: appState.todayUsageMinutes - appState.dailyGoalMinutes),
                         foregroundColor: AppColors.progressColor(percentage: appState.usagePercentage)
                     )
                     
@@ -62,7 +62,7 @@ struct MainView: View {
                             
                             Text(appState.currentState == .locked
                                  ? "tap_to_unlock".localized
-                                 : "auto_locks".localized(with: Int(appState.usagePercentage)))
+                                 : "auto_locks".localizedFormat(with: Int(appState.usagePercentage)))
                                 .font(.subheadline)
                                 .foregroundColor(AppColors.secondaryText)
                         }
@@ -71,7 +71,7 @@ struct MainView: View {
                         
                         PulsatingLockButton(
                             isLocked: Binding<Bool>(
-                                get: { appState.currentState == .locked },
+                                get: { self.appState.currentState == .locked },
                                 set: { _ in }
                             ),
                             onTap: {
@@ -231,7 +231,8 @@ struct TimeRemainingView: View {
             }
             .padding()
             
-            Text("expected_lock_time".localized(with: expectedLockTime.formatted(date: .omitted, time: .shortened) as CVarArg))
+            let timeString = expectedLockTime.formatted(date: .omitted, time: .shortened)
+            Text("expected_lock_time".localizedFormat(with: timeString))
                 .font(.subheadline)
                 .foregroundColor(AppColors.secondaryText)
         }
