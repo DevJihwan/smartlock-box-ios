@@ -97,9 +97,16 @@ extension String {
         return LocalizationManager.shared.localizedString(self)
     }
     
-    /// 포맷이 있는 다국어 문자열 반환
+    /// 포맷이 있는 다국어 문자열 반환 (메서드 이름을 localizedFormat으로 변경하여 프로퍼티와 구분)
+    func localizedFormat(with arguments: CVarArg...) -> String {
+        let localizedString = LocalizationManager.shared.localizedString(self)
+        return String(format: localizedString, arguments: arguments)
+    }
+    
+    /// 하위 호환성을 위한 별칭 (deprecated)
+    @available(*, deprecated, renamed: "localizedFormat(with:)")
     func localized(with arguments: CVarArg...) -> String {
-        return String(format: localized, arguments: arguments)
+        return localizedFormat(with: arguments)
     }
 }
 
