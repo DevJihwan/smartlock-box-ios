@@ -231,7 +231,7 @@ struct TimeRemainingView: View {
             }
             .padding()
             
-            Text("expected_lock_time".localized(with: expectedLockTime.formatted(date: .omitted, time: .shortened) as CVarArg))
+            Text("expected_lock_time".localized(with: expectedLockTime.formatted(date: .omitted, time: .shortened)))
                 .font(.subheadline)
                 .foregroundColor(AppColors.secondaryText)
         }
