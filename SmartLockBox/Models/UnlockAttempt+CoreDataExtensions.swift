@@ -8,10 +8,14 @@
 import Foundation
 import CoreData
 
-// 확장을 통한 fetchRequest 정의로 중복 선언 문제 해결
+// MARK: - 이 파일은 Core Data 자동 생성 파일과의 충돌을 방지하기 위해 비활성화되었습니다.
+// Xcode의 Core Data Code Generation이 "Class Definition"으로 설정되어 있으면
+// fetchRequest() 메서드가 자동으로 생성되므로 별도로 정의할 필요가 없습니다.
+
+/*
 extension UnlockAttempt {
-    // fetchRequest 메서드명을 createFetchRequest()로 변경하여 충돌 방지
     @nonobjc public class func createFetchRequest() -> NSFetchRequest<UnlockAttempt> {
         return NSFetchRequest<UnlockAttempt>(entityName: "UnlockAttempt")
     }
 }
+*/
