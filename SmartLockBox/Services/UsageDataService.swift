@@ -278,11 +278,11 @@ class UsageDataService {
             let results = try context.fetch(request)
             return results.map { attempt in
                 UnlockAttemptData(
-                    timestamp: attempt.timestamp ?? Date(),
+                    timestamp: attempt.timestamp,
                     word1: attempt.word1 ?? "",
                     word2: attempt.word2 ?? "",
-                    sentence: attempt.sentence ?? "",
-                    chatGPTResult: attempt.chatGPTResult ?? "",
+                    sentence: attempt.sentence,
+                    chatGPTResult: attempt.chatGPTResult,
                     claudeResult: attempt.claudeResult ?? "",
                     isSuccessful: attempt.isSuccessful
                 )
@@ -317,19 +317,5 @@ class UsageDataService {
                 print("❌ Core Data 저장 실패: \(error.localizedDescription)")
             }
         }
-    }
-}
-
-// MARK: - Extensions for Core Data Entities
-
-extension UsageRecord {
-    static func fetchRequest() -> NSFetchRequest<UsageRecord> {
-        return NSFetchRequest<UsageRecord>(entityName: "UsageRecord")
-    }
-}
-
-extension UnlockAttempt {
-    static func fetchRequest() -> NSFetchRequest<UnlockAttempt> {
-        return NSFetchRequest<UnlockAttempt>(entityName: "UnlockAttempt")
     }
 }
