@@ -23,11 +23,27 @@ struct UnlockChallenge {
     }
 }
 
-enum AIEvaluationResult {
+enum AIEvaluationResult: Equatable {
     case pending
     case evaluating
     case pass(feedback: String)
     case fail(feedback: String)
+    
+    var isPass: Bool {
+        if case .pass = self {
+            return true
+        }
+        return false
+    }
+    
+    var feedback: String {
+        switch self {
+        case .pass(let feedback), .fail(let feedback):
+            return feedback
+        case .pending, .evaluating:
+            return ""
+        }
+    }
 }
 
 struct ChallengeResult {
