@@ -10,18 +10,36 @@ import CoreData
 
 // MARK: - Data Models
 
-struct UsageData: Identifiable {
-    let id = UUID()
+struct UsageData: Identifiable, Codable {
+    let id: UUID
     let date: Date
     let usageMinutes: Int
     let goalMinutes: Int
     let achieved: Bool
+    
+    init(id: UUID = UUID(), date: Date, usageMinutes: Int, goalMinutes: Int, achieved: Bool) {
+        self.id = id
+        self.date = date
+        self.usageMinutes = usageMinutes
+        self.goalMinutes = goalMinutes
+        self.achieved = achieved
+    }
+    
+    var percentage: Double {
+        guard goalMinutes > 0 else { return 0 }
+        return Double(usageMinutes) / Double(goalMinutes) * 100
+    }
 }
 
 struct WeeklyStats {
     let totalMinutes: Int
     let goalMinutes: Int
     let averageMinutesPerDay: Double
+    
+    var percentage: Double {
+        guard goalMinutes > 0 else { return 0 }
+        return Double(totalMinutes) / Double(goalMinutes) * 100
+    }
 }
 
 struct MonthlyStats {
@@ -30,7 +48,8 @@ struct MonthlyStats {
     let dailyData: [UsageData]
     
     var achievementRate: Double {
-        return totalDays > 0 ? Double(achievedDays) / Double(totalDays) * 100.0 : 0.0
+        guard totalDays > 0 else { return 0.0 }
+        return Double(achievedDays) / Double(totalDays) * 100.0
     }
 }
 
