@@ -78,28 +78,8 @@ class LocalizationManager: ObservableObject {
     
     func changeLanguage(to language: AppLanguage) {
         currentLanguage = language
-        // 언어 변경 알림
+        // 언어 변경 알림 (중복 제거: LanguageManager.swift에 정의됨)
         NotificationCenter.default.post(name: .languageDidChange, object: nil)
-    }
-}
-
-// MARK: - Notification Extension
-
-extension Notification.Name {
-    static let languageDidChange = Notification.Name("languageDidChange")
-}
-
-// MARK: - String Extension
-
-extension String {
-    /// 다국어 문자열 반환
-    var localized: String {
-        return LocalizationManager.shared.localizedString(self)
-    }
-    
-    /// 포맷이 있는 다국어 문자열 반환
-    func localized(with arguments: CVarArg...) -> String {
-        return String(format: localized, arguments: arguments)
     }
 }
 
