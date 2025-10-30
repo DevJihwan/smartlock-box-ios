@@ -90,26 +90,34 @@ extension Color {
                 UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1.0)
         })
     }
-    
-    /// 그림자 효과 헬퍼
-    static func dynamicShadow(radius: CGFloat = 10, opacity: Double = 0.1) -> some View {
-        let shadowColor = Color(UIColor { traitCollection in
-            return traitCollection.userInterfaceStyle == .dark ? 
-                UIColor(white: 0, alpha: opacity * 2) : // 다크모드에서 더 강한 그림자
-                UIColor(white: 0, alpha: opacity)
-        })
-        
-        return AnyView(
-            shadow(color: shadowColor, radius: radius, x: 0, y: 4)
-        )
-    }
 }
 
 // MARK: - View Extensions for Styling
 extension View {
     /// 카드 스타일 적용 (다크모드 대응)
     func cardStyle() -> some View {
-        self
+        self.modifier(CardStyleModifier())
+    }
+    
+    /// 다양한 그림자 효과
+    func adaptiveShadow(radius: CGFloat = 10, opacity: Double = 0.1, y: CGFloat = 4) -> some View {
+        self.modifier(AdaptiveShadowModifier(radius: radius, opacity: opacity, y: y))
+    }
+    
+    /// 동적 그림자 효과 (다크모드 대응)
+    func dynamicShadow(radius: CGFloat = 10, opacity: Double = 0.1) -> some View {
+        self.modifier(DynamicShadowModifier(radius: radius, opacity: opacity))
+    }
+}
+
+// MARK: - View Modifiers
+
+/// 카드 스타일 modifier
+struct CardStyleModifier: ViewModifier {
+    @Environment(\.colorScheme) var colorScheme
+    
+    func body(content: Content) -> some View {
+        content
             .padding()
             .background(AppColors.cardBackground)
             .cornerRadius(16)
@@ -119,17 +127,18 @@ extension View {
                 x: 0,
                 y: 5
             )
-            .modifier(ColorSchemeModifier(colorScheme: colorScheme))
     }
+}
+
+/// 적응형 그림자 modifier
+struct AdaptiveShadowModifier: ViewModifier {
+    @Environment(\.colorScheme) var colorScheme
+    let radius: CGFloat
+    let opacity: Double
+    let y: CGFloat
     
-    /// 현재 colorScheme 가져오기
-    @ViewBuilder func environment(key: EnvironmentKey, _ colorScheme: ColorScheme?) -> some View {
-        self.environment(\.colorScheme, colorScheme ?? .light)
-    }
-    
-    /// 다양한 그림자 효과
-    func adaptiveShadow(radius: CGFloat = 10, opacity: Double = 0.1, y: CGFloat = 4) -> some View {
-        self.shadow(
+    func body(content: Content) -> some View {
+        content.shadow(
             color: Color.black.opacity(colorScheme == .dark ? opacity * 2 : opacity),
             radius: radius,
             x: 0,
@@ -138,11 +147,18 @@ extension View {
     }
 }
 
-// Helper modifier to avoid environment key error
-struct ColorSchemeModifier: ViewModifier {
-    let colorScheme: ColorScheme
+/// 동적 그림자 modifier
+struct DynamicShadowModifier: ViewModifier {
+    @Environment(\.colorScheme) var colorScheme
+    let radius: CGFloat
+    let opacity: Double
     
     func body(content: Content) -> some View {
-        content.environment(\.colorScheme, colorScheme)
+        content.shadow(
+            color: Color.black.opacity(colorScheme == .dark ? opacity * 2 : opacity),
+            radius: radius,
+            x: 0,
+            y: 4
+        )
     }
 }
