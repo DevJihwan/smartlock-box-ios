@@ -166,7 +166,7 @@ class AIEvaluationService {
         let body: [String: Any] = [
             "model": "gpt-4",
             "messages": [
-                ["role": "system", "content": "당신은 창의력을 평가하는 전문가입니다. 주어진 문장의 창의성을 평가하고, PASS 또는 FAIL로 판정합니다. 응답은 반드시 JSON 형식으로 {\"result\": \"PASS\", \"feedback\": \"...\"} 또는 {\"result\": \"FAIL\", \"feedback\": \"...\"}\ub85c 작성하세요."],
+                ["role": "system", "content": "당신은 창의력을 평가하는 전문가입니다. 주어진 문장의 창의성을 평가하고, PASS 또는 FAIL로 판정합니다. 응답은 반드시 JSON 형식으로 {\"result\": \"PASS\", \"feedback\": \"...\"} 또는 {\"result\": \"FAIL\", \"feedback\": \"...\"}로 작성하세요."],
                 ["role": "user", "content": prompt]
             ],
             "temperature": 0.7,
