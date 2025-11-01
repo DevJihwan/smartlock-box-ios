@@ -89,7 +89,7 @@ struct MainView: View {
             subtitle: appState.usagePercentage < 100
                 ? "remaining_minutes".localized(with: max(0, appState.remainingMinutes))
                 : "goal_exceeded".localized(with: appState.todayUsageMinutes - appState.dailyGoalMinutes),
-            foregroundColor: AppColors.progressColor(percentage: appState.usagePercentage)
+            foregroundColor: AppColors.progressColor(percentage: Double(appState.usagePercentage))
         )
     }
     
@@ -244,7 +244,6 @@ struct TimeRemainingView: View {
                 .foregroundColor(AppColors.text)
             
             timeDisplay
-            
             expectedLockTimeText
         }
         .padding()
@@ -288,7 +287,8 @@ struct TimeRemainingView: View {
     }
     
     private var expectedLockTimeText: some View {
-        Text("expected_lock_time".localized(with: expectedLockTime.formatted(date: .omitted, time: .shortened) as CVarArg))
+        let formattedTime = expectedLockTime.formatted(date: .omitted, time: .shortened)
+        return Text("expected_lock_time".localized(with: formattedTime))
             .font(.subheadline)
             .foregroundColor(AppColors.secondaryText)
     }
