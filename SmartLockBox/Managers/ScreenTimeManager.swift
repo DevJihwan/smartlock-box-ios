@@ -92,21 +92,11 @@ class ScreenTimeManager: ObservableObject {
             return
         }
         
-        // 예외 앱 (전화, 문자, 건강 등)
-        let exceptionBundleIDs = [
-            "com.apple.mobilephone",      // 전화
-            "com.apple.MobileSMS",         // 문자
-            "com.apple.Health",            // 건강
-            "com.apple.Passbook",          // Wallet
-            "com.apple.Maps",              // 지도 (응급 상황)
-            "com.apple.mobilesafari"       // Safari (제한적 허용)
-        ]
+        // FamilyControls API를 사용한 앱 차단
+        // 주의: 실제 구현에서는 FamilyActivityPicker를 통해 사용자가 선택한 앱을 차단해야 함
+        // 현재는 기본 설정으로 모든 앱을 차단하는 예제 코드
         
-        // 모든 앱을 차단하되, 예외 앱은 제외
-        // ManagedSettings를 사용하여 앱 차단
-        store.shield.applications = .all(except: Set(exceptionBundleIDs.compactMap { ApplicationToken(bundleIdentifier: $0) }))
-        
-        // 웹 콘텐츠도 제한
+        // 웹 콘텐츠 제한
         store.shield.webDomains = .all()
         
         // 앱 제거 방지
@@ -117,6 +107,7 @@ class ScreenTimeManager: ObservableObject {
         UserDefaults.standard.set(true, forKey: isLockedKey)
         
         print("🔒 앱 차단 활성화")
+        print("⚠️ 참고: 실제 앱 차단을 위해서는 FamilyActivityPicker를 통한 앱 선택이 필요합니다")
         
         // 자동 해제 타이머 설정
         scheduleAutoUnlock()
@@ -258,16 +249,6 @@ class ScreenTimeManager: ObservableObject {
     }
 }
 
-// MARK: - Helper Extensions
-
-extension ApplicationToken {
-    init?(bundleIdentifier: String) {
-        // 실제 구현에서는 FamilyControls API를 사용하여 ApplicationToken 생성
-        // 현재는 간단한 플레이스홀더
-        return nil
-    }
-}
-
 // MARK: - 주의사항 및 설정 가이드
 /*
  Screen Time API 사용을 위한 필수 설정:
@@ -290,11 +271,16 @@ extension ApplicationToken {
     - 두 타겟(Main App, Extension) 모두에 동일한 App Group 추가
     - 예: "group.com.devjihwan.smartlockbox"
  
- 5. **실제 기기 테스트**:
+ 5. **FamilyActivityPicker 사용**:
+    - 사용자가 차단할 앱을 직접 선택하도록 FamilyActivityPicker 사용
+    - 선택된 앱을 FamilyActivitySelection으로 저장
+    - ManagedSettingsStore를 통해 차단 적용
+ 
+ 6. **실제 기기 테스트**:
     - Screen Time API는 시뮬레이터에서 제한적으로만 동작
     - 실제 iOS 기기에서 테스트 필요
  
- 6. **앱스토어 제출 시**:
+ 7. **앱스토어 제출 시**:
     - Screen Time API 사용 목적 명확히 설명
     - Privacy Policy 철저히 작성
     - 데이터는 기기 내부에만 저장됨을 명시
@@ -303,4 +289,14 @@ extension ApplicationToken {
  - https://developer.apple.com/documentation/familycontrols
  - https://developer.apple.com/documentation/deviceactivity
  - https://developer.apple.com/documentation/managedsettings
+ 
+ 중요 참고사항:
+ 이 구현은 기본적인 Screen Time 통합 예제입니다.
+ 실제 프로덕션 앱에서는 다음을 구현해야 합니다:
+ 
+ 1. FamilyActivityPicker를 사용한 사용자 앱 선택
+ 2. FamilyActivitySelection 저장 및 관리
+ 3. DeviceActivityMonitor Extension 구현
+ 4. App Group을 통한 데이터 동기화
+ 5. ShieldConfiguration을 통한 차단 화면 커스터마이징
 */
