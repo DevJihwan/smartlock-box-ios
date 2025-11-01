@@ -88,28 +88,33 @@ class WordService {
     
     // MARK: - Public Methods
     
-    /// 랜덤하게 2개의 단어 선택
-    /// - Returns: 2개의 서로 다른 단어 배열
-    func getRandomTwoWords() -> [Word] {
-        guard wordDatabase.count >= 2 else {
-            print("❌ 단어가 부족합니다.")
+    /// 랜덤하게 지정된 개수만큼 단어 선택
+    /// - Parameter count: 선택할 단어 개수
+    /// - Returns: 서로 다른 단어 배열
+    func getRandomWords(count: Int) -> [Word] {
+        guard wordDatabase.count >= count else {
+            print("❌ 단어가 부족합니다. (필요: \(count), 보유: \(wordDatabase.count))")
             return []
         }
         
-        let shuffled = wordDatabase.shuffled()
         var selectedWords: [Word] = []
+        var availableWords = wordDatabase.shuffled()
         
-        // 서로 다른 단어 2개 선택
-        for word in shuffled {
-            if selectedWords.isEmpty {
+        while selectedWords.count < count && !availableWords.isEmpty {
+            let word = availableWords.removeFirst()
+            // 중복 방지
+            if !selectedWords.contains(where: { $0.word == word.word }) {
                 selectedWords.append(word)
-            } else if !selectedWords.contains(where: { $0.word == word.word }) {
-                selectedWords.append(word)
-                break
             }
         }
         
         return selectedWords
+    }
+    
+    /// 랜덤하게 2개의 단어 선택 (하위 호환성)
+    /// - Returns: 2개의 서로 다른 단어 배열
+    func getRandomTwoWords() -> [Word] {
+        return getRandomWords(count: 2)
     }
     
     /// 카테고리별로 단어 필터링
