@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24B83" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="UnlockAttempt" representedClassName="UnlockAttempt" syncable="YES" codeGenerationType="category">
+    <entity name="UnlockAttempt" representedClassName="UnlockAttempt" syncable="YES">
         <attribute name="attemptText" attributeType="String"/>
         <attribute name="claudeResult" optional="YES" attributeType="String"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
@@ -10,7 +10,7 @@
         <attribute name="word1" attributeType="String"/>
         <attribute name="word2" attributeType="String"/>
     </entity>
-    <entity name="UsageRecord" representedClassName="UsageRecord" syncable="YES" codeGenerationType="category">
+    <entity name="UsageRecord" representedClassName="UsageRecord" syncable="YES">
         <attribute name="achieved" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="goalMinutes" attributeType="Integer 32" defaultValueString="180" usesScalarValueType="YES"/>
