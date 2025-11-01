@@ -21,14 +21,14 @@ class UnlockChallengeViewModel: ObservableObject {
     
     init() {
         let words = wordService.getRandomWords(count: 2)
-        self.challenge = UnlockChallenge(word1: words[0], word2: words[1])
+        self.challenge = UnlockChallenge(word1: words[0].word, word2: words[1].word)
     }
     
     func refreshWords() {
         guard remainingRefreshCount > 0 else { return }
         
         let words = wordService.getRandomWords(count: 2)
-        challenge = UnlockChallenge(word1: words[0], word2: words[1])
+        challenge = UnlockChallenge(word1: words[0].word, word2: words[1].word)
         remainingRefreshCount -= 1
     }
     
