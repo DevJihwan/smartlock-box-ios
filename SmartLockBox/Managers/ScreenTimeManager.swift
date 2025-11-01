@@ -22,6 +22,9 @@ class ScreenTimeManager: ObservableObject {
     @Published var todayUsageMinutes: Int = 0
     @Published var goalMinutes: Int = 180 // 기본 3시간
     
+    // FamilyActivitySelection - 사용자가 선택한 앱과 도메인
+    @Published var activitySelection = FamilyActivitySelection()
+    
     // DeviceActivity 관련
     private let deviceActivityCenter = DeviceActivityCenter()
     private let monitorName = DeviceActivityName("smartLockBoxMonitor")
@@ -92,12 +95,19 @@ class ScreenTimeManager: ObservableObject {
             return
         }
         
-        // FamilyControls API를 사용한 앱 차단
-        // 주의: 실제 구현에서는 FamilyActivityPicker를 통해 사용자가 선택한 앱을 차단해야 함
-        // 현재는 기본 설정으로 모든 앱을 차단하는 예제 코드
+        // 사용자가 선택한 앱과 도메인 차단
+        if !activitySelection.applicationTokens.isEmpty {
+            store.shield.applications = activitySelection.applicationTokens
+        }
         
-        // 웹 콘텐츠 제한
-        store.shield.webDomains = .all()
+        if !activitySelection.webDomainTokens.isEmpty {
+            store.shield.webDomains = activitySelection.webDomainTokens
+        }
+        
+        if !activitySelection.categoryTokens.isEmpty {
+            store.shield.applicationCategories = .specific(activitySelection.categoryTokens)
+            store.shield.webDomainCategories = .specific(activitySelection.categoryTokens)
+        }
         
         // 앱 제거 방지
         store.application.denyAppRemoval = true
@@ -107,7 +117,8 @@ class ScreenTimeManager: ObservableObject {
         UserDefaults.standard.set(true, forKey: isLockedKey)
         
         print("🔒 앱 차단 활성화")
-        print("⚠️ 참고: 실제 앱 차단을 위해서는 FamilyActivityPicker를 통한 앱 선택이 필요합니다")
+        print("차단된 앱: \(activitySelection.applicationTokens.count)개")
+        print("차단된 도메인: \(activitySelection.webDomainTokens.count)개")
         
         // 자동 해제 타이머 설정
         scheduleAutoUnlock()
@@ -125,6 +136,21 @@ class ScreenTimeManager: ObservableObject {
         cancelAutoUnlock()
         
         print("🔓 앱 차단 해제")
+    }
+    
+    /// FamilyActivitySelection 업데이트
+    func updateActivitySelection(_ selection: FamilyActivitySelection) {
+        self.activitySelection = selection
+        
+        // 현재 잠금 상태라면 즉시 적용
+        if isLocked {
+            enableAppBlocking()
+        }
+        
+        print("✅ 차단 대상 업데이트됨")
+        print("앱: \(selection.applicationTokens.count)개")
+        print("도메인: \(selection.webDomainTokens.count)개")
+        print("카테고리: \(selection.categoryTokens.count)개")
     }
     
     // MARK: - Usage Monitoring
@@ -290,13 +316,25 @@ class ScreenTimeManager: ObservableObject {
  - https://developer.apple.com/documentation/deviceactivity
  - https://developer.apple.com/documentation/managedsettings
  
- 중요 참고사항:
- 이 구현은 기본적인 Screen Time 통합 예제입니다.
- 실제 프로덕션 앱에서는 다음을 구현해야 합니다:
+ 주요 변경사항 (이 버전):
  
- 1. FamilyActivityPicker를 사용한 사용자 앱 선택
- 2. FamilyActivitySelection 저장 및 관리
+ 1. **FamilyActivitySelection 추가**:
+    - 사용자가 FamilyActivityPicker를 통해 선택한 앱/도메인을 저장
+    - updateActivitySelection() 메서드로 선택 항목 업데이트
+ 
+ 2. **더 이상 .all() 사용 안 함**:
+    - iOS 16+ 에서는 .all() API가 deprecated 되었거나 제거됨
+    - 대신 FamilyActivitySelection의 토큰을 직접 사용
+ 
+ 3. **카테고리 차단 지원**:
+    - .specific() 을 사용하여 카테고리 단위 차단 가능
+ 
+ 실제 프로덕션 앱에서 구현해야 할 사항:
+ 
+ 1. FamilyActivityPicker를 사용한 UI 구현
+ 2. FamilyActivitySelection 영구 저장 (UserDefaults/CoreData)
  3. DeviceActivityMonitor Extension 구현
  4. App Group을 통한 데이터 동기화
  5. ShieldConfiguration을 통한 차단 화면 커스터마이징
+ 6. 사용 통계 추적 및 표시
 */
