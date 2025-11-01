@@ -288,7 +288,10 @@ struct TimeRemainingView: View {
     
     private var expectedLockTimeText: some View {
         let formattedTime = expectedLockTime.formatted(date: .omitted, time: .shortened)
-        return Text("expected_lock_time".localized(with: formattedTime))
+        let localizedFormat = NSLocalizedString("expected_lock_time", comment: "Expected lock time format")
+        let finalText = String(format: localizedFormat, formattedTime)
+        
+        return Text(finalText)
             .font(.subheadline)
             .foregroundColor(AppColors.secondaryText)
     }
