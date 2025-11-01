@@ -14,37 +14,58 @@ struct UnlockChallengeView: View {
     
     var body: some View {
         ZStack {
-            // 배경
-            LinearGradient(
-                gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.purple.opacity(0.2)]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
+            backgroundView
             
             if viewModel.isEvaluating {
                 EvaluatingView()
             } else if let result = viewModel.challengeResult, showResult {
                 ResultView(result: result, onDismiss: {
-                    if result.isSuccess {
-                        appState.unlockDevice()
-                    } else {
-                        showResult = false
-                        viewModel.challengeResult = nil
-                    }
+                    handleResultDismiss(success: result.isSuccess)
                 })
             } else {
-                ChallengeInputView(viewModel: viewModel, onSubmit: {
-                    viewModel.submitChallenge { success in
-                        showResult = true
-                    }
-                }, onCancel: {
-                    appState.currentState = .locked
-                })
+                ChallengeInputView(
+                    viewModel: viewModel,
+                    onSubmit: handleSubmit,
+                    onCancel: handleCancel
+                )
             }
         }
     }
+    
+    // MARK: - Background
+    
+    private var backgroundView: some View {
+        LinearGradient(
+            gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.purple.opacity(0.2)]),
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        .ignoresSafeArea()
+    }
+    
+    // MARK: - Action Handlers
+    
+    private func handleSubmit() {
+        viewModel.submitChallenge { success in
+            showResult = true
+        }
+    }
+    
+    private func handleCancel() {
+        appState.cancelUnlockChallenge()
+    }
+    
+    private func handleResultDismiss(success: Bool) {
+        if success {
+            appState.endUnlockChallenge(success: true)
+        } else {
+            showResult = false
+            viewModel.challengeResult = nil
+        }
+    }
 }
+
+// MARK: - Challenge Input View
 
 struct ChallengeInputView: View {
     @ObservedObject var viewModel: UnlockChallengeViewModel
@@ -53,99 +74,127 @@ struct ChallengeInputView: View {
     
     var body: some View {
         VStack(spacing: 30) {
-            // 헤더
-            VStack(spacing: 8) {
-                Image(systemName: "key.fill")
-                    .font(.system(size: 60))
-                    .foregroundColor(.blue)
-                
-                Text("🗝️ 창의적 해제 도전")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                
-                Text("제시단어 2개를 포함한 창의적인\n문장을 만들어 자물쇠를 풀어보세요!")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-            }
-            .padding(.top, 40)
-            
-            // 단어 표시
-            HStack(spacing: 20) {
-                WordBubble(word: viewModel.challenge.word1)
-                WordBubble(word: viewModel.challenge.word2)
-            }
-            .padding()
-            
-            // 입력 필드
-            VStack(alignment: .leading, spacing: 8) {
-                TextEditor(text: $viewModel.challenge.attempt)
-                    .frame(height: 120)
-                    .padding(8)
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(viewModel.challenge.isValid ? Color.green : Color.gray.opacity(0.3), lineWidth: 2)
-                    )
-                
-                HStack {
-                    Text("최소 10글자 이상 (현재: \(viewModel.challenge.wordCount)글자)")
-                        .font(.caption)
-                        .foregroundColor(viewModel.challenge.wordCount >= 10 ? .green : .secondary)
-                    
-                    Spacer()
-                    
-                    if !viewModel.challenge.isValid && viewModel.challenge.wordCount >= 10 {
-                        Text("⚠️ 두 단어를 모두 포함해주세요")
-                            .font(.caption)
-                            .foregroundColor(.red)
-                    }
-                }
-            }
-            .padding(.horizontal)
-            
-            // 버튼들
-            VStack(spacing: 12) {
-                Button(action: onSubmit) {
-                    Text("제출하기")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(viewModel.challenge.isValid ? Color.blue : Color.gray)
-                        .cornerRadius(10)
-                }
-                .disabled(!viewModel.challenge.isValid)
-                
-                HStack {
-                    Button(action: {
-                        viewModel.refreshWords()
-                    }) {
-                        Text("다른 단어로 변경 (\(viewModel.remainingRefreshCount)회 남음)")
-                            .font(.subheadline)
-                    }
-                    .disabled(viewModel.remainingRefreshCount == 0)
-                    
-                    Spacer()
-                    
-                    Button(action: onCancel) {
-                        Text("취소")
-                            .font(.subheadline)
-                            .foregroundColor(.red)
-                    }
-                }
-            }
-            .padding(.horizontal)
-            
-            Text("남은 도전 횟수: \(viewModel.remainingAttempts)회")
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
+            headerSection
+            wordBubblesSection
+            inputSection
+            buttonsSection
+            remainingAttemptsText
             Spacer()
         }
     }
+    
+    // MARK: - Header
+    
+    private var headerSection: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "key.fill")
+                .font(.system(size: 60))
+                .foregroundColor(.blue)
+            
+            Text("🗝️ 창의적 해제 도전")
+                .font(.title2)
+                .fontWeight(.bold)
+            
+            Text("제시단어 2개를 포함한 창의적인\n문장을 만들어 자물쇠를 풀어보세요!")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding(.top, 40)
+    }
+    
+    // MARK: - Word Bubbles
+    
+    private var wordBubblesSection: some View {
+        HStack(spacing: 20) {
+            WordBubble(word: viewModel.challenge.word1)
+            WordBubble(word: viewModel.challenge.word2)
+        }
+        .padding()
+    }
+    
+    // MARK: - Input
+    
+    private var inputSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            TextEditor(text: $viewModel.challenge.attempt)
+                .frame(height: 120)
+                .padding(8)
+                .background(Color.white)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(viewModel.challenge.isValid ? Color.green : Color.gray.opacity(0.3), lineWidth: 2)
+                )
+            
+            HStack {
+                Text("최소 10글자 이상 (현재: \(viewModel.challenge.wordCount)글자)")
+                    .font(.caption)
+                    .foregroundColor(viewModel.challenge.wordCount >= 10 ? .green : .secondary)
+                
+                Spacer()
+                
+                if !viewModel.challenge.isValid && viewModel.challenge.wordCount >= 10 {
+                    Text("⚠️ 두 단어를 모두 포함해주세요")
+                        .font(.caption)
+                        .foregroundColor(.red)
+                }
+            }
+        }
+        .padding(.horizontal)
+    }
+    
+    // MARK: - Buttons
+    
+    private var buttonsSection: some View {
+        VStack(spacing: 12) {
+            submitButton
+            actionButtons
+        }
+        .padding(.horizontal)
+    }
+    
+    private var submitButton: some View {
+        Button(action: onSubmit) {
+            Text("제출하기")
+                .font(.headline)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(viewModel.challenge.isValid ? Color.blue : Color.gray)
+                .cornerRadius(10)
+        }
+        .disabled(!viewModel.challenge.isValid)
+    }
+    
+    private var actionButtons: some View {
+        HStack {
+            Button(action: {
+                viewModel.refreshWords()
+            }) {
+                Text("다른 단어로 변경 (\(viewModel.remainingRefreshCount)회 남음)")
+                    .font(.subheadline)
+            }
+            .disabled(viewModel.remainingRefreshCount == 0)
+            
+            Spacer()
+            
+            Button(action: onCancel) {
+                Text("취소")
+                    .font(.subheadline)
+                    .foregroundColor(.red)
+            }
+        }
+    }
+    
+    private var remainingAttemptsText: some View {
+        Text("남은 도전 횟수: \(viewModel.remainingAttempts)회")
+            .font(.caption)
+            .foregroundColor(.secondary)
+    }
 }
+
+// MARK: - Word Bubble
 
 struct WordBubble: View {
     let word: String
@@ -169,6 +218,8 @@ struct WordBubble: View {
     }
 }
 
+// MARK: - Evaluating View
+
 struct EvaluatingView: View {
     var body: some View {
         VStack(spacing: 30) {
@@ -180,32 +231,34 @@ struct EvaluatingView: View {
                 .font(.title2)
                 .fontWeight(.bold)
             
-            VStack(spacing: 16) {
-                HStack {
-                    Text("ChatGPT 평가:")
-                        .fontWeight(.medium)
-                    Spacer()
-                    ProgressView()
-                    Text("진행중...")
-                        .foregroundColor(.secondary)
-                }
-                
-                HStack {
-                    Text("Claude 평가:")
-                        .fontWeight(.medium)
-                    Spacer()
-                    ProgressView()
-                    Text("대기중...")
-                        .foregroundColor(.secondary)
-                }
-            }
-            .padding()
-            .background(Color.white.opacity(0.9))
-            .cornerRadius(15)
+            evaluationProgress
         }
         .padding(40)
     }
+    
+    private var evaluationProgress: some View {
+        VStack(spacing: 16) {
+            evaluationRow(title: "ChatGPT 평가:", status: "진행중...")
+            evaluationRow(title: "Claude 평가:", status: "대기중...")
+        }
+        .padding()
+        .background(Color.white.opacity(0.9))
+        .cornerRadius(15)
+    }
+    
+    private func evaluationRow(title: String, status: String) -> some View {
+        HStack {
+            Text(title)
+                .fontWeight(.medium)
+            Spacer()
+            ProgressView()
+            Text(status)
+                .foregroundColor(.secondary)
+        }
+    }
 }
+
+// MARK: - Result View
 
 struct ResultView: View {
     let result: ChallengeResult
@@ -213,24 +266,39 @@ struct ResultView: View {
     
     var body: some View {
         VStack(spacing: 30) {
-            // 결과 아이콘
-            Image(systemName: result.isSuccess ? "checkmark.circle.fill" : "xmark.circle.fill")
-                .font(.system(size: 80))
-                .foregroundColor(result.isSuccess ? .green : .red)
-            
-            Text(result.isSuccess ? "✅ 해제 성공!" : "❌ 해제 실패")
-                .font(.title)
-                .fontWeight(.bold)
-            
-            // AI 평가 결과
-            VStack(spacing: 16) {
-                EvaluationResultRow(title: "ChatGPT 평가", result: result.chatGPTResult)
-                EvaluationResultRow(title: "Claude 평가", result: result.claudeResult)
-            }
-            .padding()
-            .background(Color.white.opacity(0.9))
-            .cornerRadius(15)
-            
+            resultIcon
+            resultTitle
+            evaluationResults
+            resultMessage
+            dismissButton
+        }
+        .padding(40)
+    }
+    
+    private var resultIcon: some View {
+        Image(systemName: result.isSuccess ? "checkmark.circle.fill" : "xmark.circle.fill")
+            .font(.system(size: 80))
+            .foregroundColor(result.isSuccess ? .green : .red)
+    }
+    
+    private var resultTitle: some View {
+        Text(result.isSuccess ? "✅ 해제 성공!" : "❌ 해제 실패")
+            .font(.title)
+            .fontWeight(.bold)
+    }
+    
+    private var evaluationResults: some View {
+        VStack(spacing: 16) {
+            EvaluationResultRow(title: "ChatGPT 평가", result: result.chatGPTResult)
+            EvaluationResultRow(title: "Claude 평가", result: result.claudeResult)
+        }
+        .padding()
+        .background(Color.white.opacity(0.9))
+        .cornerRadius(15)
+    }
+    
+    private var resultMessage: some View {
+        Group {
             if result.isSuccess {
                 Text("🔓 자물쇠가 열렸습니다!")
                     .font(.headline)
@@ -240,21 +308,24 @@ struct ResultView: View {
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
-            
-            Button(action: onDismiss) {
-                Text(result.isSuccess ? "메인으로 돌아가기" : "다시 도전하기")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(result.isSuccess ? Color.green : Color.blue)
-                    .cornerRadius(10)
-            }
-            .padding(.horizontal, 40)
         }
-        .padding(40)
+    }
+    
+    private var dismissButton: some View {
+        Button(action: onDismiss) {
+            Text(result.isSuccess ? "메인으로 돌아가기" : "다시 도전하기")
+                .font(.headline)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(result.isSuccess ? Color.green : Color.blue)
+                .cornerRadius(10)
+        }
+        .padding(.horizontal, 40)
     }
 }
+
+// MARK: - Evaluation Result Row
 
 struct EvaluationResultRow: View {
     let title: String
@@ -266,27 +337,39 @@ struct EvaluationResultRow: View {
                 Text(title)
                     .fontWeight(.semibold)
                 Spacer()
-                if case .pass = result {
-                    Text("PASS ✅")
-                        .foregroundColor(.green)
-                } else if case .fail = result {
-                    Text("FAIL ❌")
-                        .foregroundColor(.red)
-                }
+                resultBadge
             }
             
-            if case .pass(let feedback) = result {
-                Text(feedback)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            } else if case .fail(let feedback) = result {
-                Text(feedback)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
+            feedbackText
+        }
+    }
+    
+    @ViewBuilder
+    private var resultBadge: some View {
+        if case .pass = result {
+            Text("PASS ✅")
+                .foregroundColor(.green)
+        } else if case .fail = result {
+            Text("FAIL ❌")
+                .foregroundColor(.red)
+        }
+    }
+    
+    @ViewBuilder
+    private var feedbackText: some View {
+        if case .pass(let feedback) = result {
+            Text(feedback)
+                .font(.caption)
+                .foregroundColor(.secondary)
+        } else if case .fail(let feedback) = result {
+            Text(feedback)
+                .font(.caption)
+                .foregroundColor(.secondary)
         }
     }
 }
+
+// MARK: - Previews
 
 struct UnlockChallengeView_Previews: PreviewProvider {
     static var previews: some View {
