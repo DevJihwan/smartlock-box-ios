@@ -297,11 +297,11 @@ class UsageDataService {
             let results = try context.fetch(request)
             return results.map { attempt in
                 UnlockAttemptData(
-                    timestamp: attempt.timestamp,
+                    timestamp: attempt.timestamp ?? Date(),
                     word1: attempt.word1 ?? "",
                     word2: attempt.word2 ?? "",
-                    sentence: attempt.sentence,
-                    chatGPTResult: attempt.chatGPTResult,
+                    sentence: attempt.sentence ?? "",
+                    chatGPTResult: attempt.chatGPTResult ?? "",
                     claudeResult: attempt.claudeResult ?? "",
                     isSuccessful: attempt.isSuccessful
                 )
