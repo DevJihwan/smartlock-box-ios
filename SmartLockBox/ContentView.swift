@@ -13,11 +13,11 @@ struct ContentView: View {
     var body: some View {
         Group {
             switch appState.currentState {
-            case .normal:
+            case .unlocked:
                 MainView()
             case .locked:
                 LockScreenView()
-            case .unlockChallenge:
+            case .challengeActive:
                 UnlockChallengeView()
             }
         }
