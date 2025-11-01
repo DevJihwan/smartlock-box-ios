@@ -34,16 +34,16 @@ class MainViewModel: ObservableObject {
         return "\(hours)시간 \(mins)분"
     }
     
-    func getExpectedLockTime(currentMinutes: Int, goalMinutes: Int) -> String {
+    /// 예상 잠금 시간을 Date로 반환
+    func getExpectedLockTime(currentMinutes: Int, goalMinutes: Int) -> Date {
         let remainingMinutes = goalMinutes - currentMinutes
+        
         if remainingMinutes <= 0 {
-            return "즉시 잠금"
+            // 즉시 잠금
+            return Date()
         }
         
-        let lockTime = Date().addingTimeInterval(TimeInterval(remainingMinutes * 60))
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "a h시 mm분"
-        return formatter.string(from: lockTime) + " 잠금"
+        // 남은 시간 후의 Date 반환
+        return Date().addingTimeInterval(TimeInterval(remainingMinutes * 60))
     }
 }
