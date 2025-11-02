@@ -1,4 +1,11 @@
-/* 앱 공통 */
+/* 
+  Localizable.strings (Korean)
+  SmartLockBox
+  
+  Created by DevJihwan on 2025-10-10.
+*/
+
+// MARK: - 앱 공통
 "app_name" = "바보상자자물쇠";
 "ok" = "확인";
 "cancel" = "취소";
@@ -8,41 +15,34 @@
 "close" = "닫기";
 "settings" = "설정";
 
-/* 메인 화면 */
-"today_goal" = "오늘의 목표";
-"usage_minutes" = "%d분 사용";
-"remaining_minutes" = "%d분 남음";
-"goal_exceeded" = "목표 %d분 초과";
-"status_locked" = "잠김";
-"status_unlocked" = "잠금 해제";
-"tap_to_unlock" = "탭하여 해제";
-"auto_locks" = "%d%% 사용 시 자동 잠금";
+// MARK: - 메인 화면
+"today_goal" = "오늘의 목표 달성도";
 "time_until_lock" = "잠금까지 남은 시간";
-"expected_lock_time" = "%@ 잠금 예정";
-"weekly_stats" = "주간 사용 현황";
-"monthly_heatmap" = "월간 달성 현황";
+"weekly_stats" = "이번 주 사용 현황";
+"monthly_heatmap" = "월간 목표 달성";
+"detailed_stats" = "상세 통계";
+"goal_achievement" = "목표 달성";
+"average_per_day" = "일 평균";
+"achievement_rate" = "달성률";
+"goal_achieved" = "목표 달성";
+"goal_not_achieved" = "목표 미달성";
 
-/* 시간 단위 */
-"hours" = "시간";
-"minutes" = "분";
-"seconds" = "초";
-"hours_short" = "시";
-"minutes_short" = "분";
-"seconds_short" = "초";
+// MARK: - 잠금 화면
+"locked" = "잠김";
+"phone_locked" = "스마트폰이 잠겨있습니다";
+"used_today" = "오늘 %@ 사용";
+"auto_unlock_in" = "%@ 후 자동 해제";
+"unlock_with_creativity" = "창의력으로 해제하기";
+"emergency_call" = "응급상황 연락";
 
-/* 잠금 화면 */
-"lock_screen_title" = "스마트폰이 잠겨있습니다";
-"lock_screen_usage" = "오늘 %@ 사용 완료";
-"lock_screen_remaining" = "자동 해제까지 남은 시간";
-"lock_screen_challenge" = "창의력으로 해제하기";
-"lock_screen_emergency" = "응급상황 연락";
-"lock_screen_calculating" = "계산 중...";
-
-/* 해제 챌린지 */
+// MARK: - 해제 챌린지
 "unlock_challenge" = "창의적 해제 도전";
-"challenge_description" = "제시단어 2개를 포함한 창의적인\n문장을 만들어 자물쇠를 풀어보세요!";
+"challenge_description" = "제시된 2개의 단어를 포함한 창의적인 문장을 만들어 자물쇠를 풀어보세요!";
+"word1" = "단어 1";
+"word2" = "단어 2";
 "enter_sentence" = "여기에 문장을 입력하세요...";
-"minimum_characters" = "최소 10글자 이상 (현재: %d글자)";
+"minimum_characters" = "최소 10글자 이상";
+"current_characters" = "현재: %d글자";
 "change_words" = "다른 단어로 변경";
 "submit" = "제출하기";
 "evaluating" = "AI가 평가 중입니다";
@@ -51,47 +51,67 @@
 "both_ai_required" = "두 AI 모두 통과해야 해제됩니다";
 "try_again" = "다시 도전하기";
 "back_to_lock_screen" = "잠금 화면으로";
+"refresh_limit_reached" = "오늘 사용 가능한 단어 변경 횟수를 모두 사용했습니다";
+"remaining_refreshes" = "남은 변경 횟수: %d";
+"evaluation_limit_reached" = "오늘 사용 가능한 평가 횟수를 모두 사용했습니다";
+"remaining_evaluations" = "남은 평가 횟수: %d";
 
-/* 설정 */
-"settings_title" = "설정";
-"settings_goal_header" = "목표 설정";
-"settings_daily_goal" = "일일 목표: %d시간";
-"settings_goal_slider" = "목표 시간 슬라이더";
-"settings_goal_explanation" = "%d시간 사용 후 자동으로 잠깁니다";
-"settings_unlock_header" = "잠금 해제 설정";
-"settings_auto_unlock_time" = "자동 해제 시간";
-"settings_auto_unlock_explanation" = "매일 설정한 시간에 자동으로 잠금이 해제됩니다";
-"settings_challenge_header" = "창의적 해제 설정";
-"settings_enable_creative" = "창의적 해제 활성화";
-"settings_daily_attempts" = "일일 시도 횟수";
-"settings_word_refresh" = "단어 변경 횟수";
-"settings_language_header" = "언어 설정";
-"settings_app_info_header" = "앱 정보";
-"settings_version" = "버전";
-"settings_screen_time_permission" = "Screen Time 권한 요청";
-"settings_reset_data" = "모든 데이터 초기화";
-"settings_reset_confirm_title" = "데이터 초기화";
-"settings_reset_confirm_message" = "모든 사용 기록과 설정이 삭제됩니다. 계속하시겠습니까?";
-"settings_reset_confirm_button" = "초기화";
-"settings_reset_cancel_button" = "취소";
+// MARK: - 설정
+"daily_goal" = "일일 목표 시간";
+"auto_unlock_time" = "자동 해제 시간";
+"notifications" = "알림";
+"screen_time_permission" = "Screen Time 권한";
+"language" = "언어";
+"data_management" = "데이터 관리";
+"delete_all_data" = "모든 데이터 삭제";
+"version" = "버전";
+"licenses" = "오픈소스 라이선스";
 
-/* 알림 */
-"notification_permission_title" = "알림 권한 필요";
-"notification_permission_required" = "잠금 알림을 받으려면 알림 권한이 필요합니다.";
-"notification_request" = "권한 요청";
+// MARK: - 시간 단위
+"hours" = "시간";
+"minutes" = "분";
+"seconds" = "초";
+"hours_short" = "시";
+"minutes_short" = "분";
+"seconds_short" = "초";
 
-/* 요일 */
-"monday" = "월";
-"tuesday" = "화";
-"wednesday" = "수";
-"thursday" = "목";
-"friday" = "금";
-"saturday" = "토";
-"sunday" = "일";
+// MARK: - 요일
+"monday" = "월요일";
+"tuesday" = "화요일";
+"wednesday" = "수요일";
+"thursday" = "목요일";
+"friday" = "금요일";
+"saturday" = "토요일";
+"sunday" = "일요일";
 
-/* 에러 메시지 */
+// MARK: - 에러 메시지
 "error" = "오류";
-"network_error" = "네트워크 오류";
-"api_error" = "API 오류";
-"permission_denied" = "권한 거부됨";
-"unknown_error" = "알 수 없는 오류";
+"network_error" = "네트워크 오류가 발생했습니다";
+"api_error" = "API 오류가 발생했습니다";
+"permission_denied" = "권한이 거부되었습니다";
+"unknown_error" = "알 수 없는 오류가 발생했습니다";
+
+// MARK: - AI 평가
+"creative" = "창의적이고 감성적인 표현";
+"not_creative" = "단순한 단어 나열";
+"good_grammar" = "문법적으로 올바름";
+"poor_grammar" = "문법 오류 있음";
+"meaningful_connection" = "의미 있는 연결";
+"lacking_connection" = "연결성 부족";
+
+// MARK: - 알림
+"notification_goal_approaching_title" = "⚠️ 목표 시간 도달 임박";
+"notification_goal_approaching_body" = "목표 시간까지 %d분 남았습니다!";
+"notification_locked_title" = "🔒 잠금 활성화";
+"notification_locked_body" = "오늘의 목표를 달성했습니다. 스마트폰이 잠겼습니다.";
+"notification_unlocked_title" = "🔓 잠금 해제";
+"notification_unlocked_creative_body" = "창의적인 문장으로 해제했습니다! 축하합니다!";
+"notification_unlocked_auto_body" = "자동 해제 시간이 되었습니다. 스마트폰 잠금이 해제되었습니다.";
+"notification_daily_report_title" = "📊 일일 사용 리포트";
+"notification_daily_report_body" = "오늘의 스마트폰 사용 통계를 확인해보세요!";
+"notification_motivation_title" = "💪 동기부여";
+"notification_motivation_1" = "오늘도 목표를 지키고 계시네요! 계속 화이팅!";
+"notification_motivation_2" = "디지털 디톡스를 실천하는 당신은 멋져요!";
+"notification_motivation_3" = "건강한 디지털 생활은 당신에게서 시작됩니다!";
+"notification_motivation_4" = "작은 실천이 큰 변화를 만듭니다!";
+"notification_motivation_5" = "스마트폰보다 더 중요한 것에 집중하세요!";
