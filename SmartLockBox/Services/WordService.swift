@@ -10,9 +10,15 @@ import Foundation
 // MARK: - Word Model
 struct Word: Codable, Identifiable, Equatable {
     let id: Int
-    let word: String
+    let korean: String
+    let english: String
     let category: String
     let difficulty: String
+
+    // Computed property for backward compatibility
+    var word: String {
+        return korean
+    }
 }
 
 struct WordDatabase: Codable {
@@ -166,7 +172,9 @@ class WordService {
     /// - Returns: 검색어를 포함하는 단어 배열
     func searchWords(query: String) -> [Word] {
         guard !query.isEmpty else { return [] }
-        return wordDatabase.filter { $0.word.contains(query) }
+        return wordDatabase.filter {
+            $0.korean.contains(query) || $0.english.lowercased().contains(query.lowercased())
+        }
     }
     
     /// 전체 단어 개수
