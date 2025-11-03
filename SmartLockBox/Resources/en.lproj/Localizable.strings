@@ -230,3 +230,20 @@
 "feature_ai_optimization_desc" = "AI-based usage pattern optimization";
 "feature_presets_desc" = "Job-specific recommended templates";
 
+
+// Screen Time Permission
+"settings_screen_time_permission" = "Request Screen Time Permission";
+"screen_time_authorized" = "✅ Screen Time Authorized";
+"screen_time_not_authorized" = "⚠️ Screen Time Permission Required";
+"screen_time_permission_description" = "Screen Time permission is required to monitor and control app usage time.";
+"screen_time_permission_request_title" = "Screen Time Permission Request";
+"screen_time_permission_request_message" = "This app uses Screen Time API to manage device usage time. Would you like to authorize?";
+
+// FamilyActivityPicker
+"blocked_apps_title" = "Select Apps to Block";
+"blocked_apps_description" = "Choose apps and websites to block when time limit is exceeded";
+"blocked_apps_selected" = "Selected: %d apps, %d websites";
+"blocked_apps_select" = "Select Apps & Websites";
+"blocked_apps_save" = "Save Selection";
+"blocked_apps_info" = "💡 Selected apps and websites will be automatically blocked when time limit is exceeded";
+"blocked_apps_requires_permission" = "⚠️ Screen Time permission is required to select apps to block";

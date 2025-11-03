@@ -24,8 +24,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3BB1263081784FE992D57C01 /* FamilyActivityPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyActivityPickerView.swift; sourceTree = "<group>"; };
-		7FA424850FA84D0584FAEC19 /* SmartLockBox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SmartLockBox.entitlements; sourceTree = "<group>"; };
+		95713A8208474FF7B442C9A9 /* TimeSlotUsageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlotUsageData.swift; sourceTree = "<group>"; };
+		12C431A9F68843869EE5D911 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		EE201F182E9906C20025EA5D /* SmartLockBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartLockBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE201F2D2E9906C30025EA5D /* SmartLockBoxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartLockBoxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE201F372E9906C30025EA5D /* SmartLockBoxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartLockBoxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,7 +95,6 @@
 				EE201F302E9906C30025EA5D /* SmartLockBoxTests */,
 				EE201F3A2E9906C30025EA5D /* SmartLockBoxUITests */,
 				EE201F192E9906C20025EA5D /* Products */,
-				7FA424850FA84D0584FAEC19 /* SmartLockBox.entitlements */,
 			);
 			sourceTree = "<group>";
 		};
@@ -231,7 +230,8 @@
 			buildActionMask = 2147483647;
 			files = (
 			
-				B3D88799A6D14AFD981F8F98 /* FamilyActivityPickerView.swift in Sources */,);
+				714C6875F0E84B1F907C2F1D /* TimeSlotUsageData.swift in Sources */,
+				0E1BAC86877D4727919F3815 /* StoreManager.swift in Sources */,);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		EE201F2B2E9906C30025EA5D /* Resources */ = {
@@ -384,7 +384,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = SmartLockBox/SmartLockBox.entitlements;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -476,7 +475,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_ENTITLEMENTS = SmartLockBox/SmartLockBox.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JVUXYR66CL;

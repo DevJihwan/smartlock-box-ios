@@ -230,3 +230,20 @@
 "feature_ai_optimization_desc" = "AI 기반 사용 패턴 최적화 제안";
 "feature_presets_desc" = "직업별 추천 설정 템플릿";
 
+
+// Screen Time 권한
+"settings_screen_time_permission" = "Screen Time 권한 요청";
+"screen_time_authorized" = "✅ Screen Time 권한 승인됨";
+"screen_time_not_authorized" = "⚠️ Screen Time 권한 필요";
+"screen_time_permission_description" = "앱 사용 시간을 모니터링하고 제어하기 위해 Screen Time 권한이 필요합니다.";
+"screen_time_permission_request_title" = "Screen Time 권한 요청";
+"screen_time_permission_request_message" = "이 앱은 Screen Time API를 사용하여 기기 사용 시간을 관리합니다. 권한을 승인하시겠습니까?";
+
+// FamilyActivityPicker
+"blocked_apps_title" = "차단할 앱 선택";
+"blocked_apps_description" = "목표 시간 초과 시 차단할 앱과 웹사이트를 선택하세요";
+"blocked_apps_selected" = "선택됨: 앱 %d개, 웹사이트 %d개";
+"blocked_apps_select" = "앱 및 웹사이트 선택";
+"blocked_apps_save" = "선택 항목 저장";
+"blocked_apps_info" = "💡 선택한 앱과 웹사이트는 목표 시간 초과 시 자동으로 차단됩니다";
+"blocked_apps_requires_permission" = "⚠️ 차단할 앱을 선택하려면 Screen Time 권한이 필요합니다";

@@ -24,7 +24,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3BB1263081784FE992D57C01 /* FamilyActivityPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyActivityPickerView.swift; sourceTree = "<group>"; };
 		7FA424850FA84D0584FAEC19 /* SmartLockBox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SmartLockBox.entitlements; sourceTree = "<group>"; };
 		EE201F182E9906C20025EA5D /* SmartLockBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartLockBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE201F2D2E9906C30025EA5D /* SmartLockBoxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartLockBoxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,8 +229,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			
-				B3D88799A6D14AFD981F8F98 /* FamilyActivityPickerView.swift in Sources */,);
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		EE201F2B2E9906C30025EA5D /* Resources */ = {

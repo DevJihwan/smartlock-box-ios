@@ -23,6 +23,7 @@ struct SettingsView: View {
             challengeSettingsSection
             notificationSection
             languageSection
+            blockedAppsSection
             appInfoSection
         }
         .navigationTitle("settings_title".localized)
@@ -120,13 +121,46 @@ struct SettingsView: View {
     }
     
     // MARK: - Language Settings
-    
+
     private var languageSection: some View {
         Section(header: sectionHeader("settings_language_header".localized)) {
             LanguagePickerView()
         }
     }
-    
+
+    // MARK: - Blocked Apps Settings
+
+    private var blockedAppsSection: some View {
+        Section(header: sectionHeader("blocked_apps_title".localized)) {
+            if let screenTimeManager = appState.screenTimeManager, screenTimeManager.isAuthorized {
+                FamilyActivityPickerView()
+            } else {
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack {
+                        Image(systemName: "lock.shield")
+                            .foregroundColor(.orange)
+                        Text("blocked_apps_requires_permission".localized)
+                            .font(.subheadline)
+                            .foregroundColor(AppColors.secondaryText)
+                    }
+
+                    Button(action: requestScreenTimePermission) {
+                        HStack {
+                            Image(systemName: "hand.raised.fill")
+                            Text("settings_screen_time_permission".localized)
+                                .fontWeight(.medium)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
+                        .foregroundColor(.white)
+                        .background(AppColors.accent)
+                        .cornerRadius(8)
+                    }
+                }
+            }
+        }
+    }
+
     // MARK: - App Info & Actions
     
     private var appInfoSection: some View {
@@ -136,9 +170,49 @@ struct SettingsView: View {
                 value: "1.0.0"
             )
             
-            Button(action: requestScreenTimePermission) {
-                Text("settings_screen_time_permission".localized)
-                    .foregroundColor(AppColors.accent)
+            // Screen Time Permission Status and Request
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Text("settings_screen_time_permission".localized)
+                        .foregroundColor(AppColors.text)
+
+                    Spacer()
+
+                    if let screenTimeManager = appState.screenTimeManager {
+                        if screenTimeManager.isAuthorized {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.green)
+                            Text("screen_time_authorized".localized)
+                                .font(.caption)
+                                .foregroundColor(.green)
+                        } else {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundColor(.orange)
+                            Text("screen_time_not_authorized".localized)
+                                .font(.caption)
+                                .foregroundColor(.orange)
+                        }
+                    }
+                }
+
+                if let screenTimeManager = appState.screenTimeManager, !screenTimeManager.isAuthorized {
+                    Button(action: requestScreenTimePermission) {
+                        HStack {
+                            Image(systemName: "hand.raised.fill")
+                            Text("settings_screen_time_permission".localized)
+                                .fontWeight(.medium)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
+                        .foregroundColor(.white)
+                        .background(AppColors.accent)
+                        .cornerRadius(8)
+                    }
+
+                    Text("screen_time_permission_description".localized)
+                        .font(.caption)
+                        .foregroundColor(AppColors.secondaryText)
+                }
             }
             
             Button(action: { isShowingResetAlert = true }) {
