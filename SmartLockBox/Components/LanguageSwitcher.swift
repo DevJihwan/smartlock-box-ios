@@ -37,7 +37,10 @@ struct LanguageSwitcher: View {
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundColor(localizationManager.currentLanguage == language ? .blue : .gray)
                 .scaleEffect(localizationManager.currentLanguage == language ? 1.1 : 1.0)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 6)
         }
+        .buttonStyle(.plain)
     }
     
     private func changeLanguage(to language: AppLanguage) {

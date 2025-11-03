@@ -39,16 +39,21 @@ enum AppLanguage: String, CaseIterable, Identifiable {
 
 class LocalizationManager: ObservableObject {
     static let shared = LocalizationManager()
-    
+
     @Published var currentLanguage: AppLanguage {
         didSet {
             UserDefaults.standard.set(currentLanguage.rawValue, forKey: languageKey)
             updateBundle()
+            print("🌍 Language changed to: \(currentLanguage.displayName)")
         }
     }
-    
+
     private let languageKey = "appLanguage"
-    private var bundle: Bundle?
+    private var bundle: Bundle? {
+        didSet {
+            print("📦 Bundle updated for language: \(currentLanguage.rawValue)")
+        }
+    }
     
     private init() {
         // 저장된 언어 불러오기
@@ -73,7 +78,8 @@ class LocalizationManager: ObservableObject {
     }
     
     func localizedString(_ key: String) -> String {
-        return bundle?.localizedString(forKey: key, value: nil, table: nil) ?? key
+        let result = bundle?.localizedString(forKey: key, value: nil, table: nil) ?? key
+        return result
     }
     
     func changeLanguage(to language: AppLanguage) {

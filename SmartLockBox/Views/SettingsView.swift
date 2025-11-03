@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var appState: AppStateManager
+    @ObservedObject private var localizationManager = LocalizationManager.shared
     @State private var dailyGoalHours: Double = 3
     @State private var autoUnlockTime: Date = Calendar.current.date(from: DateComponents(hour: 0, minute: 0))!
     @State private var isShowingResetAlert = false
@@ -16,6 +17,7 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
+            subscriptionSection
             goalSettingsSection
             unlockSettingsSection
             challengeSettingsSection
@@ -31,8 +33,23 @@ struct SettingsView: View {
         .animation(.easeInOut, value: dailyGoalHours)
     }
     
+    // MARK: - Subscription Settings
+
+    private var subscriptionSection: some View {
+        Section {
+            NavigationLink(destination: SubscriptionSettingsView()) {
+                HStack {
+                    Image(systemName: "crown.fill")
+                        .foregroundColor(.yellow)
+                    Text("settings_subscription".localized)
+                        .foregroundColor(AppColors.text)
+                }
+            }
+        }
+    }
+
     // MARK: - Goal Settings
-    
+
     private var goalSettingsSection: some View {
         Section(header: sectionHeader("settings_goal_header".localized)) {
             VStack(alignment: .leading, spacing: 8) {

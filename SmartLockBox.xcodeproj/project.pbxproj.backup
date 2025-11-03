@@ -24,8 +24,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		95713A8208474FF7B442C9A9 /* TimeSlotUsageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlotUsageData.swift; sourceTree = "<group>"; };
-		12C431A9F68843869EE5D911 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		EE201F182E9906C20025EA5D /* SmartLockBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartLockBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE201F2D2E9906C30025EA5D /* SmartLockBoxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartLockBoxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE201F372E9906C30025EA5D /* SmartLockBoxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartLockBoxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -229,9 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			
-				714C6875F0E84B1F907C2F1D /* TimeSlotUsageData.swift in Sources */,
-				0E1BAC86877D4727919F3815 /* StoreManager.swift in Sources */,);
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		EE201F2B2E9906C30025EA5D /* Resources */ = {

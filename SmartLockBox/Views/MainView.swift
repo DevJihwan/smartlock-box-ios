@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView: View {
     @EnvironmentObject var appState: AppStateManager
     @StateObject private var viewModel = MainViewModel()
+    @ObservedObject private var localizationManager = LocalizationManager.shared
     @State private var showNotificationPermissionAlert = false
     @Environment(\.colorScheme) private var colorScheme
     
@@ -53,12 +54,23 @@ struct MainView: View {
     }
     
     // MARK: - Header View
-    
+
     private var headerView: some View {
-        HStack {
-            Spacer()
-            LanguageSwitcher()
-                .padding(.top, 4)
+        VStack(spacing: 8) {
+            HStack {
+                Spacer()
+                LanguageSwitcher()
+                    .padding(.top, 4)
+            }
+
+            // Debug info
+            Text("Current: \(localizationManager.currentLanguage.displayName)")
+                .font(.caption)
+                .foregroundColor(.secondary)
+
+            Text("app_name".localized)
+                .font(.caption)
+                .foregroundColor(.blue)
         }
     }
     

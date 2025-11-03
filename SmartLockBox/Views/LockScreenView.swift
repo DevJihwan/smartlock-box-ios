@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LockScreenView: View {
     @EnvironmentObject var appState: AppStateManager
+    @ObservedObject private var localizationManager = LocalizationManager.shared
     @State private var timeRemaining: String = ""
     @State private var hours: Int = 0
     @State private var minutes: Int = 0

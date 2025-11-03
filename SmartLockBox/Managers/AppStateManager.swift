@@ -109,15 +109,44 @@ class AppStateManager: ObservableObject {
     }
     
     // MARK: - Screen Time Integration
-    
+
     var screenTimeManager: ScreenTimeManager? = ScreenTimeManager.shared
-    
+
+    // MARK: - Subscription Integration
+
+    var subscriptionManager: SubscriptionManager = SubscriptionManager.shared
+
+    /// 현재 활성 시간대의 사용 시간 (초)
+    @Published var currentTimeSlotUsageSeconds: TimeInterval = 0
+
+    /// 일일 사용 기록
+    @Published var dailyUsageRecord: DailyUsageRecord = UserDefaults.standard.dailyUsageRecord
+
     // MARK: - Initialization
-    
+
     init() {
         loadSavedState()
         startUsageTimer()
         checkDailyReset()
+        setupSubscriptionObserver()
+    }
+
+    // MARK: - Subscription Observer
+
+    private var subscriptionCancellable: AnyCancellable?
+
+    private func setupSubscriptionObserver() {
+        // Listen to subscription tier changes
+        subscriptionCancellable = NotificationCenter.default
+            .publisher(for: .subscriptionTierChanged)
+            .sink { [weak self] _ in
+                self?.handleSubscriptionChange()
+            }
+    }
+
+    private func handleSubscriptionChange() {
+        print("📊 Subscription tier changed, rechecking lock status")
+        checkGoalStatus()
     }
     
     // MARK: - Load/Save State
@@ -163,16 +192,43 @@ class AppStateManager: ObservableObject {
         // In production, integrate with ScreenTimeManager
         // For now, simulate usage tracking
         guard !isLocked else { return }
-        
+
+        // Update total usage
         todayUsageMinutes += 1
         UserDefaults.standard.set(todayUsageMinutes, forKey: "todayUsageMinutes")
-        
+
+        // Update daily usage record
+        dailyUsageRecord.totalUsageSeconds += 60 // Add 1 minute (60 seconds)
+
+        // If premium tier with time slots, track per time slot
+        if subscriptionManager.currentTier == .premium,
+           subscriptionManager.premiumTierSettings.useTimeSlotMode,
+           let currentSlot = subscriptionManager.getCurrentTimeSlot() {
+
+            // Update time slot usage
+            let currentSlotUsage = dailyUsageRecord.usage(for: currentSlot.id)
+            dailyUsageRecord.updateUsage(for: currentSlot.id, seconds: currentSlotUsage + 60)
+
+            // Update published property for UI
+            currentTimeSlotUsageSeconds = dailyUsageRecord.usage(for: currentSlot.id)
+
+            print("📊 Time Slot Usage - \(currentSlot.name): \(Int(currentTimeSlotUsageSeconds)/60) min")
+        }
+
+        // Save daily usage record
+        UserDefaults.standard.dailyUsageRecord = dailyUsageRecord
+
         checkGoalStatus()
     }
     
     private func checkGoalStatus() {
-        // Auto-lock when goal is exceeded
-        if todayUsageMinutes >= dailyGoalMinutes && !isLocked {
+        // Check if should lock based on subscription tier
+        let shouldLock = subscriptionManager.shouldLockDevice(
+            todayUsage: TimeInterval(todayUsageMinutes * 60),
+            currentSlotUsage: currentTimeSlotUsageSeconds
+        )
+
+        if shouldLock && !isLocked {
             enableLock()
         }
     }
@@ -288,18 +344,23 @@ class AppStateManager: ObservableObject {
     
     private func performDailyReset() {
         print("🔄 Performing daily reset")
-        
+
         // Reset daily counters
         todayUsageMinutes = 0
         todayChallengeAttempts = 0
-        
+
+        // Reset time slot usage
+        currentTimeSlotUsageSeconds = 0
+        dailyUsageRecord = DailyUsageRecord()
+
         // Update last reset date
         lastResetDate = Calendar.current.startOfDay(for: Date())
-        
+
         // Save to UserDefaults
         UserDefaults.standard.set(0, forKey: "todayUsageMinutes")
         UserDefaults.standard.set(0, forKey: "todayChallengeAttempts")
-        
+        UserDefaults.standard.dailyUsageRecord = dailyUsageRecord
+
         // Check if should auto-unlock
         checkAutoUnlock()
     }

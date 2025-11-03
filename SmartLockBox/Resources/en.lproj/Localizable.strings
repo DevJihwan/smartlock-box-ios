@@ -34,6 +34,12 @@
 "auto_unlock_in" = "Auto unlock in %@";
 "unlock_with_creativity" = "Unlock with Creativity";
 "emergency_call" = "Emergency Call";
+"lock_screen_title" = "Your phone is locked";
+"lock_screen_usage" = "Used %@ today";
+"lock_screen_remaining" = "Time until auto unlock";
+"lock_screen_challenge" = "Unlock with Creativity";
+"lock_screen_emergency" = "Emergency Call";
+"lock_screen_calculating" = "Calculating...";
 
 // MARK: - Unlock Challenge
 "unlock_challenge" = "Creative Unlock Challenge";
@@ -115,3 +121,112 @@
 "notification_motivation_3" = "Healthy digital life starts with you!";
 "notification_motivation_4" = "Small actions create big changes!";
 "notification_motivation_5" = "Focus on things more important than your phone!";
+
+// MARK: - Subscription
+
+// Subscription Tiers
+"subscription_tier_free" = "Free";
+"subscription_tier_premium" = "Premium";
+
+// Settings Screen
+"settings_subscription" = "Subscription";
+"settings_time_limit" = "Time Limit Settings";
+"settings_daily_limit_mode" = "Daily Total";
+"settings_time_slot_mode" = "Time Slot Mode";
+
+// Free Tier
+"free_daily_limit_title" = "Daily Usage Time";
+"free_daily_limit_description" = "Today's Goal Time";
+"free_limit_warning" = "⚠️ Only total daily usage is limited";
+"free_upgrade_prompt" = "💎 Need more control over your time?";
+"free_view_premium" = "Explore Premium →";
+
+// Premium Tier
+"premium_title" = "💎 Time Slot Settings";
+"premium_time_slots" = "Time Slot Management";
+"premium_add_time_slot" = "+ Add Time Slot";
+"premium_slots_usage" = "%d of %d slots used";
+"premium_no_overlap_warning" = "⚠️ Time slots cannot overlap";
+"premium_tip" = "💡 Tip: Each time slot is counted independently for better efficiency";
+"premium_load_template" = "📋 Load Recommended Template";
+
+// Time Slots
+"time_slot" = "Time Slot";
+"time_slot_name" = "Time Slot Name";
+"time_slot_time_range" = "Time Range";
+"time_slot_allowed_duration" = "Allowed Time";
+"time_slot_usage_rate" = "Usage Rate";
+"time_slot_edit" = "Edit";
+"time_slot_delete" = "Delete";
+"time_slot_morning" = "Morning";
+"time_slot_afternoon" = "Afternoon";
+"time_slot_evening" = "Evening";
+"time_slot_night" = "Night";
+
+// Add/Edit Time Slot
+"add_time_slot" = "Add Time Slot";
+"edit_time_slot" = "Edit Time Slot";
+"time_slot_name_placeholder" = "e.g. Morning Time";
+"time_slot_start_time" = "Start Time";
+"time_slot_end_time" = "End Time";
+"time_slot_duration" = "Slot Duration: %@";
+"time_slot_allowed" = "Allowed Duration";
+"time_slot_save" = "Save";
+"time_slot_cancel" = "Cancel";
+
+// Upgrade Prompt
+"upgrade_title" = "💎 Upgrade to Premium";
+"upgrade_subtitle" = "Maximize your productivity with time slot control!";
+"upgrade_feature_time_slots" = "Split your day into up to 3 time slots";
+"upgrade_feature_independent_counters" = "Independent counter for each time slot";
+"upgrade_feature_unlimited_unlocks" = "Unlimited creative unlocks";
+"upgrade_feature_unlimited_refreshes" = "Unlimited word refreshes";
+"upgrade_feature_dual_ai" = "Dual AI Evaluation (GPT + Claude)";
+"upgrade_feature_no_ads" = "Complete ad removal";
+"upgrade_feature_unlimited_stats" = "Unlimited usage statistics";
+"upgrade_monthly_price" = "Monthly: $3.99";
+"upgrade_yearly_price" = "Yearly: $31.99 (Save 33%! 🎉)";
+"upgrade_start_trial" = "Start 14-Day Free Trial";
+"upgrade_later" = "Maybe Later";
+"upgrade_testimonial_1" = "30 minutes in the morning, 2 hours in the evening - works great!";
+"upgrade_testimonial_2" = "No limits during lunch, blocked during study time - perfect!";
+
+// Subscription Status
+"subscription_active" = "Active Subscription";
+"subscription_inactive" = "No Active Subscription";
+"subscription_expires" = "Expires: %@";
+"subscription_manage" = "Manage Subscription";
+
+// Error Messages
+"subscription_error_requires_premium" = "This feature requires Premium subscription";
+"subscription_error_max_time_slots" = "You can create up to 3 time slots maximum";
+"subscription_error_invalid_time_slot" = "Invalid time slot settings";
+"subscription_error_overlapping_time_slots" = "Time slots cannot overlap";
+"subscription_error_time_slot_not_found" = "Time slot not found";
+"subscription_error_min_duration" = "Time slot must be at least 1 hour long";
+
+// Notifications
+"time_slot_added" = "✅ Time slot added";
+"time_slot_updated" = "✏️ Time slot updated";
+"time_slot_deleted" = "🗑️ Time slot deleted";
+"premium_required" = "💎 Premium Feature";
+"premium_required_message" = "Please upgrade to Premium to use this feature";
+
+// Templates
+"template_office_worker" = "Office Worker";
+"template_student" = "Student";
+"template_freelancer" = "Freelancer";
+"template_morning_person" = "Morning Person";
+"template_night_owl" = "Night Owl";
+
+// Premium Feature Descriptions
+"feature_time_slots_desc" = "Independent time management per time slot";
+"feature_unlimited_unlocks_desc" = "No limit on creative unlock attempts";
+"feature_unlimited_refreshes_desc" = "No limit on word refreshes";
+"feature_dual_ai_desc" = "Use both GPT-4 and Claude";
+"feature_no_ads_desc" = "Complete removal of all ads";
+"feature_unlimited_stats_desc" = "View unlimited period statistics";
+"feature_time_slot_stats_desc" = "Detailed statistics per time slot";
+"feature_ai_optimization_desc" = "AI-based usage pattern optimization";
+"feature_presets_desc" = "Job-specific recommended templates";
+
