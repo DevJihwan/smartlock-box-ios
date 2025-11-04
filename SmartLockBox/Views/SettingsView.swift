@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var appState: AppStateManager
     @ObservedObject private var localizationManager = LocalizationManager.shared
+    @ObservedObject private var motivationManager = MotivationManager.shared
     @State private var dailyGoalHours: Double = 3
     @State private var autoUnlockTime: Date = Calendar.current.date(from: DateComponents(hour: 0, minute: 0))!
     @State private var isShowingResetAlert = false
@@ -22,6 +23,7 @@ struct SettingsView: View {
             unlockSettingsSection
             challengeSettingsSection
             notificationSection
+            motivationSection
             languageSection
             blockedAppsSection
             appInfoSection
@@ -115,11 +117,28 @@ struct SettingsView: View {
     }
     
     // MARK: - Notification Settings
-    
+
     private var notificationSection: some View {
         NotificationSettingsView()
     }
-    
+
+    // MARK: - Motivation Settings
+
+    private var motivationSection: some View {
+        Section(header: sectionHeader("settings_motivation".localized)) {
+            Toggle("settings_motivation_messages".localized, isOn: $motivationManager.showMotivationMessages)
+                .foregroundColor(AppColors.text)
+                .toggleStyle(SwitchToggleStyle(tint: AppColors.accent))
+                .onChange(of: motivationManager.showMotivationMessages) { newValue in
+                    motivationManager.updateMotivation()
+                }
+
+            Text("settings_motivation_description".localized)
+                .font(.caption)
+                .foregroundColor(AppColors.secondaryText)
+        }
+    }
+
     // MARK: - Language Settings
 
     private var languageSection: some View {

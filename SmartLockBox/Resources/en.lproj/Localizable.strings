@@ -247,3 +247,18 @@
 "blocked_apps_save" = "Save Selection";
 "blocked_apps_info" = "💡 Selected apps and websites will be automatically blocked when time limit is exceeded";
 "blocked_apps_requires_permission" = "⚠️ Screen Time permission is required to select apps to block";
+
+// MARK: - Motivational Messages
+"motivation.day1" = "Let's start taking back your time!";
+"motivation.success" = "Great job yesterday! You nailed it!";
+"motivation.retry" = "It's okay, let's try again today!";
+"motivation.streak" = "%d day streak";
+"motivation.streak_prefix" = "🔥 %d day streak";
+"motivation.streak_week" = "%d day streak! Week complete!";
+"motivation.streak_month" = "%d day streak! Amazing!";
+"motivation.streak_hundred" = "%d day streak! Legend!";
+
+// MARK: - Settings - Motivation
+"settings_motivation" = "Motivation";
+"settings_motivation_messages" = "Show Motivational Messages";
+"settings_motivation_description" = "Display daily motivational messages on the main screen";

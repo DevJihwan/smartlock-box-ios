@@ -247,3 +247,18 @@
 "blocked_apps_save" = "선택 항목 저장";
 "blocked_apps_info" = "💡 선택한 앱과 웹사이트는 목표 시간 초과 시 자동으로 차단됩니다";
 "blocked_apps_requires_permission" = "⚠️ 차단할 앱을 선택하려면 Screen Time 권한이 필요합니다";
+
+// MARK: - 동기부여 메시지
+"motivation.day1" = "오늘부터 당신의 시간을 되찾아보세요!";
+"motivation.success" = "어제도 목표 달성! 멋져요!";
+"motivation.retry" = "괜찮아요, 오늘 다시 도전해봐요!";
+"motivation.streak" = "연속 %d일";
+"motivation.streak_prefix" = "🔥 연속 %d일";
+"motivation.streak_week" = "연속 %d일! 한 주 완주!";
+"motivation.streak_month" = "연속 %d일! 대단해요!";
+"motivation.streak_hundred" = "연속 %d일! 레전드!";
+
+// MARK: - 설정 - 동기부여 메시지
+"settings_motivation" = "동기부여";
+"settings_motivation_messages" = "동기부여 메시지 표시";
+"settings_motivation_description" = "매일 동기부여 메시지를 메인 화면에 표시합니다";

@@ -11,6 +11,7 @@ struct MainView: View {
     @EnvironmentObject var appState: AppStateManager
     @StateObject private var viewModel = MainViewModel()
     @ObservedObject private var localizationManager = LocalizationManager.shared
+    @ObservedObject private var motivationManager = MotivationManager.shared
     @State private var showNotificationPermissionAlert = false
     @Environment(\.colorScheme) private var colorScheme
     
@@ -30,6 +31,12 @@ struct MainView: View {
         ScrollView {
             VStack(spacing: 24) {
                 headerView
+
+                // Motivational Message Banner
+                if let motivation = motivationManager.currentMotivation {
+                    MotivationalMessageBanner(motivation: motivation)
+                }
+
                 goalAchievementSection
                 timeRemainingSection
                 weeklyStatsSection
@@ -46,6 +53,8 @@ struct MainView: View {
         }
         .onAppear {
             checkNotificationPermission()
+            motivationManager.updateDailyData()
+            motivationManager.updateMotivation()
         }
         .alert(isPresented: $showNotificationPermissionAlert) {
             notificationPermissionAlert
