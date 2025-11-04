@@ -2,7 +2,7 @@
 
 ## 📋 문서 정보
 - **문서명**: SmartLockBox iOS 앱 디자인 요구사항
-- **버전**: v1.0
+- **버전**: v1.1
 - **작성일**: 2025년 11월 4일
 - **타겟 사용자**: 자기관리를 철저히 하고 싶은 20-30대
 - **디자인 철학**: 심플, 깔끔, 모던, 아이폰의 특색 유지
@@ -234,6 +234,319 @@ TextSecondary: #FFFFFF (alpha: 0.6)
 
 ## 📱 화면별 디자인 요구사항
 
+### 0. 동기부여 메시지 시스템 (Motivational Message Banner) 💪 **NEW**
+
+#### 개요
+사용자의 사용 일수와 이전 날짜의 목표 달성 여부에 따라 맞춤형 동기부여 메시지를 메인 화면 상단에 표시하여 지속적인 사용을 유도하고 성취감을 극대화합니다.
+
+#### 메시지 표시 위치
+```
+┌─────────────────────────────────────┐
+│  [Logo]  바보상자자물쇠    [KR|EN]  │ 
+├─────────────────────────────────────┤
+│  ┌─────────────────────────────┐   │ ← 동기부여 메시지 배너
+│  │ 💪 오늘부터 당신의 시간을    │   │   (NEW 추가)
+│  │    되찾아보세요!            │   │
+│  └─────────────────────────────┘   │
+├─────────────────────────────────────┤
+│  🎯 오늘의 목표 달성률               │
+│  ...                                │
+```
+
+#### 메시지 표시 로직
+
+**1일차 (첫 접속)**
+```
+메시지: "오늘부터 당신의 시간을 되찾아보세요!"
+아이콘: 💪 또는 🎯
+배경색: 시스템 기본 액센트 색상 (투명도 10%)
+표시 조건: 앱 최초 실행 또는 데이터 초기화 후 첫 접속
+```
+
+**2일차 이후 - 이전 날 성공 시**
+```
+메시지: "어제도 목표 달성! 멋져요!"
+아이콘: 🎉 또는 ⭐️
+배경색: Success 색상 (투명도 10%)
+표시 조건: 이전 날짜의 목표 달성률 >= 100%
+```
+
+**2일차 이후 - 이전 날 실패 시**
+```
+메시지: "괜찮아요, 오늘 다시 도전해봐요!"
+아이콘: 💙 또는 🤗
+배경색: Info 색상 (투명도 10%)
+표시 조건: 이전 날짜의 목표 달성률 < 100%
+```
+
+**연속 달성 시 (3일 이상)**
+```
+메시지: "🔥 연속 {n}일"
+서브 메시지: "어제도 목표 달성! 멋져요!" (작은 폰트)
+배경색: Gradient (Success → Warning)
+표시 조건: 연속으로 목표를 달성한 일수가 3일 이상
+특별 효과: 
+  - 7일 달성 시: "🔥 연속 7일! 한 주 완주!"
+  - 30일 달성 시: "🔥 연속 30일! 대단해요!"
+  - 100일 달성 시: "🔥 연속 100일! 레전드!"
+```
+
+#### 디자인 스펙
+
+**메시지 배너 컴포넌트**:
+```swift
+struct MotivationalMessageBanner: View {
+    var message: String
+    var icon: String // SF Symbol or Emoji
+    var streakDays: Int? // 연속 달성 일수 (옵션)
+    var messageType: MessageType
+    
+    enum MessageType {
+        case welcome      // 1일차
+        case success      // 성공
+        case retry        // 재도전
+        case streak       // 연속 달성
+        
+        var backgroundColor: Color {
+            switch self {
+            case .welcome:
+                return Color.appAccent.opacity(0.1)
+            case .success:
+                return Color.systemGreen.opacity(0.1)
+            case .retry:
+                return Color.systemBlue.opacity(0.1)
+            case .streak:
+                return LinearGradient(
+                    colors: [Color.systemGreen.opacity(0.1), 
+                             Color.systemOrange.opacity(0.1)],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            }
+        }
+    }
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            // 아이콘
+            Text(icon)
+                .font(.system(size: 24))
+            
+            VStack(alignment: .leading, spacing: 4) {
+                // 메인 메시지
+                if let streak = streakDays, messageType == .streak {
+                    HStack(spacing: 8) {
+                        Text("🔥 연속 \(streak)일")
+                            .font(.system(size: 18, weight: .bold))
+                        
+                        Spacer()
+                    }
+                }
+                
+                Text(message)
+                    .font(.system(size: messageType == .streak ? 14 : 16, 
+                                  weight: messageType == .streak ? .medium : .semibold))
+                    .foregroundColor(.primary)
+            }
+            
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .background(messageType.backgroundColor)
+        .cornerRadius(12)
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
+        .transition(.move(edge: .top).combined(with: .opacity))
+        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: message)
+    }
+}
+```
+
+**사용 예시**:
+```swift
+struct MainView: View {
+    @StateObject private var motivationManager = MotivationManager()
+    
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                // 동기부여 메시지 배너
+                if let motivation = motivationManager.currentMotivation {
+                    MotivationalMessageBanner(
+                        message: motivation.message,
+                        icon: motivation.icon,
+                        streakDays: motivation.streakDays,
+                        messageType: motivation.type
+                    )
+                }
+                
+                // 나머지 메인 화면 컴포넌트들
+                // ...
+            }
+        }
+    }
+}
+```
+
+#### 애니메이션 효과
+
+**배너 등장 애니메이션**:
+```swift
+// 화면 진입 시
+.onAppear {
+    withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
+        showBanner = true
+    }
+}
+
+// Slide in from top + Fade in
+.transition(.asymmetric(
+    insertion: .move(edge: .top).combined(with: .opacity),
+    removal: .opacity
+))
+```
+
+**연속 달성 특수 효과**:
+```swift
+// 3일 이상 연속 달성 시 불꽃 애니메이션
+if streakDays >= 3 {
+    Image(systemName: "flame.fill")
+        .foregroundColor(.systemOrange)
+        .scaleEffect(isAnimating ? 1.2 : 1.0)
+        .animation(
+            .easeInOut(duration: 0.6)
+            .repeatForever(autoreverses: true),
+            value: isAnimating
+        )
+}
+
+// 7일, 30일, 100일 마일스톤 달성 시 confetti 효과
+if isMilestone {
+    ConfettiView()
+        .transition(.scale)
+}
+```
+
+#### 다국어 지원
+
+**한국어 (KR)**:
+```
+1일차: "오늘부터 당신의 시간을 되찾아보세요!"
+성공: "어제도 목표 달성! 멋져요!"
+재도전: "괜찮아요, 오늘 다시 도전해봐요!"
+연속: "🔥 연속 {n}일"
+```
+
+**영어 (EN)**:
+```
+1일차: "Let's start taking back your time!"
+성공: "Great job yesterday! You nailed it!"
+재도전: "It's okay, let's try again today!"
+연속: "🔥 {n} day streak"
+```
+
+**Localizable.strings 키**:
+```
+"motivation.day1" = "오늘부터 당신의 시간을 되찾아보세요!";
+"motivation.success" = "어제도 목표 달성! 멋져요!";
+"motivation.retry" = "괜찮아요, 오늘 다시 도전해봐요!";
+"motivation.streak" = "🔥 연속 %d일";
+"motivation.streak_week" = "🔥 연속 %d일! 한 주 완주!";
+"motivation.streak_month" = "🔥 연속 %d일! 대단해요!";
+"motivation.streak_hundred" = "🔥 연속 %d일! 레전드!";
+```
+
+#### 데이터 관리
+
+**MotivationManager.swift**:
+```swift
+class MotivationManager: ObservableObject {
+    @Published var currentMotivation: Motivation?
+    
+    struct Motivation {
+        let message: String
+        let icon: String
+        let type: MotivationalMessageBanner.MessageType
+        let streakDays: Int?
+    }
+    
+    func updateMotivation() {
+        let usageDays = UserDefaults.standard.integer(forKey: "totalUsageDays")
+        let yesterdayAchieved = UserDefaults.standard.bool(forKey: "yesterdayAchieved")
+        let streakDays = UserDefaults.standard.integer(forKey: "consecutiveAchievementDays")
+        
+        if usageDays == 1 {
+            // 1일차
+            currentMotivation = Motivation(
+                message: "motivation.day1".localized,
+                icon: "💪",
+                type: .welcome,
+                streakDays: nil
+            )
+        } else if streakDays >= 3 {
+            // 연속 달성
+            let streakMessage = getStreakMessage(for: streakDays)
+            currentMotivation = Motivation(
+                message: "motivation.success".localized,
+                icon: "🔥",
+                type: .streak,
+                streakDays: streakDays
+            )
+        } else if yesterdayAchieved {
+            // 어제 성공
+            currentMotivation = Motivation(
+                message: "motivation.success".localized,
+                icon: "🎉",
+                type: .success,
+                streakDays: nil
+            )
+        } else {
+            // 어제 실패
+            currentMotivation = Motivation(
+                message: "motivation.retry".localized,
+                icon: "💙",
+                type: .retry,
+                streakDays: nil
+            )
+        }
+    }
+    
+    private func getStreakMessage(for days: Int) -> String {
+        switch days {
+        case 7:
+            return String(format: "motivation.streak_week".localized, days)
+        case 30:
+            return String(format: "motivation.streak_month".localized, days)
+        case 100:
+            return String(format: "motivation.streak_hundred".localized, days)
+        default:
+            return String(format: "motivation.streak".localized, days)
+        }
+    }
+}
+```
+
+#### 사용자 경험 고려사항
+
+1. **비침입적 디자인**: 
+   - 메시지가 화면의 주요 정보를 가리지 않도록 적절한 크기 유지
+   - 부드러운 배경색과 투명도 사용
+
+2. **자동 해제 옵션** (선택사항):
+   - 사용자가 메시지를 읽은 후 5초 후 자동으로 페이드 아웃
+   - 또는 스와이프 제스처로 수동 해제 가능
+
+3. **개인화**:
+   - 설정에서 동기부여 메시지 활성화/비활성화 옵션 제공
+   - 메시지 스타일 선택 (격려형/간결형/유머형)
+
+4. **성취감 극대화**:
+   - 연속 달성 일수는 눈에 띄게 강조
+   - 마일스톤 달성 시 특별한 시각 효과 추가
+
+---
+
 ### 1. 메인 화면 (Main View)
 
 #### 레이아웃 구조
@@ -241,7 +554,11 @@ TextSecondary: #FFFFFF (alpha: 0.6)
 ┌─────────────────────────────────────┐
 │  [Logo]  바보상자자물쇠    [KR|EN]  │ 
 ├─────────────────────────────────────┤
-│                                     │
+│  ┌─────────────────────────────┐   │ ← 동기부여 메시지 (NEW)
+│  │ 💪 오늘부터 당신의 시간을    │   │
+│  │    되찾아보세요!            │   │
+│  └─────────────────────────────┘   │
+├─────────────────────────────────────┤
 │  🎯 오늘의 목표 달성률               │ ← SF Display Bold 28pt
 │  ┌─────────────────────────────┐   │
 │  │ 2시간 30분 / 3시간           │   │ ← SF Text Semibold 20pt
@@ -511,6 +828,10 @@ Form {
     Section(header: Text("언어")) {
         LanguagePickerView()
     }
+    
+    Section(header: Text("동기부여")) {
+        Toggle("동기부여 메시지 표시", isOn: $showMotivation)
+    }
 }
 ```
 
@@ -770,6 +1091,7 @@ extension Font {
 시간 표시: .displayMedium (36pt Bold) - 숫자
 통계 수치: .titleLarge (24pt Semibold)
 캡션/설명: .captionLarge (12pt Regular)
+동기부여 메시지: .titleSmall (18pt Medium) 또는 .bodyLarge (17pt Semibold)
 ```
 
 ---
@@ -907,6 +1229,7 @@ extension View {
 ✓ 입력 완료 → Success Animation
 ✓ 에러 발생 → Error Message + Suggestion
 ✓ 로딩 중 → Progress Indicator + Estimated Time
+✓ 목표 달성 → 동기부여 메시지 + 축하 애니메이션
 ```
 
 ### 2. Predictable & Consistent
@@ -917,6 +1240,7 @@ extension View {
 ✓ 뒤로가기는 좌측 상단
 ✓ 설정은 우측 상단
 ✓ 색상/아이콘의 의미 일관성
+✓ 동기부여 메시지는 항상 상단
 ```
 
 ### 3. Accessibility
@@ -1008,6 +1332,8 @@ enum DeviceType {
 🌙 moon.fill (다크모드)
 ☀️ sun.max.fill (라이트모드)
 🔔 bell.fill (알림)
+💪 hand.raised.fill (동기부여)
+🎉 party.popper (축하)
 ```
 
 ### 커스텀 일러스트레이션
@@ -1078,11 +1404,13 @@ Color(UIColor { traitCollection in
   - Button Styles
   - Card Views
   - Progress Bars
+  - Motivational Message Banner (NEW)
 ```
 
 ### Phase 2: 화면별 UI 구현 (Week 3-5)
 ```
 ✓ 메인 화면
+  - 동기부여 메시지 배너 (NEW)
   - 카드 컴포넌트
   - 히트맵 구현
   - Progress 애니메이션
@@ -1115,6 +1443,7 @@ Color(UIColor { traitCollection in
 ✓ Dark Mode 테스트
 ✓ 다양한 디바이스 테스트
 ✓ 성능 최적화
+✓ 동기부여 메시지 A/B 테스트 (NEW)
 ```
 
 ---
@@ -1134,6 +1463,7 @@ Color(UIColor { traitCollection in
 - **Notion**: 유연한 레이아웃 시스템
 - **Sunsama**: 시간 블로킹 UI
 - **Apple Health**: 네이티브 iOS 디자인
+- **Duolingo**: 동기부여 메시지 시스템 (NEW)
 
 ### 디자인 트렌드 리서치 (2025)
 - **Exaggerated Minimalism**: 대담하면서도 심플한 디자인
@@ -1142,6 +1472,7 @@ Color(UIColor { traitCollection in
 - **Typography-driven**: 타이포그래피가 주도하는 UI
 - **Soft UI (Neumorphism)**: 부드러운 그림자와 깊이감
 - **Transparent Elements**: 블러 효과와 투명도 활용
+- **Gamification & Motivation**: 게이미피케이션 요소를 통한 사용자 참여 유도 (NEW)
 
 ---
 
@@ -1153,8 +1484,10 @@ Color(UIColor { traitCollection in
 - [ ] Component Library 기본 구조 설정
 - [ ] Theme Manager 초기화
 - [ ] SF Symbols 리스트 정리
+- [ ] Motivational Message 텍스트 번역 (NEW)
 
 ### 화면별 구현 체크
+- [ ] 메인 화면 - 동기부여 메시지 배너 (NEW)
 - [ ] 메인 화면 - 카드 레이아웃
 - [ ] 메인 화면 - 히트맵
 - [ ] 메인 화면 - Progress Bar
@@ -1162,6 +1495,7 @@ Color(UIColor { traitCollection in
 - [ ] 해제 화면 - 단어 Pill
 - [ ] 해제 화면 - AI 평가 UI
 - [ ] 설정 화면 - 테마 선택
+- [ ] 설정 화면 - 동기부여 메시지 토글 (NEW)
 
 ### 테마 시스템 체크
 - [ ] Device Color Detection
@@ -1170,6 +1504,14 @@ Color(UIColor { traitCollection in
 - [ ] Theme Persistence (UserDefaults)
 - [ ] Real-time Theme Switching
 
+### 동기부여 시스템 체크 (NEW)
+- [ ] MotivationManager 구현
+- [ ] 사용 일수 추적 로직
+- [ ] 연속 달성 계산 로직
+- [ ] 메시지 표시/숨김 토글
+- [ ] 다국어 메시지 번역
+- [ ] 마일스톤 애니메이션 효과
+
 ### 품질 보증 체크
 - [ ] Light/Dark Mode 모두 테스트
 - [ ] VoiceOver 접근성 검증
@@ -1177,10 +1519,20 @@ Color(UIColor { traitCollection in
 - [ ] 다양한 기기 사이즈 테스트
 - [ ] 애니메이션 성능 측정
 - [ ] 색상 대비 비율 확인 (4.5:1)
+- [ ] 동기부여 메시지 정확성 검증 (NEW)
 
 ---
 
 ## 📝 버전 히스토리
+
+**v1.1 (2025-11-04)**
+- 동기부여 메시지 시스템 추가
+  - 1일차 환영 메시지
+  - 성공/실패 피드백 메시지
+  - 연속 달성 스트릭 표시
+  - 마일스톤 축하 효과
+- 메인 화면 레이아웃 업데이트
+- 설정 화면에 동기부여 메시지 토글 추가
 
 **v1.0 (2025-11-04)**
 - 초기 디자인 요구사항 작성
@@ -1193,4 +1545,4 @@ Color(UIColor { traitCollection in
 
 **작성자**: DevJihwan  
 **최종 수정일**: 2025년 11월 4일  
-**문서 상태**: 초안 (Draft)
+**문서 상태**: v1.1 - 동기부여 시스템 추가
