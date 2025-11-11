@@ -63,25 +63,58 @@ class AIEvaluationService {
     
     // MARK: - API Key Management
     
-    /// Config.plist에서 API 키 로드
+    /// Config.xcconfig 또는 환경변수에서 API 키 로드
     private func getAPIKey(for key: String) -> String? {
-        // 1. Config.plist 시도
+        // 1. Info.plist에서 먼저 확인 (빌드 시 xcconfig에서 주입된 값)
+        if let plistKey = Bundle.main.object(forInfoDictionaryKey: key) as? String,
+           !plistKey.isEmpty && !plistKey.hasPrefix("$") && !plistKey.hasPrefix("{") {
+            print("✅ API 키 로드 성공 (Info.plist): \(key)")
+            return plistKey
+        }
+
+        // 2. Config.xcconfig 파일에서 직접 읽기
+        if let configPath = Bundle.main.path(forResource: "Config", ofType: "xcconfig") {
+            do {
+                let configContent = try String(contentsOfFile: configPath)
+                let lines = configContent.components(separatedBy: .newlines)
+                for line in lines {
+                    let trimmedLine = line.trimmingCharacters(in: .whitespaces)
+                    if trimmedLine.hasPrefix(key) && trimmedLine.contains("=") {
+                        let components = trimmedLine.components(separatedBy: "=")
+                        if components.count >= 2 {
+                            let keyValue = components[1].trimmingCharacters(in: .whitespaces)
+                            if !keyValue.isEmpty {
+                                print("✅ API 키 로드 성공 (Config.xcconfig): \(key)")
+                                return keyValue
+                            }
+                        }
+                    }
+                }
+            } catch {
+                print("❌ Config.xcconfig 읽기 오류: \(error)")
+            }
+        }
+
+        // 3. 환경변수 시도 (개발 환경)
+        if let apiKey = ProcessInfo.processInfo.environment[key], !apiKey.isEmpty {
+            print("✅ API 키 로드 성공 (환경변수): \(key)")
+            return apiKey
+        }
+
+        // 4. Config.plist 시도 (이전 방식 호환성)
         if let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
            let config = NSDictionary(contentsOfFile: path),
            let apiKey = config[key] as? String, !apiKey.isEmpty {
+            print("✅ API 키 로드 성공 (Config.plist): \(key)")
             return apiKey
         }
-        
-        // 2. 환경변수 시도 (개발 환경)
-        if let apiKey = ProcessInfo.processInfo.environment[key], !apiKey.isEmpty {
-            return apiKey
-        }
-        
-        // 3. UserDefaults 시도 (사용자가 설정한 경우)
+
+        // 5. UserDefaults 시도 (사용자가 설정한 경우)
         if let apiKey = UserDefaults.standard.string(forKey: key), !apiKey.isEmpty {
+            print("✅ API 키 로드 성공 (UserDefaults): \(key)")
             return apiKey
         }
-        
+
         print("⚠️ API Key를 찾을 수 없습니다: \(key)")
         return nil
     }
@@ -164,7 +197,7 @@ class AIEvaluationService {
         let prompt = createEvaluationPrompt(sentence: sentence, word1: word1, word2: word2)
         
         let body: [String: Any] = [
-            "model": "gpt-4",
+            "model": "gpt-4o-mini", // 저렴하고 빠른 모델 사용
             "messages": [
                 ["role": "system", "content": "당신은 창의력을 평가하는 전문가입니다. 주어진 문장의 창의성을 평가하고, PASS 또는 FAIL로 판정합니다. 응답은 반드시 JSON 형식으로 {\"result\": \"PASS\", \"feedback\": \"...\"} 또는 {\"result\": \"FAIL\", \"feedback\": \"...\"}로 작성하세요."],
                 ["role": "user", "content": prompt]
@@ -233,7 +266,7 @@ class AIEvaluationService {
         let prompt = createEvaluationPrompt(sentence: sentence, word1: word1, word2: word2)
         
         let body: [String: Any] = [
-            "model": "claude-3-opus-20240229",
+            "model": "claude-3-haiku-20240307", // 저렴하고 빠른 모델 사용
             "max_tokens": 150,
             "messages": [
                 ["role": "user", "content": prompt]

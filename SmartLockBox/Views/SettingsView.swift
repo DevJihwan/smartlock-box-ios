@@ -11,11 +11,12 @@ struct SettingsView: View {
     @EnvironmentObject var appState: AppStateManager
     @ObservedObject private var localizationManager = LocalizationManager.shared
     @ObservedObject private var motivationManager = MotivationManager.shared
+    @ObservedObject private var themeManager = ThemeManager.shared
     @State private var dailyGoalHours: Double = 3
     @State private var autoUnlockTime: Date = Calendar.current.date(from: DateComponents(hour: 0, minute: 0))!
     @State private var isShowingResetAlert = false
     @Environment(\.colorScheme) private var colorScheme
-    
+
     var body: some View {
         Form {
             subscriptionSection
@@ -24,6 +25,7 @@ struct SettingsView: View {
             challengeSettingsSection
             notificationSection
             motivationSection
+            themeSection
             languageSection
             blockedAppsSection
             appInfoSection
@@ -134,6 +136,36 @@ struct SettingsView: View {
                 }
 
             Text("settings_motivation_description".localized)
+                .font(.caption)
+                .foregroundColor(AppColors.secondaryText)
+        }
+    }
+
+    // MARK: - Theme Settings
+
+    private var themeSection: some View {
+        Section(header: sectionHeader("settings_theme".localized)) {
+            NavigationLink(destination: ThemeSelectionView()) {
+                HStack {
+                    Image(systemName: "paintbrush.fill")
+                        .foregroundColor(themeManager.themeColor)
+
+                    Text("settings_app_theme".localized)
+                        .foregroundColor(AppColors.text)
+
+                    Spacer()
+
+                    Circle()
+                        .fill(themeManager.themeColor)
+                        .frame(width: 24, height: 24)
+                        .overlay(
+                            Circle()
+                                .strokeBorder(Color.primary.opacity(0.2), lineWidth: 1)
+                        )
+                }
+            }
+
+            Text("settings_theme_description".localized)
                 .font(.caption)
                 .foregroundColor(AppColors.secondaryText)
         }

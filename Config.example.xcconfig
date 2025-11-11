@@ -1,0 +1,19 @@
+// Config.xcconfig - API Keys and Build Settings
+// SmartLockBox App Configuration
+//
+// SETUP INSTRUCTIONS:
+// 1. Copy this file to "Config.xcconfig" (without .example)
+// 2. Replace the placeholder values below with your actual API keys
+// 3. DO NOT commit Config.xcconfig to Git (it's in .gitignore)
+
+// Anthropic Claude API Key (using Haiku for cost efficiency)
+// Get your key from: https://console.anthropic.com/
+ANTHROPIC_API_KEY = your_anthropic_api_key_here
+
+// OpenAI API Key (using GPT-4o-mini for cost efficiency)
+// Get your key from: https://platform.openai.com/api-keys
+OPENAI_API_KEY = your_openai_api_key_here
+
+// Build Configuration
+APP_VERSION = 1.0.0
+BUILD_NUMBER = 1

@@ -262,3 +262,27 @@
 "settings_motivation" = "Motivation";
 "settings_motivation_messages" = "Show Motivational Messages";
 "settings_motivation_description" = "Display daily motivational messages on the main screen";
+
+// MARK: - Time Control Setup Prompt
+"setup_time_control_title" = "Set Up Time Control";
+"setup_time_control_message" = "Set your daily goal time and start your healthy digital life!";
+"setup_time_control_button" = "Set Up Time Control";
+"setup_time_control_skip" = "Skip for now";
+"setup_goal_picker_title" = "Set Your Daily Goal";
+"setup_goal_picker_hours" = "hours";
+"setup_goal_picker_subtitle" = "Adjust the slider to set your goal time";
+"setup_goal_confirm" = "Confirm";
+
+// MARK: - Theme Settings
+"settings_theme" = "App Theme";
+"settings_app_theme" = "App Theme Color";
+"settings_theme_description" = "Match your app's main color with your iPhone device color";
+"theme_title" = "App Theme";
+"theme_device_color_header" = "iPhone Color Matching";
+"theme_match_device_color" = "Match My iPhone Color";
+"theme_match_device_description" = "The app's main color will harmoniously change to match your iPhone device color";
+"theme_preset_colors" = "Preset Colors";
+"theme_custom_color" = "Custom Color";
+"theme_select_custom_color" = "Select Custom Color";
+"theme_preview" = "Preview";
+"theme_select_color" = "Select Color";

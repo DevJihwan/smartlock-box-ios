@@ -27,12 +27,17 @@ class AppStateManager: ObservableObject {
     /// 오늘 사용한 시간 (분)
     @Published var todayUsageMinutes: Int = 0
     
-    /// 일일 목표 시간 (분)
-    @Published var dailyGoalMinutes: Int = 180 {
+    /// 일일 목표 시간 (분) - 0이면 미설정 상태
+    @Published var dailyGoalMinutes: Int = 0 {
         didSet {
             UserDefaults.standard.set(dailyGoalMinutes, forKey: "dailyGoalMinutes")
             checkGoalStatus()
         }
+    }
+
+    /// 목표 시간이 설정되어 있는지 여부
+    var hasGoalSet: Bool {
+        return dailyGoalMinutes > 0
     }
     
     /// 사용 비율 (%)
@@ -154,25 +159,29 @@ class AppStateManager: ObservableObject {
     private func loadSavedState() {
         // Load saved values from UserDefaults
         dailyGoalMinutes = UserDefaults.standard.integer(forKey: "dailyGoalMinutes")
-        if dailyGoalMinutes == 0 {
-            dailyGoalMinutes = 180 // Default 3 hours
+        // 0이면 미설정 상태로 유지
+
+        // If no goal is set, ensure the app is not locked
+        if !hasGoalSet {
+            isLocked = false
+        } else {
+            isLocked = UserDefaults.standard.bool(forKey: "isLocked")
         }
-        
-        isLocked = UserDefaults.standard.bool(forKey: "isLocked")
+
         todayChallengeAttempts = UserDefaults.standard.integer(forKey: "todayChallengeAttempts")
         todayUsageMinutes = UserDefaults.standard.integer(forKey: "todayUsageMinutes")
-        
+
         // Load auto unlock time
         let hour = UserDefaults.standard.integer(forKey: "autoUnlockHour")
         let minute = UserDefaults.standard.integer(forKey: "autoUnlockMinute")
         autoUnlockTime = (hour: hour, minute: minute)
-        
+
         // Load lock start time
         if let savedLockTime = UserDefaults.standard.object(forKey: "lockStartTime") as? Date {
             lockStartTime = savedLockTime
             calculateUnlockTime()
         }
-        
+
         // Check if need to unlock
         checkAutoUnlock()
     }
@@ -222,6 +231,9 @@ class AppStateManager: ObservableObject {
     }
     
     private func checkGoalStatus() {
+        // Don't check lock status if no goal is set
+        guard hasGoalSet else { return }
+
         // Check if should lock based on subscription tier
         let shouldLock = subscriptionManager.shouldLockDevice(
             todayUsage: TimeInterval(todayUsageMinutes * 60),

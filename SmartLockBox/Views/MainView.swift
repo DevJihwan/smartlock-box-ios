@@ -37,10 +37,16 @@ struct MainView: View {
                     MotivationalMessageBanner(motivation: motivation)
                 }
 
-                goalAchievementSection
-                timeRemainingSection
-                weeklyStatsSection
-                monthlyHeatmapSection
+                // Show setup prompt if no goal is set, otherwise show time tracking
+                if !appState.hasGoalSet {
+                    SetupPromptCard()
+                } else {
+                    goalAchievementSection
+                    timeRemainingSection
+                    weeklyStatsSection
+                    monthlyHeatmapSection
+                }
+
                 Spacer(minLength: 20)
             }
             .padding()
@@ -84,21 +90,22 @@ struct MainView: View {
     }
     
     // MARK: - Goal Achievement Section
-    
+
     private var goalAchievementSection: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 20) {
             Text("today_goal".localized)
                 .font(.title2.bold())
                 .foregroundColor(AppColors.text)
-            
+                .frame(maxWidth: .infinity, alignment: .leading)
+
             progressBar
             lockStatusView
         }
-        .padding()
+        .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(AppColors.cardBackground)
-                .adaptiveShadow()
+                .adaptiveShadow(radius: 8, opacity: 0.08, y: 4)
         )
     }
     
@@ -115,23 +122,23 @@ struct MainView: View {
     }
     
     private var lockStatusView: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
+        HStack(spacing: 16) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text(appState.currentState == .locked
                      ? "status_locked".localized
                      : "status_unlocked".localized)
                     .font(.headline)
                     .foregroundColor(appState.currentState == .locked ? AppColors.lock : AppColors.unlock)
-                
+
                 Text(appState.currentState == .locked
                      ? "tap_to_unlock".localized
                      : "auto_locks".localized(with: Int(appState.usagePercentage)))
                     .font(.subheadline)
                     .foregroundColor(AppColors.secondaryText)
             }
-            
+
             Spacer()
-            
+
             PulsatingLockButton(
                 isLocked: Binding<Bool>(
                     get: { appState.currentState == .locked },
@@ -142,10 +149,10 @@ struct MainView: View {
                         navigateToUnlock()
                     }
                 },
-                size: 60
+                size: 56
             )
         }
-        .padding()
+        .padding(16)
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(AppColors.secondaryBackground)
@@ -165,29 +172,31 @@ struct MainView: View {
     }
     
     // MARK: - Weekly Stats Section
-    
+
     @ViewBuilder
     private var weeklyStatsSection: some View {
         if let weeklyStats = viewModel.weeklyStats {
             WeeklyStatsCard(stats: weeklyStats)
+                .padding(20)
                 .background(
                     RoundedRectangle(cornerRadius: 20)
                         .fill(AppColors.cardBackground)
-                        .adaptiveShadow()
+                        .adaptiveShadow(radius: 8, opacity: 0.08, y: 4)
                 )
         }
     }
-    
+
     // MARK: - Monthly Heatmap Section
-    
+
     @ViewBuilder
     private var monthlyHeatmapSection: some View {
         if let monthlyStats = viewModel.monthlyStats {
             MonthlyHeatmapCard(stats: monthlyStats)
+                .padding(20)
                 .background(
                     RoundedRectangle(cornerRadius: 20)
                         .fill(AppColors.cardBackground)
-                        .adaptiveShadow()
+                        .adaptiveShadow(radius: 8, opacity: 0.08, y: 4)
                 )
         }
     }
@@ -254,24 +263,25 @@ struct MainView: View {
 struct TimeRemainingView: View {
     let remainingMinutes: Int
     let expectedLockTime: Date
-    
+
     @State private var isAnimating = false
     @Environment(\.colorScheme) private var colorScheme
-    
+
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 16) {
             Text("time_until_lock".localized)
                 .font(.headline)
                 .foregroundColor(AppColors.text)
-            
+                .frame(maxWidth: .infinity, alignment: .leading)
+
             timeDisplay
             expectedLockTimeText
         }
-        .padding()
+        .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(AppColors.cardBackground)
-                .adaptiveShadow()
+                .adaptiveShadow(radius: 8, opacity: 0.08, y: 4)
         )
         .onAppear {
             startAnimation()

@@ -48,5 +48,9 @@
 	</array>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>앱 사용 시간을 모니터링하기 위해 Screen Time 권한이 필요합니다.</string>
+	<key>OPENAI_API_KEY</key>
+	<string>$(OPENAI_API_KEY)</string>
+	<key>ANTHROPIC_API_KEY</key>
+	<string>$(ANTHROPIC_API_KEY)</string>
 </dict>
 </plist>

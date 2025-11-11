@@ -262,3 +262,27 @@
 "settings_motivation" = "동기부여";
 "settings_motivation_messages" = "동기부여 메시지 표시";
 "settings_motivation_description" = "매일 동기부여 메시지를 메인 화면에 표시합니다";
+
+// MARK: - 시간 제어 설정 프롬프트
+"setup_time_control_title" = "시간 제어를 설정하세요";
+"setup_time_control_message" = "하루 목표 사용 시간을 설정하고 건강한 디지털 라이프를 시작하세요!";
+"setup_time_control_button" = "시간 제어 설정하기";
+"setup_time_control_skip" = "나중에 하기";
+"setup_goal_picker_title" = "하루 목표 시간 설정";
+"setup_goal_picker_hours" = "시간";
+"setup_goal_picker_subtitle" = "슬라이더를 움직여 목표 시간을 선택하세요";
+"setup_goal_confirm" = "확인";
+
+// MARK: - 테마 설정
+"settings_theme" = "앱 테마";
+"settings_app_theme" = "앱 테마 색상";
+"settings_theme_description" = "앱의 메인 색상을 아이폰 기기 색상과 맞춰보세요";
+"theme_title" = "앱 테마";
+"theme_device_color_header" = "아이폰 색상 매칭";
+"theme_match_device_color" = "내 아이폰 색상과 매칭";
+"theme_match_device_description" = "앱의 메인 색상이 아이폰 기기 색상과 조화롭게 변경됩니다";
+"theme_preset_colors" = "프리셋 색상";
+"theme_custom_color" = "커스텀 색상";
+"theme_select_custom_color" = "커스텀 색상 선택";
+"theme_preview" = "미리보기";
+"theme_select_color" = "색상 선택";

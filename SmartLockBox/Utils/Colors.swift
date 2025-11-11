@@ -15,7 +15,11 @@ struct AppColors {
     static let secondaryBackground = Color("SecondaryBackground")
     static let text = Color("Text")
     static let secondaryText = Color("SecondaryText")
-    static let accent = Color("Accent")
+
+    // 액센트 색상 - ThemeManager에서 가져옴
+    static var accent: Color {
+        ThemeManager.shared.themeColor
+    }
     
     // 기능별 색상
     static let progress = Color("ProgressColor")

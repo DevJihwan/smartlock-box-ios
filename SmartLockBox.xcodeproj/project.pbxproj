@@ -28,6 +28,7 @@
 		EE201F182E9906C20025EA5D /* SmartLockBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartLockBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE201F2D2E9906C30025EA5D /* SmartLockBoxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartLockBoxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE201F372E9906C30025EA5D /* SmartLockBoxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartLockBoxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA1234567890ABCDEF123456 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -229,7 +230,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
+							BB1234567890ABCDEF123456 /* Config.xcconfig in Resources */,
+);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		EE201F2B2E9906C30025EA5D /* Resources */ = {
