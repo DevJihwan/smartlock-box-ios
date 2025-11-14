@@ -15,12 +15,12 @@ class AppStateManager: ObservableObject {
     
     /// 현재 앱 잠금 상태
     enum AppState {
-        case unlocked
+        case normal
         case locked
-        case challengeActive
+        case unlockChallenge
     }
-    
-    @Published var currentState: AppState = .unlocked
+
+    @Published var currentState: AppState = .normal
     
     // MARK: - Usage Tracking
     
@@ -42,13 +42,15 @@ class AppStateManager: ObservableObject {
     
     /// 사용 비율 (%)
     var usagePercentage: Int {
-        guard dailyGoalMinutes > 0 else { return 0 }
-        return min(100, (todayUsageMinutes * 100) / dailyGoalMinutes)
+        // v2.0: Use limitMinutes instead of dailyGoalMinutes
+        guard limitMinutes > 0 else { return 0 }
+        return min(100, (todayUsageMinutes * 100) / limitMinutes)
     }
-    
+
     /// 남은 사용 시간 (분)
     var remainingMinutes: Int {
-        return max(0, dailyGoalMinutes - todayUsageMinutes)
+        // v2.0: Use limitMinutes instead of dailyGoalMinutes
+        return max(0, limitMinutes - todayUsageMinutes)
     }
     
     // MARK: - Lock State
@@ -56,9 +58,9 @@ class AppStateManager: ObservableObject {
     /// 잠금 여부
     @Published var isLocked: Bool = false {
         didSet {
-            currentState = isLocked ? .locked : .unlocked
+            currentState = isLocked ? .locked : .normal
             UserDefaults.standard.set(isLocked, forKey: "isLocked")
-            
+
             if isLocked {
                 // 잠금 시작 시간 저장
                 lockStartTime = Date()
@@ -117,15 +119,13 @@ class AppStateManager: ObservableObject {
 
     var screenTimeManager: ScreenTimeManager? = ScreenTimeManager.shared
 
-    // MARK: - Subscription Integration
+    // MARK: - Time Slot Control Settings (v2.0)
 
-    var subscriptionManager: SubscriptionManager = SubscriptionManager.shared
+    @Published var isControlEnabled: Bool = false
+    @Published var slotStartTime: Date = Calendar.current.date(from: DateComponents(hour: 9, minute: 0))!
+    @Published var slotEndTime: Date = Calendar.current.date(from: DateComponents(hour: 15, minute: 0))!
+    @Published var limitMinutes: Int = 120 // 2 hours by default
 
-    /// 현재 활성 시간대의 사용 시간 (초)
-    @Published var currentTimeSlotUsageSeconds: TimeInterval = 0
-
-    /// 일일 사용 기록
-    @Published var dailyUsageRecord: DailyUsageRecord = UserDefaults.standard.dailyUsageRecord
 
     // MARK: - Initialization
 
@@ -133,25 +133,6 @@ class AppStateManager: ObservableObject {
         loadSavedState()
         startUsageTimer()
         checkDailyReset()
-        setupSubscriptionObserver()
-    }
-
-    // MARK: - Subscription Observer
-
-    private var subscriptionCancellable: AnyCancellable?
-
-    private func setupSubscriptionObserver() {
-        // Listen to subscription tier changes
-        subscriptionCancellable = NotificationCenter.default
-            .publisher(for: .subscriptionTierChanged)
-            .sink { [weak self] _ in
-                self?.handleSubscriptionChange()
-            }
-    }
-
-    private func handleSubscriptionChange() {
-        print("📊 Subscription tier changed, rechecking lock status")
-        checkGoalStatus()
     }
     
     // MARK: - Load/Save State
@@ -160,6 +141,20 @@ class AppStateManager: ObservableObject {
         // Load saved values from UserDefaults
         dailyGoalMinutes = UserDefaults.standard.integer(forKey: "dailyGoalMinutes")
         // 0이면 미설정 상태로 유지
+
+        // Load time slot control settings
+        isControlEnabled = UserDefaults.standard.bool(forKey: "isControlEnabled")
+        if let startTime = UserDefaults.standard.object(forKey: "slotStartTime") as? Date {
+            slotStartTime = startTime
+        }
+        if let endTime = UserDefaults.standard.object(forKey: "slotEndTime") as? Date {
+            slotEndTime = endTime
+        }
+        let savedLimit = UserDefaults.standard.integer(forKey: "limitMinutes")
+        if savedLimit > 0 {
+            limitMinutes = savedLimit
+        }
+
 
         // If no goal is set, ensure the app is not locked
         if !hasGoalSet {
@@ -185,6 +180,36 @@ class AppStateManager: ObservableObject {
         // Check if need to unlock
         checkAutoUnlock()
     }
+
+    func saveSettings() {
+        UserDefaults.standard.set(isControlEnabled, forKey: "isControlEnabled")
+        UserDefaults.standard.set(slotStartTime, forKey: "slotStartTime")
+        UserDefaults.standard.set(slotEndTime, forKey: "slotEndTime")
+        UserDefaults.standard.set(limitMinutes, forKey: "limitMinutes")
+    }
+
+    func loadSettings() {
+        loadSavedState()
+    }
+
+    // Check if current time is within the time slot
+    var isWithinTimeSlot: Bool {
+        let now = Date()
+        let calendar = Calendar.current
+        let currentHour = calendar.component(.hour, from: now)
+        let currentMinute = calendar.component(.minute, from: now)
+
+        let startHour = calendar.component(.hour, from: slotStartTime)
+        let startMinute = calendar.component(.minute, from: slotStartTime)
+        let endHour = calendar.component(.hour, from: slotEndTime)
+        let endMinute = calendar.component(.minute, from: slotEndTime)
+
+        let currentTimeInMinutes = currentHour * 60 + currentMinute
+        let startTimeInMinutes = startHour * 60 + startMinute
+        let endTimeInMinutes = endHour * 60 + endMinute
+
+        return currentTimeInMinutes >= startTimeInMinutes && currentTimeInMinutes < endTimeInMinutes
+    }
     
     // MARK: - Usage Tracking
     
@@ -198,47 +223,25 @@ class AppStateManager: ObservableObject {
     }
     
     private func updateUsage() {
-        // In production, integrate with ScreenTimeManager
-        // For now, simulate usage tracking
+        // v2.0: Only count usage when control is enabled and within time slot
+        guard isControlEnabled && isWithinTimeSlot else { return }
         guard !isLocked else { return }
 
         // Update total usage
         todayUsageMinutes += 1
         UserDefaults.standard.set(todayUsageMinutes, forKey: "todayUsageMinutes")
 
-        // Update daily usage record
-        dailyUsageRecord.totalUsageSeconds += 60 // Add 1 minute (60 seconds)
-
-        // If premium tier with time slots, track per time slot
-        if subscriptionManager.currentTier == .premium,
-           subscriptionManager.premiumTierSettings.useTimeSlotMode,
-           let currentSlot = subscriptionManager.getCurrentTimeSlot() {
-
-            // Update time slot usage
-            let currentSlotUsage = dailyUsageRecord.usage(for: currentSlot.id)
-            dailyUsageRecord.updateUsage(for: currentSlot.id, seconds: currentSlotUsage + 60)
-
-            // Update published property for UI
-            currentTimeSlotUsageSeconds = dailyUsageRecord.usage(for: currentSlot.id)
-
-            print("📊 Time Slot Usage - \(currentSlot.name): \(Int(currentTimeSlotUsageSeconds)/60) min")
-        }
-
-        // Save daily usage record
-        UserDefaults.standard.dailyUsageRecord = dailyUsageRecord
+        print("📊 Usage updated: \(todayUsageMinutes)/\(limitMinutes) minutes (remaining: \(remainingMinutes))")
 
         checkGoalStatus()
     }
     
     private func checkGoalStatus() {
-        // Don't check lock status if no goal is set
-        guard hasGoalSet else { return }
+        // v2.0: Only check if control is enabled
+        guard isControlEnabled else { return }
 
-        // Check if should lock based on subscription tier
-        let shouldLock = subscriptionManager.shouldLockDevice(
-            todayUsage: TimeInterval(todayUsageMinutes * 60),
-            currentSlotUsage: currentTimeSlotUsageSeconds
-        )
+        // v2.0: Lock when usage exceeds limit during time slot
+        let shouldLock = todayUsageMinutes >= limitMinutes
 
         if shouldLock && !isLocked {
             enableLock()
@@ -249,11 +252,11 @@ class AppStateManager: ObservableObject {
     
     func enableLock() {
         isLocked = true
-        
+
         // Integrate with ScreenTimeManager
         screenTimeManager?.enableAppBlocking()
-        
-        print("🔒 Lock enabled - Usage: \(todayUsageMinutes)/\(dailyGoalMinutes) minutes")
+
+        print("🔒 Lock enabled - Usage: \(todayUsageMinutes)/\(limitMinutes) minutes")
     }
     
     func disableLock() {
@@ -297,17 +300,17 @@ class AppStateManager: ObservableObject {
             print("⚠️ No attempts remaining today")
             return
         }
-        
+
         isChallengeActive = true
-        currentState = .challengeActive
+        currentState = .unlockChallenge
         todayChallengeAttempts += 1
-        
+
         print("🎮 Challenge started - Attempts: \(todayChallengeAttempts)/\(maxDailyAttempts)")
     }
-    
+
     func endUnlockChallenge(success: Bool) {
         isChallengeActive = false
-        
+
         if success {
             disableLock()
             print("✅ Challenge succeeded - Lock disabled")
@@ -316,10 +319,10 @@ class AppStateManager: ObservableObject {
             print("❌ Challenge failed - Lock remains")
         }
     }
-    
+
     func cancelUnlockChallenge() {
         isChallengeActive = false
-        currentState = isLocked ? .locked : .unlocked
+        currentState = isLocked ? .locked : .normal
         // Don't decrement attempts - user already used one
     }
     
@@ -361,17 +364,12 @@ class AppStateManager: ObservableObject {
         todayUsageMinutes = 0
         todayChallengeAttempts = 0
 
-        // Reset time slot usage
-        currentTimeSlotUsageSeconds = 0
-        dailyUsageRecord = DailyUsageRecord()
-
         // Update last reset date
         lastResetDate = Calendar.current.startOfDay(for: Date())
 
         // Save to UserDefaults
         UserDefaults.standard.set(0, forKey: "todayUsageMinutes")
         UserDefaults.standard.set(0, forKey: "todayChallengeAttempts")
-        UserDefaults.standard.dailyUsageRecord = dailyUsageRecord
 
         // Check if should auto-unlock
         checkAutoUnlock()

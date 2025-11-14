@@ -25,6 +25,7 @@ struct UnlockChallengeView: View {
             } else {
                 ChallengeInputView(
                     viewModel: viewModel,
+                    unlockTime: appState.unlockTime,
                     onSubmit: handleSubmit,
                     onCancel: handleCancel
                 )
@@ -69,9 +70,10 @@ struct UnlockChallengeView: View {
 
 struct ChallengeInputView: View {
     @ObservedObject var viewModel: UnlockChallengeViewModel
+    let unlockTime: Date?
     let onSubmit: () -> Void
     let onCancel: () -> Void
-    
+
     var body: some View {
         VStack(spacing: 30) {
             headerSection
@@ -82,25 +84,50 @@ struct ChallengeInputView: View {
             Spacer()
         }
     }
-    
+
     // MARK: - Header
-    
+
     private var headerSection: some View {
-        VStack(spacing: 8) {
-            Image(systemName: "key.fill")
-                .font(.system(size: 60))
-                .foregroundColor(.blue)
-            
-            Text("🗝️ 창의적 해제 도전")
-                .font(.title2)
-                .fontWeight(.bold)
-            
-            Text("제시단어 2개를 포함한 창의적인\n문장을 만들어 자물쇠를 풀어보세요!")
+        VStack(spacing: 12) {
+            Image(systemName: "lock.fill")
+                .font(.system(size: 70))
+                .foregroundColor(.white)
+                .padding()
+                .background(
+                    Circle()
+                        .fill(LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .shadow(color: .blue.opacity(0.3), radius: 10, y: 5)
+                )
+
+            Text("🔒 ThinkFree Locked")
+                .font(.title.bold())
+                .foregroundColor(.primary)
+
+            if let unlockTime = unlockTime {
+                let formattedTime = {
+                    let formatter = DateFormatter()
+                    formatter.timeStyle = .short
+                    return formatter.string(from: unlockTime)
+                }()
+
+                Text("Locked until \(formattedTime)")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+
+            Divider()
+                .padding(.vertical, 8)
+
+            Text("💡 Creative Unlock")
+                .font(.headline)
+                .foregroundColor(.primary)
+
+            Text("Create a creative sentence\nusing the two words below:")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
         }
-        .padding(.top, 40)
+        .padding(.top, 30)
     }
     
     // MARK: - Word Bubbles
@@ -188,9 +215,23 @@ struct ChallengeInputView: View {
     }
     
     private var remainingAttemptsText: some View {
-        Text("남은 도전 횟수: \(viewModel.remainingAttempts)회")
-            .font(.caption)
-            .foregroundColor(.secondary)
+        VStack(spacing: 4) {
+            Text("⚠️ Daily Limits")
+                .font(.caption.bold())
+                .foregroundColor(.orange)
+            HStack {
+                Text("💬 Submissions: \(viewModel.remainingAttempts)/10")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                Spacer()
+                Text("🔄 Word Changes: \(viewModel.remainingRefreshCount)/3")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding()
+        .background(Color.orange.opacity(0.1))
+        .cornerRadius(8)
     }
 }
 

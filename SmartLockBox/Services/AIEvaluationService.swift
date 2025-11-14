@@ -62,60 +62,55 @@ class AIEvaluationService {
     }
     
     // MARK: - API Key Management
-    
-    /// Config.xcconfig 또는 환경변수에서 API 키 로드
+
+    /// API 키 로드 (Config.xcconfig → Info.plist → 환경변수 순서로 시도)
     private func getAPIKey(for key: String) -> String? {
-        // 1. Info.plist에서 먼저 확인 (빌드 시 xcconfig에서 주입된 값)
+        print("🔍 [\(key)] API 키 로드 시작...")
+
+        // Priority 1: Info.plist에서 읽기 (xcconfig에서 주입된 값)
         if let plistKey = Bundle.main.object(forInfoDictionaryKey: key) as? String,
            !plistKey.isEmpty && !plistKey.hasPrefix("$") && !plistKey.hasPrefix("{") {
-            print("✅ API 키 로드 성공 (Info.plist): \(key)")
+            print("✅ [\(key)] Info.plist에서 API 키 로드 성공")
+            print("🔍 [\(key)] 키 시작: \(String(plistKey.prefix(15)))...")
             return plistKey
         }
 
-        // 2. Config.xcconfig 파일에서 직접 읽기
+        // Priority 2: Config.xcconfig 파일에서 직접 읽기
         if let configPath = Bundle.main.path(forResource: "Config", ofType: "xcconfig") {
             do {
-                let configContent = try String(contentsOfFile: configPath)
+                let configContent = try String(contentsOfFile: configPath, encoding: .utf8)
+                print("🔍 [\(key)] Config.xcconfig 파일 발견")
+
                 let lines = configContent.components(separatedBy: .newlines)
                 for line in lines {
-                    let trimmedLine = line.trimmingCharacters(in: .whitespaces)
+                    let trimmedLine = line.trimmingCharacters(in: .whitespacesAndNewlines)
                     if trimmedLine.hasPrefix(key) && trimmedLine.contains("=") {
-                        let components = trimmedLine.components(separatedBy: "=")
-                        if components.count >= 2 {
-                            let keyValue = components[1].trimmingCharacters(in: .whitespaces)
+                        let parts = trimmedLine.components(separatedBy: "=")
+                        if parts.count >= 2 {
+                            let keyValue = parts[1].trimmingCharacters(in: .whitespacesAndNewlines)
                             if !keyValue.isEmpty {
-                                print("✅ API 키 로드 성공 (Config.xcconfig): \(key)")
+                                print("✅ [\(key)] Config.xcconfig에서 API 키 로드 성공")
+                                print("🔍 [\(key)] 키 시작: \(String(keyValue.prefix(15)))...")
                                 return keyValue
                             }
                         }
                     }
                 }
+                print("❌ [\(key)] Config.xcconfig에서 키를 찾을 수 없음")
             } catch {
-                print("❌ Config.xcconfig 읽기 오류: \(error)")
+                print("❌ [\(key)] Config.xcconfig 읽기 오류: \(error)")
             }
+        } else {
+            print("❌ [\(key)] Config.xcconfig 파일을 찾을 수 없음")
         }
 
-        // 3. 환경변수 시도 (개발 환경)
-        if let apiKey = ProcessInfo.processInfo.environment[key], !apiKey.isEmpty {
-            print("✅ API 키 로드 성공 (환경변수): \(key)")
-            return apiKey
+        // Priority 3: 환경 변수에서 확인
+        if let envKey = ProcessInfo.processInfo.environment[key], !envKey.isEmpty {
+            print("✅ [\(key)] 환경 변수에서 API 키 로드 성공")
+            return envKey
         }
 
-        // 4. Config.plist 시도 (이전 방식 호환성)
-        if let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
-           let config = NSDictionary(contentsOfFile: path),
-           let apiKey = config[key] as? String, !apiKey.isEmpty {
-            print("✅ API 키 로드 성공 (Config.plist): \(key)")
-            return apiKey
-        }
-
-        // 5. UserDefaults 시도 (사용자가 설정한 경우)
-        if let apiKey = UserDefaults.standard.string(forKey: key), !apiKey.isEmpty {
-            print("✅ API 키 로드 성공 (UserDefaults): \(key)")
-            return apiKey
-        }
-
-        print("⚠️ API Key를 찾을 수 없습니다: \(key)")
+        print("❌ [\(key)] 모든 방법으로 API 키 로드 실패")
         return nil
     }
     

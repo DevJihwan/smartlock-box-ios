@@ -9,15 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var appState: AppStateManager
-    
+
     var body: some View {
         Group {
             switch appState.currentState {
-            case .unlocked:
+            case .normal:
                 MainView()
             case .locked:
                 LockScreenView()
-            case .challengeActive:
+            case .unlockChallenge:
                 UnlockChallengeView()
             }
         }

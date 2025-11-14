@@ -16,9 +16,9 @@ struct AppColors {
     static let text = Color("Text")
     static let secondaryText = Color("SecondaryText")
 
-    // 액센트 색상 - ThemeManager에서 가져옴
+    // 액센트 색상 - 시스템 기본 파란색 사용
     static var accent: Color {
-        ThemeManager.shared.themeColor
+        return .blue
     }
     
     // 기능별 색상

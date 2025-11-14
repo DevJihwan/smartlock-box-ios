@@ -1,288 +1,105 @@
-/* 
+/*
   Localizable.strings (Korean)
-  SmartLockBox
-  
-  Created by DevJihwan on 2025-10-10.
+  ThinkFree - SmartLockBox
+
+  Version 2.0 - Simplified
+  Created by DevJihwan on 2025-11-14.
 */
 
 // MARK: - 앱 공통
-"app_name" = "바보상자자물쇠";
+"app_name" = "ThinkFree";
 "ok" = "확인";
 "cancel" = "취소";
-"confirm" = "확인";
-"delete" = "삭제";
 "save" = "저장";
 "close" = "닫기";
 "settings" = "설정";
 
 // MARK: - 메인 화면
-"today_goal" = "오늘의 목표 달성도";
-"time_until_lock" = "잠금까지 남은 시간";
-"weekly_stats" = "이번 주 사용 현황";
-"monthly_heatmap" = "월간 목표 달성";
-"detailed_stats" = "상세 통계";
-"goal_achievement" = "목표 달성";
-"average_per_day" = "일 평균";
-"achievement_rate" = "달성률";
-"goal_achieved" = "목표 달성";
-"goal_not_achieved" = "목표 미달성";
+"time_slot" = "시간대 설정";
+"time_slot_start" = "시작";
+"time_slot_end" = "종료";
+"limit_time" = "제한 시간";
+"control_enabled" = "제어 활성화";
+"control_enabled_description" = "시간대 제어 활성화";
+"today_status" = "오늘 상태";
+"control_active" = "제어 활성화 중";
+"outside_time_slot" = "시간대 밖";
+"usage_tracking" = "사용 추적";
+"usage_time" = "사용 시간";
+"until_lock" = "잠금까지";
+"warning_will_lock_soon" = "경고: 곧 잠금됩니다!";
+"creative_unlock" = "창의적 해제";
+"locked_status" = "잠김";
 
 // MARK: - 잠금 화면
-"locked" = "잠김";
-"phone_locked" = "스마트폰이 잠겨있습니다";
-"used_today" = "오늘 %@ 사용";
-"auto_unlock_in" = "%@ 후 자동 해제";
-"unlock_with_creativity" = "창의력으로 해제하기";
-"emergency_call" = "응급상황 연락";
-"lock_screen_title" = "스마트폰이 잠겨있습니다";
-"lock_screen_usage" = "오늘 %@ 사용";
-"lock_screen_remaining" = "자동 해제까지 남은 시간";
-"lock_screen_challenge" = "창의력으로 해제하기";
-"lock_screen_emergency" = "응급상황 연락";
-"lock_screen_calculating" = "계산 중...";
-
-// MARK: - 해제 챌린지
-"unlock_challenge" = "창의적 해제 도전";
-"challenge_description" = "제시된 2개의 단어를 포함한 창의적인 문장을 만들어 자물쇠를 풀어보세요!";
-"word1" = "단어 1";
-"word2" = "단어 2";
+"thinkfree_locked" = "ThinkFree 잠금 중";
+"locked_until" = "%@까지 잠금됩니다";
+"creative_unlock_title" = "💡 창의적 해제";
+"creative_unlock_description" = "다음 두 단어를 사용하여\n창의적인 문장을 만드세요";
 "enter_sentence" = "여기에 문장을 입력하세요...";
 "minimum_characters" = "최소 10글자 이상";
 "current_characters" = "현재: %d글자";
-"change_words" = "다른 단어로 변경";
+"word_change" = "단어 변경";
+"word_refresh" = "다른 단어로 변경";
+"word_refresh_count" = "남은 변경: %d/3회";
 "submit" = "제출하기";
-"evaluating" = "AI가 평가 중입니다";
-"unlock_success" = "해제 성공!";
-"unlock_failed" = "해제 실패";
-"both_ai_required" = "두 AI 모두 통과해야 해제됩니다";
-"try_again" = "다시 도전하기";
-"back_to_lock_screen" = "잠금 화면으로";
-"refresh_limit_reached" = "오늘 사용 가능한 단어 변경 횟수를 모두 사용했습니다";
-"remaining_refreshes" = "남은 변경 횟수: %d";
-"evaluation_limit_reached" = "오늘 사용 가능한 평가 횟수를 모두 사용했습니다";
-"remaining_evaluations" = "남은 평가 횟수: %d";
+"daily_limits" = "⚠️ 일일 제한";
+"submissions_count" = "💬 제출 횟수: %d/10";
+"word_changes_count" = "🔄 단어 변경: %d/3";
+
+// MARK: - AI 평가
+"evaluating" = "🤖 AI가 평가 중입니다";
+"gpt_evaluating" = "ChatGPT 평가:";
+"claude_evaluating" = "Claude 평가:";
+"evaluation_in_progress" = "진행중...";
+"evaluation_waiting" = "대기중...";
+"unlock_success" = "✅ 해제 성공!";
+"unlock_failed" = "❌ 해제 실패";
+"both_ai_required" = "💡 두 AI 모두 통과해야 합니다";
+"remaining_attempts" = "남은 시도 횟수: %d/10";
+"try_again" = "다시 시도";
+"back_to_main" = "메인으로 돌아가기";
 
 // MARK: - 설정
-"daily_goal" = "일일 목표 시간";
-"auto_unlock_time" = "자동 해제 시간";
-"notifications" = "알림";
-"screen_time_permission" = "Screen Time 권한";
-"language" = "언어";
-"data_management" = "데이터 관리";
-"delete_all_data" = "모든 데이터 삭제";
+"settings_title" = "⚙️ 설정";
+"language_section" = "🌍 언어";
+"api_keys_section" = "🔑 API 키";
+"information_section" = "ℹ️ 정보";
+"openai_api_key" = "OpenAI API 키";
+"anthropic_api_key" = "Anthropic API 키";
+"api_key_not_set" = "설정 안됨";
+"api_key_add" = "추가";
+"api_key_edit" = "수정";
+"api_key_required_gpt" = "GPT-4 창의력 평가에 필요";
+"api_key_required_claude" = "Claude 이중 검증에 필요";
+"api_key_input_title" = "API 키";
+"api_key_input_openai" = "OpenAI API 키";
+"api_key_input_anthropic" = "Anthropic API 키";
+"api_key_get_from_openai" = "platform.openai.com에서 API 키를 받으세요";
+"api_key_get_from_anthropic" = "console.anthropic.com에서 API 키를 받으세요";
+"api_key_warning" = "⚠️ API 키는 로컬에 저장되며 공유되지 않습니다. API 사용 비용은 사용자 책임입니다.";
 "version" = "버전";
-"licenses" = "오픈소스 라이선스";
+"user_guide" = "사용 가이드";
+"privacy_policy" = "개인정보 처리방침";
 
 // MARK: - 시간 단위
 "hours" = "시간";
 "minutes" = "분";
-"seconds" = "초";
-"hours_short" = "시";
-"minutes_short" = "분";
-"seconds_short" = "초";
+"hours_format" = "%d시간";
+"hours_minutes_format" = "%.1f시간";
+"min_remaining" = "%d분 남음";
 
-// MARK: - 요일
-"monday" = "월요일";
-"tuesday" = "화요일";
-"wednesday" = "수요일";
-"thursday" = "목요일";
-"friday" = "금요일";
-"saturday" = "토요일";
-"sunday" = "일요일";
-
-// MARK: - 에러 메시지
-"error" = "오류";
-"network_error" = "네트워크 오류가 발생했습니다";
-"api_error" = "API 오류가 발생했습니다";
-"permission_denied" = "권한이 거부되었습니다";
-"unknown_error" = "알 수 없는 오류가 발생했습니다";
-
-// MARK: - AI 평가
-"creative" = "창의적이고 감성적인 표현";
-"not_creative" = "단순한 단어 나열";
-"good_grammar" = "문법적으로 올바름";
-"poor_grammar" = "문법 오류 있음";
-"meaningful_connection" = "의미 있는 연결";
-"lacking_connection" = "연결성 부족";
+// MARK: - 언어
+"language_korean" = "한국어";
+"language_english" = "English";
 
 // MARK: - 알림
-"notification_goal_approaching_title" = "⚠️ 목표 시간 도달 임박";
-"notification_goal_approaching_body" = "목표 시간까지 %d분 남았습니다!";
-"notification_locked_title" = "🔒 잠금 활성화";
-"notification_locked_body" = "오늘의 목표를 달성했습니다. 스마트폰이 잠겼습니다.";
-"notification_unlocked_title" = "🔓 잠금 해제";
-"notification_unlocked_creative_body" = "창의적인 문장으로 해제했습니다! 축하합니다!";
-"notification_unlocked_auto_body" = "자동 해제 시간이 되었습니다. 스마트폰 잠금이 해제되었습니다.";
-"notification_daily_report_title" = "📊 일일 사용 리포트";
-"notification_daily_report_body" = "오늘의 스마트폰 사용 통계를 확인해보세요!";
-"notification_motivation_title" = "💪 동기부여";
-"notification_motivation_1" = "오늘도 목표를 지키고 계시네요! 계속 화이팅!";
-"notification_motivation_2" = "디지털 디톡스를 실천하는 당신은 멋져요!";
-"notification_motivation_3" = "건강한 디지털 생활은 당신에게서 시작됩니다!";
-"notification_motivation_4" = "작은 실천이 큰 변화를 만듭니다!";
-"notification_motivation_5" = "스마트폰보다 더 중요한 것에 집중하세요!";
+"notification_permission_title" = "알림 권한";
+"notification_permission_message" = "잠금 알림을 받으려면 알림 권한을 활성화해주세요";
+"notification_enable" = "활성화";
 
-// MARK: - 구독
-
-// 구독 티어
-"subscription_tier_free" = "무료";
-"subscription_tier_premium" = "Premium";
-
-// 설정 화면
-"settings_subscription" = "구독 관리";
-"settings_time_limit" = "시간 제한 설정";
-"settings_daily_limit_mode" = "하루 총량";
-"settings_time_slot_mode" = "시간대별 제한";
-
-// Free 티어
-"free_daily_limit_title" = "하루 사용 시간 설정";
-"free_daily_limit_description" = "오늘의 목표 사용 시간";
-"free_limit_warning" = "⚠️ 하루 총 사용량만 제한됩니다";
-"free_upgrade_prompt" = "💎 시간대별 세부 제어가 필요하신가요?";
-"free_view_premium" = "Premium 살펴보기 →";
-
-// Premium 티어
-"premium_title" = "💎 시간대별 사용 시간 설정";
-"premium_time_slots" = "시간대 관리";
-"premium_add_time_slot" = "+ 시간대 추가";
-"premium_slots_usage" = "%d개 중 %d개 사용";
-"premium_no_overlap_warning" = "⚠️ 시간대는 겹칠 수 없습니다";
-"premium_tip" = "💡 팁: 시간대마다 독립적으로 카운트되어 더 효율적입니다";
-"premium_load_template" = "📋 추천 템플릿 불러오기";
-
-// 시간대
-"time_slot" = "시간대";
-"time_slot_name" = "시간대 이름";
-"time_slot_time_range" = "시간 범위";
-"time_slot_allowed_duration" = "사용 가능 시간";
-"time_slot_usage_rate" = "사용률";
-"time_slot_edit" = "수정";
-"time_slot_delete" = "삭제";
-"time_slot_morning" = "아침";
-"time_slot_afternoon" = "오후";
-"time_slot_evening" = "저녁";
-"time_slot_night" = "밤";
-
-// 시간대 추가/편집
-"add_time_slot" = "시간대 추가";
-"edit_time_slot" = "시간대 수정";
-"time_slot_name_placeholder" = "예: 아침 시간";
-"time_slot_start_time" = "시작 시간";
-"time_slot_end_time" = "종료 시간";
-"time_slot_duration" = "시간대 길이: %@";
-"time_slot_allowed" = "허용 시간";
-"time_slot_save" = "저장";
-"time_slot_cancel" = "취소";
-
-// 업그레이드 프롬프트
-"upgrade_title" = "💎 Premium으로 업그레이드";
-"upgrade_subtitle" = "시간대별 세밀한 제어로 생산성을 극대화하세요!";
-"upgrade_feature_time_slots" = "하루를 최대 3개 시간대로 분할";
-"upgrade_feature_independent_counters" = "각 시간대마다 독립적인 카운터";
-"upgrade_feature_unlimited_unlocks" = "창의적 해제 무제한";
-"upgrade_feature_unlimited_refreshes" = "단어 새로고침 무제한";
-"upgrade_feature_dual_ai" = "듀얼 AI 평가 (GPT + Claude)";
-"upgrade_feature_no_ads" = "광고 완전 제거";
-"upgrade_feature_unlimited_stats" = "무제한 사용 통계";
-"upgrade_monthly_price" = "월간: $3.99";
-"upgrade_yearly_price" = "연간: $31.99 (33% 절약! 🎉)";
-"upgrade_start_trial" = "14일 무료 체험 시작";
-"upgrade_later" = "나중에 하기";
-"upgrade_testimonial_1" = "아침엔 30분, 저녁엔 2시간으로 나눠서 쓰니까 훨씬 좋아요!";
-"upgrade_testimonial_2" = "점심시간엔 제한 없이 쓰고, 공부 시간엔 차단할 수 있어요";
-
-// 구독 상태
-"subscription_active" = "구독 활성화";
-"subscription_inactive" = "구독 비활성화";
-"subscription_expires" = "만료일: %@";
-"subscription_manage" = "구독 관리";
-
-// 에러 메시지
-"subscription_error_requires_premium" = "이 기능은 Premium 구독이 필요합니다";
-"subscription_error_max_time_slots" = "시간대는 최대 3개까지만 생성할 수 있습니다";
-"subscription_error_invalid_time_slot" = "유효하지 않은 시간대 설정입니다";
-"subscription_error_overlapping_time_slots" = "시간대가 겹칩니다";
-"subscription_error_time_slot_not_found" = "시간대를 찾을 수 없습니다";
-"subscription_error_min_duration" = "시간대는 최소 1시간 이상이어야 합니다";
-
-// 알림 메시지
-"time_slot_added" = "✅ 시간대가 추가되었습니다";
-"time_slot_updated" = "✏️ 시간대가 수정되었습니다";
-"time_slot_deleted" = "🗑️ 시간대가 삭제되었습니다";
-"premium_required" = "💎 Premium 기능";
-"premium_required_message" = "이 기능을 사용하려면 Premium으로 업그레이드해주세요";
-
-// 템플릿
-"template_office_worker" = "직장인";
-"template_student" = "학생";
-"template_freelancer" = "프리랜서";
-"template_morning_person" = "아침형 인간";
-"template_night_owl" = "올빼미형";
-
-// 프리미엄 기능 설명
-"feature_time_slots_desc" = "시간대별 독립적인 사용 시간 관리";
-"feature_unlimited_unlocks_desc" = "창의적 해제 횟수 제한 없음";
-"feature_unlimited_refreshes_desc" = "단어 변경 횟수 제한 없음";
-"feature_dual_ai_desc" = "GPT-4와 Claude를 함께 사용";
-"feature_no_ads_desc" = "모든 광고 제거";
-"feature_unlimited_stats_desc" = "무제한 기간 통계 조회";
-"feature_time_slot_stats_desc" = "시간대별 상세 통계";
-"feature_ai_optimization_desc" = "AI 기반 사용 패턴 최적화 제안";
-"feature_presets_desc" = "직업별 추천 설정 템플릿";
-
-
-// Screen Time 권한
-"settings_screen_time_permission" = "Screen Time 권한 요청";
-"screen_time_authorized" = "✅ Screen Time 권한 승인됨";
-"screen_time_not_authorized" = "⚠️ Screen Time 권한 필요";
-"screen_time_permission_description" = "앱 사용 시간을 모니터링하고 제어하기 위해 Screen Time 권한이 필요합니다.";
-"screen_time_permission_request_title" = "Screen Time 권한 요청";
-"screen_time_permission_request_message" = "이 앱은 Screen Time API를 사용하여 기기 사용 시간을 관리합니다. 권한을 승인하시겠습니까?";
-
-// FamilyActivityPicker
-"blocked_apps_title" = "차단할 앱 선택";
-"blocked_apps_description" = "목표 시간 초과 시 차단할 앱과 웹사이트를 선택하세요";
-"blocked_apps_selected" = "선택됨: 앱 %d개, 웹사이트 %d개";
-"blocked_apps_select" = "앱 및 웹사이트 선택";
-"blocked_apps_save" = "선택 항목 저장";
-"blocked_apps_info" = "💡 선택한 앱과 웹사이트는 목표 시간 초과 시 자동으로 차단됩니다";
-"blocked_apps_requires_permission" = "⚠️ 차단할 앱을 선택하려면 Screen Time 권한이 필요합니다";
-
-// MARK: - 동기부여 메시지
-"motivation.day1" = "오늘부터 당신의 시간을 되찾아보세요!";
-"motivation.success" = "어제도 목표 달성! 멋져요!";
-"motivation.retry" = "괜찮아요, 오늘 다시 도전해봐요!";
-"motivation.streak" = "연속 %d일";
-"motivation.streak_prefix" = "🔥 연속 %d일";
-"motivation.streak_week" = "연속 %d일! 한 주 완주!";
-"motivation.streak_month" = "연속 %d일! 대단해요!";
-"motivation.streak_hundred" = "연속 %d일! 레전드!";
-
-// MARK: - 설정 - 동기부여 메시지
-"settings_motivation" = "동기부여";
-"settings_motivation_messages" = "동기부여 메시지 표시";
-"settings_motivation_description" = "매일 동기부여 메시지를 메인 화면에 표시합니다";
-
-// MARK: - 시간 제어 설정 프롬프트
-"setup_time_control_title" = "시간 제어를 설정하세요";
-"setup_time_control_message" = "하루 목표 사용 시간을 설정하고 건강한 디지털 라이프를 시작하세요!";
-"setup_time_control_button" = "시간 제어 설정하기";
-"setup_time_control_skip" = "나중에 하기";
-"setup_goal_picker_title" = "하루 목표 시간 설정";
-"setup_goal_picker_hours" = "시간";
-"setup_goal_picker_subtitle" = "슬라이더를 움직여 목표 시간을 선택하세요";
-"setup_goal_confirm" = "확인";
-
-// MARK: - 테마 설정
-"settings_theme" = "앱 테마";
-"settings_app_theme" = "앱 테마 색상";
-"settings_theme_description" = "앱의 메인 색상을 아이폰 기기 색상과 맞춰보세요";
-"theme_title" = "앱 테마";
-"theme_device_color_header" = "아이폰 색상 매칭";
-"theme_match_device_color" = "내 아이폰 색상과 매칭";
-"theme_match_device_description" = "앱의 메인 색상이 아이폰 기기 색상과 조화롭게 변경됩니다";
-"theme_preset_colors" = "프리셋 색상";
-"theme_custom_color" = "커스텀 색상";
-"theme_select_custom_color" = "커스텀 색상 선택";
-"theme_preview" = "미리보기";
-"theme_select_color" = "색상 선택";
+// MARK: - 에러
+"error" = "오류";
+"api_error" = "API 오류가 발생했습니다";
+"network_error" = "네트워크 오류";
+"unknown_error" = "알 수 없는 오류";

@@ -98,3 +98,4 @@ APIKeys.swift
 
 # macOS
 .DS_Store
+*.log

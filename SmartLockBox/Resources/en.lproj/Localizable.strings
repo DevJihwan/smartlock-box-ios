@@ -1,288 +1,105 @@
-/* 
+/*
   Localizable.strings (English)
-  SmartLockBox
-  
-  Created by DevJihwan on 2025-10-10.
+  ThinkFree - SmartLockBox
+
+  Version 2.0 - Simplified
+  Created by DevJihwan on 2025-11-14.
 */
 
 // MARK: - Common
-"app_name" = "SmartLock Box";
+"app_name" = "ThinkFree";
 "ok" = "OK";
 "cancel" = "Cancel";
-"confirm" = "Confirm";
-"delete" = "Delete";
 "save" = "Save";
 "close" = "Close";
 "settings" = "Settings";
 
-// MARK: - Main View
-"today_goal" = "Today's Goal Achievement";
-"time_until_lock" = "Time Until Lock";
-"weekly_stats" = "This Week's Usage";
-"monthly_heatmap" = "Monthly Goal Achievement";
-"detailed_stats" = "Detailed Stats";
-"goal_achievement" = "Goal Achievement";
-"average_per_day" = "Avg/Day";
-"achievement_rate" = "Achievement Rate";
-"goal_achieved" = "Goal Achieved";
-"goal_not_achieved" = "Goal Not Achieved";
+// MARK: - Main Screen
+"time_slot" = "Time Slot";
+"time_slot_start" = "Start";
+"time_slot_end" = "End";
+"limit_time" = "Limit Time";
+"control_enabled" = "Control Enabled";
+"control_enabled_description" = "Enable time slot control";
+"today_status" = "Today's Status";
+"control_active" = "Control Active";
+"outside_time_slot" = "Outside Time Slot";
+"usage_tracking" = "Usage Tracking";
+"usage_time" = "Usage Time";
+"until_lock" = "Until Lock";
+"warning_will_lock_soon" = "Warning: Will lock soon!";
+"creative_unlock" = "Creative Unlock";
+"locked_status" = "Locked";
 
 // MARK: - Lock Screen
-"locked" = "Locked";
-"phone_locked" = "Your phone is locked";
-"used_today" = "Used %@ today";
-"auto_unlock_in" = "Auto unlock in %@";
-"unlock_with_creativity" = "Unlock with Creativity";
-"emergency_call" = "Emergency Call";
-"lock_screen_title" = "Your phone is locked";
-"lock_screen_usage" = "Used %@ today";
-"lock_screen_remaining" = "Time until auto unlock";
-"lock_screen_challenge" = "Unlock with Creativity";
-"lock_screen_emergency" = "Emergency Call";
-"lock_screen_calculating" = "Calculating...";
-
-// MARK: - Unlock Challenge
-"unlock_challenge" = "Creative Unlock Challenge";
-"challenge_description" = "Create a creative sentence using the 2 provided words to unlock!";
-"word1" = "Word 1";
-"word2" = "Word 2";
+"thinkfree_locked" = "ThinkFree Locked";
+"locked_until" = "Locked until %@";
+"creative_unlock_title" = "💡 Creative Unlock";
+"creative_unlock_description" = "Create a creative sentence\nusing the two words below";
 "enter_sentence" = "Enter your sentence here...";
 "minimum_characters" = "Minimum 10 characters";
 "current_characters" = "Current: %d characters";
-"change_words" = "Change Words";
+"word_change" = "Change Words";
+"word_refresh" = "Change to different words";
+"word_refresh_count" = "Remaining: %d/3 times";
 "submit" = "Submit";
-"evaluating" = "AI is evaluating";
-"unlock_success" = "Unlock Success!";
-"unlock_failed" = "Unlock Failed";
-"both_ai_required" = "Both AIs must approve to unlock";
+"daily_limits" = "⚠️ Daily Limits";
+"submissions_count" = "💬 Submissions: %d/10";
+"word_changes_count" = "🔄 Word Changes: %d/3";
+
+// MARK: - AI Evaluation
+"evaluating" = "🤖 AI Evaluating";
+"gpt_evaluating" = "ChatGPT:";
+"claude_evaluating" = "Claude:";
+"evaluation_in_progress" = "In progress...";
+"evaluation_waiting" = "Waiting...";
+"unlock_success" = "✅ Unlock Successful!";
+"unlock_failed" = "❌ Unlock Failed";
+"both_ai_required" = "💡 Both AIs must pass";
+"remaining_attempts" = "Remaining attempts: %d/10";
 "try_again" = "Try Again";
-"back_to_lock_screen" = "Back to Lock Screen";
-"refresh_limit_reached" = "You've used all word refreshes for today";
-"remaining_refreshes" = "Remaining refreshes: %d";
-"evaluation_limit_reached" = "You've used all evaluations for today";
-"remaining_evaluations" = "Remaining evaluations: %d";
+"back_to_main" = "Back to Main";
 
 // MARK: - Settings
-"daily_goal" = "Daily Goal Time";
-"auto_unlock_time" = "Auto Unlock Time";
-"notifications" = "Notifications";
-"screen_time_permission" = "Screen Time Permission";
-"language" = "Language";
-"data_management" = "Data Management";
-"delete_all_data" = "Delete All Data";
+"settings_title" = "⚙️ Settings";
+"language_section" = "🌍 Language";
+"api_keys_section" = "🔑 API Keys";
+"information_section" = "ℹ️ Information";
+"openai_api_key" = "OpenAI API Key";
+"anthropic_api_key" = "Anthropic API Key";
+"api_key_not_set" = "Not Set";
+"api_key_add" = "Add";
+"api_key_edit" = "Edit";
+"api_key_required_gpt" = "Required for GPT-4 creativity evaluation";
+"api_key_required_claude" = "Required for Claude dual verification";
+"api_key_input_title" = "API Keys";
+"api_key_input_openai" = "OpenAI API Key";
+"api_key_input_anthropic" = "Anthropic API Key";
+"api_key_get_from_openai" = "Get your API key from platform.openai.com";
+"api_key_get_from_anthropic" = "Get your API key from console.anthropic.com";
+"api_key_warning" = "⚠️ API keys are stored locally and never shared. You are responsible for API usage costs.";
 "version" = "Version";
-"licenses" = "Open Source Licenses";
+"user_guide" = "User Guide";
+"privacy_policy" = "Privacy Policy";
 
-// MARK: - Time
+// MARK: - Time Units
 "hours" = "hours";
 "minutes" = "minutes";
-"seconds" = "seconds";
-"hours_short" = "h";
-"minutes_short" = "m";
-"seconds_short" = "s";
+"hours_format" = "%d hours";
+"hours_minutes_format" = "%.1f hours";
+"min_remaining" = "%d min remaining";
 
-// MARK: - Days
-"monday" = "Monday";
-"tuesday" = "Tuesday";
-"wednesday" = "Wednesday";
-"thursday" = "Thursday";
-"friday" = "Friday";
-"saturday" = "Saturday";
-"sunday" = "Sunday";
+// MARK: - Language
+"language_korean" = "한국어";
+"language_english" = "English";
+
+// MARK: - Notifications
+"notification_permission_title" = "Notification Permission";
+"notification_permission_message" = "Please enable notifications to receive lock reminders";
+"notification_enable" = "Enable";
 
 // MARK: - Errors
 "error" = "Error";
-"network_error" = "A network error occurred";
-"api_error" = "An API error occurred";
-"permission_denied" = "Permission denied";
-"unknown_error" = "An unknown error occurred";
-
-// MARK: - AI Evaluation
-"creative" = "Creative and emotional expression";
-"not_creative" = "Simple word listing";
-"good_grammar" = "Grammatically correct";
-"poor_grammar" = "Grammatical errors";
-"meaningful_connection" = "Meaningful connection";
-"lacking_connection" = "Lacking connection";
-
-// MARK: - Notifications
-"notification_goal_approaching_title" = "⚠️ Goal Time Approaching";
-"notification_goal_approaching_body" = "Only %d minutes left until your goal time!";
-"notification_locked_title" = "🔒 Phone Locked";
-"notification_locked_body" = "You've reached today's goal. Your phone is now locked.";
-"notification_unlocked_title" = "🔓 Phone Unlocked";
-"notification_unlocked_creative_body" = "Unlocked with creativity! Congratulations!";
-"notification_unlocked_auto_body" = "Auto-unlock time reached. Your phone is now unlocked.";
-"notification_daily_report_title" = "📊 Daily Usage Report";
-"notification_daily_report_body" = "Check your daily phone usage stats!";
-"notification_motivation_title" = "💪 Stay Motivated";
-"notification_motivation_1" = "You're achieving your goals today! Keep it up!";
-"notification_motivation_2" = "You're awesome for practicing digital detox!";
-"notification_motivation_3" = "Healthy digital life starts with you!";
-"notification_motivation_4" = "Small actions create big changes!";
-"notification_motivation_5" = "Focus on things more important than your phone!";
-
-// MARK: - Subscription
-
-// Subscription Tiers
-"subscription_tier_free" = "Free";
-"subscription_tier_premium" = "Premium";
-
-// Settings Screen
-"settings_subscription" = "Subscription";
-"settings_time_limit" = "Time Limit Settings";
-"settings_daily_limit_mode" = "Daily Total";
-"settings_time_slot_mode" = "Time Slot Mode";
-
-// Free Tier
-"free_daily_limit_title" = "Daily Usage Time";
-"free_daily_limit_description" = "Today's Goal Time";
-"free_limit_warning" = "⚠️ Only total daily usage is limited";
-"free_upgrade_prompt" = "💎 Need more control over your time?";
-"free_view_premium" = "Explore Premium →";
-
-// Premium Tier
-"premium_title" = "💎 Time Slot Settings";
-"premium_time_slots" = "Time Slot Management";
-"premium_add_time_slot" = "+ Add Time Slot";
-"premium_slots_usage" = "%d of %d slots used";
-"premium_no_overlap_warning" = "⚠️ Time slots cannot overlap";
-"premium_tip" = "💡 Tip: Each time slot is counted independently for better efficiency";
-"premium_load_template" = "📋 Load Recommended Template";
-
-// Time Slots
-"time_slot" = "Time Slot";
-"time_slot_name" = "Time Slot Name";
-"time_slot_time_range" = "Time Range";
-"time_slot_allowed_duration" = "Allowed Time";
-"time_slot_usage_rate" = "Usage Rate";
-"time_slot_edit" = "Edit";
-"time_slot_delete" = "Delete";
-"time_slot_morning" = "Morning";
-"time_slot_afternoon" = "Afternoon";
-"time_slot_evening" = "Evening";
-"time_slot_night" = "Night";
-
-// Add/Edit Time Slot
-"add_time_slot" = "Add Time Slot";
-"edit_time_slot" = "Edit Time Slot";
-"time_slot_name_placeholder" = "e.g. Morning Time";
-"time_slot_start_time" = "Start Time";
-"time_slot_end_time" = "End Time";
-"time_slot_duration" = "Slot Duration: %@";
-"time_slot_allowed" = "Allowed Duration";
-"time_slot_save" = "Save";
-"time_slot_cancel" = "Cancel";
-
-// Upgrade Prompt
-"upgrade_title" = "💎 Upgrade to Premium";
-"upgrade_subtitle" = "Maximize your productivity with time slot control!";
-"upgrade_feature_time_slots" = "Split your day into up to 3 time slots";
-"upgrade_feature_independent_counters" = "Independent counter for each time slot";
-"upgrade_feature_unlimited_unlocks" = "Unlimited creative unlocks";
-"upgrade_feature_unlimited_refreshes" = "Unlimited word refreshes";
-"upgrade_feature_dual_ai" = "Dual AI Evaluation (GPT + Claude)";
-"upgrade_feature_no_ads" = "Complete ad removal";
-"upgrade_feature_unlimited_stats" = "Unlimited usage statistics";
-"upgrade_monthly_price" = "Monthly: $3.99";
-"upgrade_yearly_price" = "Yearly: $31.99 (Save 33%! 🎉)";
-"upgrade_start_trial" = "Start 14-Day Free Trial";
-"upgrade_later" = "Maybe Later";
-"upgrade_testimonial_1" = "30 minutes in the morning, 2 hours in the evening - works great!";
-"upgrade_testimonial_2" = "No limits during lunch, blocked during study time - perfect!";
-
-// Subscription Status
-"subscription_active" = "Active Subscription";
-"subscription_inactive" = "No Active Subscription";
-"subscription_expires" = "Expires: %@";
-"subscription_manage" = "Manage Subscription";
-
-// Error Messages
-"subscription_error_requires_premium" = "This feature requires Premium subscription";
-"subscription_error_max_time_slots" = "You can create up to 3 time slots maximum";
-"subscription_error_invalid_time_slot" = "Invalid time slot settings";
-"subscription_error_overlapping_time_slots" = "Time slots cannot overlap";
-"subscription_error_time_slot_not_found" = "Time slot not found";
-"subscription_error_min_duration" = "Time slot must be at least 1 hour long";
-
-// Notifications
-"time_slot_added" = "✅ Time slot added";
-"time_slot_updated" = "✏️ Time slot updated";
-"time_slot_deleted" = "🗑️ Time slot deleted";
-"premium_required" = "💎 Premium Feature";
-"premium_required_message" = "Please upgrade to Premium to use this feature";
-
-// Templates
-"template_office_worker" = "Office Worker";
-"template_student" = "Student";
-"template_freelancer" = "Freelancer";
-"template_morning_person" = "Morning Person";
-"template_night_owl" = "Night Owl";
-
-// Premium Feature Descriptions
-"feature_time_slots_desc" = "Independent time management per time slot";
-"feature_unlimited_unlocks_desc" = "No limit on creative unlock attempts";
-"feature_unlimited_refreshes_desc" = "No limit on word refreshes";
-"feature_dual_ai_desc" = "Use both GPT-4 and Claude";
-"feature_no_ads_desc" = "Complete removal of all ads";
-"feature_unlimited_stats_desc" = "View unlimited period statistics";
-"feature_time_slot_stats_desc" = "Detailed statistics per time slot";
-"feature_ai_optimization_desc" = "AI-based usage pattern optimization";
-"feature_presets_desc" = "Job-specific recommended templates";
-
-
-// Screen Time Permission
-"settings_screen_time_permission" = "Request Screen Time Permission";
-"screen_time_authorized" = "✅ Screen Time Authorized";
-"screen_time_not_authorized" = "⚠️ Screen Time Permission Required";
-"screen_time_permission_description" = "Screen Time permission is required to monitor and control app usage time.";
-"screen_time_permission_request_title" = "Screen Time Permission Request";
-"screen_time_permission_request_message" = "This app uses Screen Time API to manage device usage time. Would you like to authorize?";
-
-// FamilyActivityPicker
-"blocked_apps_title" = "Select Apps to Block";
-"blocked_apps_description" = "Choose apps and websites to block when time limit is exceeded";
-"blocked_apps_selected" = "Selected: %d apps, %d websites";
-"blocked_apps_select" = "Select Apps & Websites";
-"blocked_apps_save" = "Save Selection";
-"blocked_apps_info" = "💡 Selected apps and websites will be automatically blocked when time limit is exceeded";
-"blocked_apps_requires_permission" = "⚠️ Screen Time permission is required to select apps to block";
-
-// MARK: - Motivational Messages
-"motivation.day1" = "Let's start taking back your time!";
-"motivation.success" = "Great job yesterday! You nailed it!";
-"motivation.retry" = "It's okay, let's try again today!";
-"motivation.streak" = "%d day streak";
-"motivation.streak_prefix" = "🔥 %d day streak";
-"motivation.streak_week" = "%d day streak! Week complete!";
-"motivation.streak_month" = "%d day streak! Amazing!";
-"motivation.streak_hundred" = "%d day streak! Legend!";
-
-// MARK: - Settings - Motivation
-"settings_motivation" = "Motivation";
-"settings_motivation_messages" = "Show Motivational Messages";
-"settings_motivation_description" = "Display daily motivational messages on the main screen";
-
-// MARK: - Time Control Setup Prompt
-"setup_time_control_title" = "Set Up Time Control";
-"setup_time_control_message" = "Set your daily goal time and start your healthy digital life!";
-"setup_time_control_button" = "Set Up Time Control";
-"setup_time_control_skip" = "Skip for now";
-"setup_goal_picker_title" = "Set Your Daily Goal";
-"setup_goal_picker_hours" = "hours";
-"setup_goal_picker_subtitle" = "Adjust the slider to set your goal time";
-"setup_goal_confirm" = "Confirm";
-
-// MARK: - Theme Settings
-"settings_theme" = "App Theme";
-"settings_app_theme" = "App Theme Color";
-"settings_theme_description" = "Match your app's main color with your iPhone device color";
-"theme_title" = "App Theme";
-"theme_device_color_header" = "iPhone Color Matching";
-"theme_match_device_color" = "Match My iPhone Color";
-"theme_match_device_description" = "The app's main color will harmoniously change to match your iPhone device color";
-"theme_preset_colors" = "Preset Colors";
-"theme_custom_color" = "Custom Color";
-"theme_select_custom_color" = "Select Custom Color";
-"theme_preview" = "Preview";
-"theme_select_color" = "Select Color";
+"api_error" = "API error occurred";
+"network_error" = "Network error";
+"unknown_error" = "Unknown error";
