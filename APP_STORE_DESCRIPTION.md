@@ -1,15 +1,15 @@
-# 씽크프리 (ThinkFree) - 앱스토어 설명
+# 씽크프리 (ThinkFree) - 앱스토어 설명 (v2.0 Simplified)
 
 ## 📱 앱스토어 타이틀
 
 ### 한국어 (Korean)
 ```
-씽크프리 - AI 창의력 디지털 디톡스
+씽크프리 - 시간대별 AI 창의력 잠금
 ```
 
 ### 영어 (English)
 ```
-ThinkFree - Creative AI Digital Detox
+ThinkFree - Time-Slot AI Creative Lock
 ```
 
 ---
@@ -18,50 +18,49 @@ ThinkFree - Creative AI Digital Detox
 
 ### 부제목 (Subtitle)
 ```
-창의적인 답변만이 자유의 열쇠입니다
+생각하면 자유로워집니다
 ```
 
 ### 짧은 설명 (Promotional Text)
 ```
-단순한 시간 제한이 아닙니다. 당신의 창의력을 AI가 평가하고, 진짜 생각하는 힘으로 디지털 중독에서 벗어나세요. 🧠✨
+업무 시간, 공부 시간에만 스마트폰 사용 제한. AI가 인정하는 창의적인 문장으로만 해제 가능한 초심플 디지털 디톡스. 🧠✨
 ```
 
 ### 상세 설명 (Description)
 
-**씽크프리는 다릅니다**
+**하나의 기능, 완벽하게**
 
-스크린타임은 쉽게 무시되고, 일반적인 잠금 앱은 금방 지루해집니다. 
-하지만 씽크프리는 다릅니다. 당신의 **창의력**이 진짜 열쇠입니다.
+복잡한 설정도, 불필요한 기능도 없습니다.
+씽크프리는 딱 하나의 기능에만 집중합니다.
 
-시간 제한을 초과하면 스마트폰이 잠기고, 해제하려면 AI가 인정하는 창의적인 문장을 만들어야 합니다. 
-단순히 참는 것이 아니라, **생각하고 창조하며** 디지털 습관을 바꾸는 혁신적인 방법입니다.
+**"특정 시간대에만 스마트폰 사용 제한"**
+
+업무 시간(오전 9시~오후 6시)에 2시간만 사용하고 싶다면?
+씽크프리가 정확히 그 시간만 관리합니다.
+
+해제하려면? AI가 인정하는 창의적인 문장을 만들어야 합니다.
+단순히 참는 것이 아니라, **생각하며** 스마트폰 습관을 바꾸는 방법입니다.
 
 ---
 
 **🎯 핵심 기능**
+
+**✅ 시간대별 스크린 제어**
+- 원하는 시간대 설정 (예: 오전 9시 ~ 오후 6시)
+- 해당 시간대 내 사용 제한 시간 설정 (예: 2시간)
+- 제한 시간 도달 시 자동 잠금
+- 시간대 종료 시 자동 해제
 
 **✅ AI 이중 평가 시스템**
 - GPT-4와 Claude가 당신의 창의력을 동시에 평가
 - 두 AI 모두 통과해야 잠금 해제
 - 단순한 단어 나열은 통하지 않습니다
 
-**✅ 스마트한 시간 관리**
-- 원하는 일일 사용 시간 설정
-- 실시간 사용량 모니터링
-- 시간 초과 시 자동 잠금
-- 다음날 자동 해제
-
 **✅ 창의적 해제 챌린지**
 - 20,000개 한국어 단어 데이터베이스
 - 랜덤으로 선택된 2개 단어
 - 두 단어를 포함한 창의적 문장 작성
 - 최소 10글자 이상의 의미 있는 문장 필요
-
-**✅ 동기부여 시스템**
-- GitHub 스타일 성취 히트맵
-- 연속 달성 스트릭 표시 🔥
-- 매일 바뀌는 맞춤형 격려 메시지
-- 시각적으로 확인하는 성장 기록
 
 **✅ 글로벌 언어 지원**
 - 한국어 / 영어 완벽 지원
@@ -70,36 +69,41 @@ ThinkFree - Creative AI Digital Detox
 
 **✅ 응급 상황 대비**
 - 전화, 문자는 항상 사용 가능
-- 응급 연락 기능 제공
 - 안전한 디지털 디톡스
 
 ---
 
 **💡 왜 씽크프리인가?**
 
-**기존 앱들의 한계:**
+**기존 앱들의 문제:**
 - ❌ 스크린타임: 쉽게 무시됨
-- ❌ 일반 잠금 앱: 강제적이고 스트레스
-- ❌ 타이머 앱: 단순하고 지루함
+- ❌ 일반 잠금 앱: 하루 종일 제한되어 불편
+- ❌ 복잡한 앱: 설정이 어렵고 기능이 너무 많음
 
-**씽크프리의 차별점:**
-- ✅ 창의력을 자극하는 재미있는 해제 방식
-- ✅ AI가 평가하는 객관적인 기준
-- ✅ 억지로 참는 것이 아닌 생각하는 즐거움
-- ✅ 성취감을 느끼며 습관 개선
+**씽크프리의 해결책:**
+- ✅ 필요한 시간대에만 제한
+- ✅ 창의력을 자극하는 재미있는 해제
+- ✅ 초심플 UI - 1분 안에 설정 완료
+- ✅ AI가 평가하는 객관적 기준
 
 ---
 
 **🚀 이렇게 작동합니다**
 
-1. **설정**: 하루 사용 목표 시간을 정하세요 (예: 3시간)
-2. **모니터링**: 실시간으로 사용량을 확인하며 의식적으로 사용
-3. **잠금**: 목표 시간 초과 시 자동으로 앱들이 잠김
-4. **창의적 해제**: 
-   - 랜덤 단어 2개 제시 (예: "바다", "꿈")
-   - 두 단어를 포함한 창의적 문장 작성
-   - AI가 창의성을 평가하여 해제 여부 결정
-5. **성장**: 매일의 성취를 히트맵으로 확인하며 동기부여
+```
+설정: 오전 9시 ~ 오후 6시, 2시간 제한
+
+09:00 - 제어 시작
+09:00~11:00 - 스마트폰 사용 (2시간)
+11:00 - 시간 도달, 잠금! 🔒
+11:00~18:00 - 창의적 해제만 가능
+18:00 - 시간대 종료, 자동 해제 ✅
+```
+
+**창의적 해제:**
+- 랜덤 단어 2개 제시 (예: "바다", "꿈")
+- 창의적인 문장 작성
+- AI가 평가하여 해제 결정
 
 ---
 
@@ -108,23 +112,31 @@ ThinkFree - Creative AI Digital Detox
 "바다에서 꿈같은 일몰을 바라보다" ✅ 통과!
 "바다 꿈" ❌ 실패!
 
-AI는 진짜 창의력을 알아봅니다. 
-생각하고, 상상하고, 표현하는 과정에서 
-자연스럽게 스마트폰에서 멀어지게 됩니다.
+AI는 진짜 창의력을 알아봅니다.
 
-단순히 시간을 제한하는 것이 아니라,
-**생각하는 습관**을 만드는 것.
+**단순히 시간을 제한하는 것이 아니라,**
+**생각하는 습관을 만드는 것.**
+
 그것이 씽크프리의 철학입니다.
 
 ---
 
 **📊 이런 분들께 추천합니다**
 
-- 📱 스마트폰 사용을 줄이고 싶지만 의지가 약한 분
+- 💼 업무 시간에 집중하고 싶은 직장인
+- 📚 공부 시간에 스마트폰 유혹을 차단하고 싶은 학생
+- 🧘 특정 시간에만 디지털 디톡스가 필요한 분
+- 🎯 심플하고 명확한 앱을 선호하는 분
 - 🧠 창의력을 키우고 싶은 분
-- 📚 학생, 직장인 등 집중력이 필요한 분
-- 👨‍👩‍👧‍👦 건강한 디지털 습관을 만들고 싶은 가족
-- 🌟 단순한 제한이 아닌 재미있는 방법을 찾는 분
+
+---
+
+**🎨 미니멀 디자인**
+
+- 불필요한 기능 제거
+- 직관적인 인터페이스
+- 빠른 로딩
+- 핵심 기능에만 집중
 
 ---
 
@@ -132,15 +144,15 @@ AI는 진짜 창의력을 알아봅니다.
 
 - 모든 데이터는 기기에만 저장
 - 창의적 답변은 AI 평가 후 즉시 삭제
-- 사용 통계는 외부로 전송되지 않음
-- 안전하고 투명한 앱
+- 외부 서버로 데이터 전송 없음
+- 투명하고 안전한 앱
 
 ---
 
 **지금 시작하세요!**
 
-생각하면 자유로워집니다. 🌟
-씽크프리와 함께 진짜 자유를 되찾으세요.
+하나의 기능, 완벽하게. 🌟
+씽크프리와 함께 진짜 집중력을 되찾으세요.
 
 ---
 
@@ -148,50 +160,49 @@ AI는 진짜 창의력을 알아봅니다.
 
 ### Subtitle
 ```
-Your Creativity is the Key to Freedom
+Think, Then You're Free
 ```
 
 ### Promotional Text
 ```
-This isn't just a screen time limiter. Let AI evaluate your creativity and break free from digital addiction through the power of real thinking. 🧠✨
+Limit phone use during work/study hours only. Unlock with AI-approved creative sentences. Ultra-simple digital detox. 🧠✨
 ```
 
 ### Description
 
-**ThinkFree is Different**
+**One Feature, Done Right**
 
-Screen Time is easily ignored. Regular lock apps become boring fast.
-But ThinkFree is different. Your **creativity** is the real key.
+No complex settings. No unnecessary features.
+ThinkFree focuses on just one thing.
 
-When you exceed your time limit, your phone locks. To unlock it, you must craft a creative sentence that AI approves.
-It's not about enduring—it's about **thinking and creating** while transforming your digital habits in an innovative way.
+**"Time-slot based smartphone control"**
+
+Want to use your phone only 2 hours during work (9 AM - 6 PM)?
+ThinkFree manages exactly that time period.
+
+To unlock? Create a creative sentence AI approves.
+It's not about enduring—it's about **thinking** while changing phone habits.
 
 ---
 
 **🎯 Key Features**
 
+**✅ Time-Slot Screen Control**
+- Set your desired time slot (e.g., 9 AM - 6 PM)
+- Set usage limit within that slot (e.g., 2 hours)
+- Auto-lock when limit reached
+- Auto-unlock when time slot ends
+
 **✅ Dual AI Evaluation System**
-- GPT-4 and Claude simultaneously evaluate your creativity
+- GPT-4 and Claude simultaneously evaluate creativity
 - Must pass both AIs to unlock
 - Simple word listing won't work
-
-**✅ Smart Time Management**
-- Set your daily usage goal
-- Real-time usage monitoring
-- Auto-lock when time limit exceeded
-- Automatic unlock next day
 
 **✅ Creative Unlock Challenge**
 - 20,000 English word database
 - 2 randomly selected words
 - Create meaningful sentences using both words
 - Minimum 10 characters required
-
-**✅ Motivation System**
-- GitHub-style achievement heatmap
-- Streak tracking 🔥
-- Daily personalized encouragement messages
-- Visual growth tracking
 
 **✅ Global Language Support**
 - Full Korean / English support
@@ -200,36 +211,41 @@ It's not about enduring—it's about **thinking and creating** while transformin
 
 **✅ Emergency Access**
 - Phone and SMS always available
-- Emergency contact features
 - Safe digital detox
 
 ---
 
 **💡 Why ThinkFree?**
 
-**Limitations of Existing Apps:**
-- ❌ Screen Time: Easily dismissed
-- ❌ Regular Lock Apps: Forceful and stressful
-- ❌ Timer Apps: Simple and boring
+**Problems with Existing Apps:**
+- ❌ Screen Time: Easily ignored
+- ❌ Regular Lock Apps: Restricts all day, inconvenient
+- ❌ Complex Apps: Too many settings and features
 
-**ThinkFree's Difference:**
-- ✅ Fun unlock method that stimulates creativity
+**ThinkFree's Solution:**
+- ✅ Restrict only during needed hours
+- ✅ Fun creative unlock method
+- ✅ Ultra-simple UI - setup in 1 minute
 - ✅ Objective evaluation by AI
-- ✅ Enjoyment of thinking, not forced endurance
-- ✅ Habit improvement through achievement
 
 ---
 
 **🚀 How It Works**
 
-1. **Setup**: Set your daily usage goal (e.g., 3 hours)
-2. **Monitor**: Check usage in real-time for conscious use
-3. **Lock**: Apps automatically lock when goal exceeded
-4. **Creative Unlock**:
-   - 2 random words presented (e.g., "ocean", "dream")
-   - Write creative sentence including both words
-   - AI evaluates creativity to decide unlock
-5. **Grow**: Track daily achievements on heatmap for motivation
+```
+Setting: 9 AM - 6 PM, 2-hour limit
+
+09:00 - Control starts
+09:00-11:00 - Phone usage (2 hours)
+11:00 - Limit reached, locked! 🔒
+11:00-18:00 - Creative unlock only
+18:00 - Time slot ends, auto-unlock ✅
+```
+
+**Creative Unlock:**
+- 2 random words shown (e.g., "ocean", "dream")
+- Write creative sentence
+- AI evaluates for unlock
 
 ---
 
@@ -239,38 +255,46 @@ It's not about enduring—it's about **thinking and creating** while transformin
 "ocean dream" ❌ Fail!
 
 AI recognizes real creativity.
-Through thinking, imagining, and expressing,
-you naturally distance yourself from your smartphone.
 
-It's not just about limiting time—
-it's about building **thinking habits**.
+**It's not just about limiting time—**
+**it's about building thinking habits.**
+
 That's ThinkFree's philosophy.
 
 ---
 
 **📊 Perfect For**
 
-- 📱 Those wanting to reduce phone use but lacking willpower
+- 💼 Professionals wanting focus during work hours
+- 📚 Students blocking phone temptation during study time
+- 🧘 Anyone needing digital detox at specific times
+- 🎯 People preferring simple, clear apps
 - 🧠 Anyone looking to boost creativity
-- 📚 Students and professionals needing focus
-- 👨‍👩‍👧‍👦 Families building healthy digital habits
-- 🌟 People seeking fun methods, not just restrictions
+
+---
+
+**🎨 Minimal Design**
+
+- No unnecessary features
+- Intuitive interface
+- Fast loading
+- Focus on core functionality
 
 ---
 
 **🔒 Privacy Protection**
 
 - All data stored only on device
-- Creative answers deleted immediately after AI evaluation
-- Usage stats never transmitted externally
-- Safe and transparent app
+- Creative answers deleted after AI evaluation
+- No external data transmission
+- Transparent and safe app
 
 ---
 
 **Start Now!**
 
-Think, and you'll be free. 🌟
-Reclaim your true freedom with ThinkFree.
+One feature, done right. 🌟
+Reclaim your focus with ThinkFree.
 
 ---
 
@@ -278,34 +302,45 @@ Reclaim your true freedom with ThinkFree.
 
 ### 한국어
 ```
-디지털 디톡스, 스마트폰 중독, 시간 관리, 창의력, AI, 집중력, 생산성, 자기계발, 습관, 스크린타임, 잠금, 동기부여, 성취감, 건강한 습관
+디지털 디톡스, 시간대 제어, 스마트폰 잠금, 창의력, AI, 집중력, 생산성, 업무 집중, 공부 집중, 스크린타임, 미니멀, 심플, 습관, 시간 관리
 ```
 
 ### English
 ```
-digital detox, phone addiction, time management, creativity, AI, focus, productivity, self-improvement, habit, screen time, lock, motivation, achievement, healthy habits
+digital detox, time slot control, phone lock, creativity, AI, focus, productivity, work focus, study focus, screen time, minimal, simple, habit, time management
 ```
 
 ---
 
 ## 🎨 앱 카테고리 (Category)
 
-**Primary Category**: 건강 및 피트니스 (Health & Fitness)
-**Secondary Category**: 생산성 (Productivity)
+**Primary Category**: 생산성 (Productivity)
+**Secondary Category**: 건강 및 피트니스 (Health & Fitness)
 
 ---
 
 ## 📸 스크린샷 설명 제안
 
-1. **메인 화면**: "오늘의 목표 달성률 - 실시간 모니터링"
-2. **히트맵**: "GitHub 스타일 성취 기록 - 한눈에 보는 나의 성장"
-3. **잠금 화면**: "시간 초과 - 창의력으로 해제하세요"
-4. **창의적 해제**: "AI가 평가하는 나만의 문장"
-5. **동기부여**: "연속 7일 달성 - 계속 도전하세요!"
+1. **메인 화면**: "시간대 설정 - 심플하고 명확한 인터페이스"
+2. **실시간 현황**: "사용 시간 모니터링 - 한눈에 보는 현재 상태"
+3. **잠금 화면**: "창의적 해제 - 랜덤 단어 2개 제시"
+4. **AI 평가**: "이중 AI 평가 - GPT-4 + Claude"
+5. **성공 화면**: "해제 성공 - 창의력이 열쇠입니다"
 
 ---
 
-**문서 버전**: 1.0  
+## 🎯 핵심 메시지
+
+**"One Feature, Done Right"**
+- 하나의 기능, 완벽하게
+- 시간대별 스크린 제어
+- AI 창의력 해제
+- 미니멀 디자인
+
+---
+
+**문서 버전**: 2.0 (Simplified)  
 **작성일**: 2025년 11월 13일  
 **작성자**: DevJihwan  
-**앱 이름**: 씽크프리 (ThinkFree)
+**앱 이름**: 씽크프리 (ThinkFree)  
+**철학**: "One Feature, Done Right"
