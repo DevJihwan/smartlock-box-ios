@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct UnlockChallengeView: View {
     @EnvironmentObject var appState: AppStateManager
@@ -34,12 +35,15 @@ struct UnlockChallengeView: View {
     }
     
     // MARK: - Background
-    
+
     private var backgroundView: some View {
         LinearGradient(
-            gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.purple.opacity(0.2)]),
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
+            gradient: Gradient(colors: [
+                Color(red: 0.25, green: 0.71, blue: 0.96), // Light blue
+                Color(red: 0.05, green: 0.49, blue: 0.78)  // Darker blue
+            ]),
+            startPoint: .top,
+            endPoint: .bottom
         )
         .ignoresSafeArea()
     }
@@ -73,165 +77,207 @@ struct ChallengeInputView: View {
     let unlockTime: Date?
     let onSubmit: () -> Void
     let onCancel: () -> Void
+    @State private var isInputFocused: Bool = false
 
     var body: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 0) {
+            Spacer().frame(height: 60)
+
             headerSection
+
+            Spacer().frame(height: 80)
+
             wordBubblesSection
+
+            Spacer().frame(height: 32)
+
             inputSection
-            buttonsSection
-            remainingAttemptsText
+
+            Spacer().frame(height: 20)
+
+            submitHintText
+
             Spacer()
+
+            autoUnlockText
+
+            Spacer().frame(height: 40)
         }
+        .padding(.horizontal, 24)
     }
 
     // MARK: - Header
 
     private var headerSection: some View {
-        VStack(spacing: 12) {
-            Image(systemName: "lock.fill")
-                .font(.system(size: 70))
-                .foregroundColor(.white)
-                .padding()
-                .background(
-                    Circle()
-                        .fill(LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing))
-                        .shadow(color: .blue.opacity(0.3), radius: 10, y: 5)
-                )
+        VStack(spacing: 0) {
+            // "Think" text
+            Text("Think")
+                .font(.system(size: 48, weight: .regular))
+                .foregroundColor(Color.white.opacity(0.9))
 
-            Text("🔒 ThinkFree Locked")
-                .font(.title.bold())
-                .foregroundColor(.primary)
+            // Divider line
+            Rectangle()
+                .fill(Color.white.opacity(0.7))
+                .frame(width: 120, height: 1)
 
-            if let unlockTime = unlockTime {
-                let formattedTime = {
-                    let formatter = DateFormatter()
-                    formatter.timeStyle = .short
-                    return formatter.string(from: unlockTime)
-                }()
-
-                Text("Locked until \(formattedTime)")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-
-            Divider()
-                .padding(.vertical, 8)
-
-            Text("💡 Creative Unlock")
-                .font(.headline)
-                .foregroundColor(.primary)
-
-            Text("Create a creative sentence\nusing the two words below:")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
+            // "Free" text
+            Text("Free")
+                .font(.system(size: 48, weight: .regular))
+                .foregroundColor(Color.white.opacity(0.9))
         }
-        .padding(.top, 30)
     }
     
     // MARK: - Word Bubbles
-    
+
     private var wordBubblesSection: some View {
         HStack(spacing: 20) {
-            WordBubble(word: viewModel.challenge.word1)
-            WordBubble(word: viewModel.challenge.word2)
+            // Left word with glassmorphism
+            Text(viewModel.challenge.word1)
+                .font(.system(size: 16, weight: .regular))
+                .foregroundColor(Color.white.opacity(0.9))
+                .padding(.horizontal, 20)
+                .padding(.vertical, 14)
+                .background(
+                    ZStack {
+                        // Glassmorphism effect
+                        RoundedRectangle(cornerRadius: 24)
+                            .fill(Color.white.opacity(0.15))
+                            .background(
+                                RoundedRectangle(cornerRadius: 24)
+                                    .fill(.ultraThinMaterial)
+                            )
+
+                        // Border
+                        RoundedRectangle(cornerRadius: 24)
+                            .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
+                    }
+                )
+                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 4)
+
+            Spacer()
+                .frame(maxWidth: 80)
+
+            // Right word with glassmorphism
+            Text(viewModel.challenge.word2)
+                .font(.system(size: 16, weight: .regular))
+                .foregroundColor(Color.white.opacity(0.9))
+                .padding(.horizontal, 20)
+                .padding(.vertical, 14)
+                .background(
+                    ZStack {
+                        // Glassmorphism effect
+                        RoundedRectangle(cornerRadius: 24)
+                            .fill(Color.white.opacity(0.15))
+                            .background(
+                                RoundedRectangle(cornerRadius: 24)
+                                    .fill(.ultraThinMaterial)
+                            )
+
+                        // Border
+                        RoundedRectangle(cornerRadius: 24)
+                            .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
+                    }
+                )
+                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 4)
         }
-        .padding()
+        .frame(maxWidth: .infinity)
     }
     
     // MARK: - Input
-    
+
     private var inputSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            TextEditor(text: $viewModel.challenge.attempt)
-                .frame(height: 120)
-                .padding(8)
-                .background(Color.white)
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(viewModel.challenge.isValid ? Color.green : Color.gray.opacity(0.3), lineWidth: 2)
-                )
-            
-            HStack {
-                Text("최소 10글자 이상 (현재: \(viewModel.challenge.wordCount)글자)")
-                    .font(.caption)
-                    .foregroundColor(viewModel.challenge.wordCount >= 10 ? .green : .secondary)
-                
-                Spacer()
-                
-                if !viewModel.challenge.isValid && viewModel.challenge.wordCount >= 10 {
-                    Text("⚠️ 두 단어를 모두 포함해주세요")
-                        .font(.caption)
-                        .foregroundColor(.red)
+        ZStack(alignment: .topLeading) {
+            // Glassmorphism background with animated focus state
+            ZStack {
+                // Background blur effect
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(isInputFocused ? Color.white.opacity(0.25) : Color.white.opacity(0.15))
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(.ultraThinMaterial)
+                    )
+
+                // Border with animated color and width
+                RoundedRectangle(cornerRadius: 16)
+                    .strokeBorder(
+                        isInputFocused ? Color.white.opacity(0.5) : Color.white.opacity(0.3),
+                        lineWidth: isInputFocused ? 2 : 1
+                    )
+            }
+            .frame(height: isInputFocused ? 200 : 180)
+            .shadow(
+                color: isInputFocused ? Color.white.opacity(0.2) : Color.black.opacity(0.1),
+                radius: isInputFocused ? 15 : 10,
+                x: 0,
+                y: isInputFocused ? 6 : 4
+            )
+            .animation(.easeInOut(duration: 0.2), value: isInputFocused)
+
+            // Custom TextView with Enter key detection
+            SubmittableTextView(
+                text: $viewModel.challenge.attempt,
+                isFocused: $isInputFocused,
+                onSubmit: {
+                    if viewModel.challenge.isValid {
+                        onSubmit()
+                    }
                 }
-            }
-        }
-        .padding(.horizontal)
-    }
-    
-    // MARK: - Buttons
-    
-    private var buttonsSection: some View {
-        VStack(spacing: 12) {
-            submitButton
-            actionButtons
-        }
-        .padding(.horizontal)
-    }
-    
-    private var submitButton: some View {
-        Button(action: onSubmit) {
-            Text("제출하기")
-                .font(.headline)
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(viewModel.challenge.isValid ? Color.blue : Color.gray)
-                .cornerRadius(10)
-        }
-        .disabled(!viewModel.challenge.isValid)
-    }
-    
-    private var actionButtons: some View {
-        HStack {
-            Button(action: {
-                viewModel.refreshWords()
-            }) {
-                Text("다른 단어로 변경 (\(viewModel.remainingRefreshCount)회 남음)")
-                    .font(.subheadline)
-            }
-            .disabled(viewModel.remainingRefreshCount == 0)
-            
-            Spacer()
-            
-            Button(action: onCancel) {
-                Text("취소")
-                    .font(.subheadline)
-                    .foregroundColor(.red)
+            )
+            .padding(16)
+            .frame(height: isInputFocused ? 200 : 180)
+
+            // Placeholder
+            if viewModel.challenge.attempt.isEmpty {
+                Text("여기에 생각을 자유롭게...")
+                    .font(.system(size: 17))
+                    .foregroundColor(Color.white.opacity(0.5))
+                    .padding(.horizontal, 20)
+                    .padding(.top, 24)
+                    .allowsHitTesting(false)
             }
         }
     }
     
-    private var remainingAttemptsText: some View {
-        VStack(spacing: 4) {
-            Text("⚠️ Daily Limits")
-                .font(.caption.bold())
-                .foregroundColor(.orange)
-            HStack {
-                Text("💬 Submissions: \(viewModel.remainingAttempts)/10")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                Spacer()
-                Text("🔄 Word Changes: \(viewModel.remainingRefreshCount)/3")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+    // MARK: - Submit Hint
+
+    private var submitHintText: some View {
+        Text("Enter로 제출")
+            .font(.system(size: 14))
+            .foregroundColor(Color.white.opacity(0.5))
+    }
+
+    // MARK: - Auto Unlock Text
+
+    private var autoUnlockText: some View {
+        Group {
+            if let unlockTime = unlockTime {
+                let timeRemaining = calculateTimeRemaining(until: unlockTime)
+                Text(timeRemaining)
+                    .font(.system(size: 12))
+                    .foregroundColor(Color.white.opacity(0.4))
+            } else {
+                Text("2시간 15분 후 자동 해제")
+                    .font(.system(size: 12))
+                    .foregroundColor(Color.white.opacity(0.4))
             }
         }
-        .padding()
-        .background(Color.orange.opacity(0.1))
-        .cornerRadius(8)
+    }
+
+    // MARK: - Helper Methods
+
+    private func calculateTimeRemaining(until date: Date) -> String {
+        let now = Date()
+        let components = Calendar.current.dateComponents([.hour, .minute], from: now, to: date)
+
+        if let hours = components.hour, let minutes = components.minute {
+            if hours > 0 {
+                return "\(hours)시간 \(minutes)분 후 자동 해제"
+            } else {
+                return "\(minutes)분 후 자동 해제"
+            }
+        }
+
+        return "자동 해제 예정"
     }
 }
 
@@ -406,6 +452,77 @@ struct EvaluationResultRow: View {
             Text(feedback)
                 .font(.caption)
                 .foregroundColor(.secondary)
+        }
+    }
+}
+
+// MARK: - Submittable TextView
+
+struct SubmittableTextView: UIViewRepresentable {
+    @Binding var text: String
+    @Binding var isFocused: Bool
+    var onSubmit: () -> Void
+
+    func makeUIView(context: Context) -> UITextView {
+        let textView = UITextView()
+        textView.delegate = context.coordinator
+        textView.backgroundColor = .clear
+        textView.textColor = .white
+        textView.font = .systemFont(ofSize: 17)
+        textView.returnKeyType = .default
+        textView.autocorrectionType = .default
+        textView.autocapitalizationType = .sentences
+        textView.isScrollEnabled = true
+        return textView
+    }
+
+    func updateUIView(_ uiView: UITextView, context: Context) {
+        if uiView.text != text {
+            uiView.text = text
+        }
+
+        if isFocused && !uiView.isFirstResponder {
+            uiView.becomeFirstResponder()
+        } else if !isFocused && uiView.isFirstResponder {
+            uiView.resignFirstResponder()
+        }
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(text: $text, isFocused: $isFocused, onSubmit: onSubmit)
+    }
+
+    class Coordinator: NSObject, UITextViewDelegate {
+        @Binding var text: String
+        @Binding var isFocused: Bool
+        var onSubmit: () -> Void
+
+        init(text: Binding<String>, isFocused: Binding<Bool>, onSubmit: @escaping () -> Void) {
+            _text = text
+            _isFocused = isFocused
+            self.onSubmit = onSubmit
+        }
+
+        func textViewDidChange(_ textView: UITextView) {
+            text = textView.text
+        }
+
+        func textViewDidBeginEditing(_ textView: UITextView) {
+            isFocused = true
+        }
+
+        func textViewDidEndEditing(_ textView: UITextView) {
+            isFocused = false
+        }
+
+        func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+            // Detect Enter key press (without Shift)
+            if text == "\n" {
+                // Check if valid, then submit
+                onSubmit()
+                return false // Don't add newline
+            }
+            return true
         }
     }
 }

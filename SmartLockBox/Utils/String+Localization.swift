@@ -18,7 +18,9 @@ extension String {
     /// - Returns: 포맷팅된 번역 문자열
     func localized(with arguments: CVarArg...) -> String {
         let localizedString = LocalizationManager.shared.localizedString(self)
-        return String(format: localizedString, arguments: arguments)
+        return withVaList(arguments) { pointer in
+            NSString(format: localizedString, arguments: pointer) as String
+        }
     }
     
     /// 복수형 처리를 위한 로컬라이제이션

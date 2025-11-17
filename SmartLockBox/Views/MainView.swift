@@ -12,6 +12,7 @@ struct MainView: View {
     @StateObject private var viewModel = MainViewModel()
     @ObservedObject private var localizationManager = LocalizationManager.shared
     @State private var showNotificationPermissionAlert = false
+    @State private var showSettings = false
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
@@ -30,26 +31,39 @@ struct MainView: View {
     }
 
     private var mainContent: some View {
-        ScrollView {
-            VStack(spacing: 24) {
+        ZStack {
+            // Background
+            AppColors.background.ignoresSafeArea()
+
+            VStack(spacing: 0) {
+                // Header with language switcher
                 headerView
+                    .padding(.horizontal, 24)
+                    .padding(.top, 16)
 
-                // Time Slot Settings
-                timeSlotSettingsSection
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 32) {
+                        // Time slot info
+                        timeSlotInfoView
+                            .padding(.top, 24)
 
-                // Show status if control is enabled
-                if appState.isControlEnabled {
-                    currentStatusSection
-                    usageProgressSection
+                        // Circular timer
+                        circularTimerView
+
+                        // Control toggle
+                        controlToggleView
+
+                        Spacer(minLength: 40)
+                    }
+                    .padding(.horizontal, 24)
                 }
 
-                Spacer(minLength: 20)
+                // Settings button at bottom
+                settingsButtonView
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 32)
             }
-            .padding()
         }
-        .background(AppColors.background.ignoresSafeArea())
-        .navigationTitle("ThinkFree")
-        .foregroundColor(AppColors.text)
         .onAppear {
             checkNotificationPermission()
             appState.loadSettings()
@@ -57,16 +71,35 @@ struct MainView: View {
         .alert(isPresented: $showNotificationPermissionAlert) {
             notificationPermissionAlert
         }
+        .sheet(isPresented: $showSettings) {
+            SettingsView()
+                .environmentObject(appState)
+        }
         .preferredColorScheme(nil)
     }
 
     // MARK: - Header View
 
     private var headerView: some View {
-        HStack {
-            Text("📱 ThinkFree")
-                .font(.title2.bold())
-                .foregroundColor(AppColors.text)
+        HStack(alignment: .center, spacing: 12) {
+            // ThinkFree BI Logo
+            HStack(spacing: 12) {
+                // Lock icon
+                Image(systemName: "lock.fill")
+                    .font(.system(size: 32))
+                    .foregroundColor(AppColors.accent)
+
+                // Brand text
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("ThinkFree")
+                        .font(.system(size: 28, weight: .regular))
+                        .foregroundColor(AppColors.text)
+
+                    Text("생각하면 자유로워진다")
+                        .font(.system(size: 12, weight: .regular))
+                        .foregroundColor(AppColors.accent)
+                }
+            }
 
             Spacer()
 
@@ -74,108 +107,218 @@ struct MainView: View {
         }
     }
 
-    // MARK: - Time Slot Settings Section
+    // MARK: - Time Slot Info View
 
-    private var timeSlotSettingsSection: some View {
+    private var timeSlotInfoView: some View {
+        VStack(spacing: 12) {
+            // Clock icon
+            Image(systemName: "clock")
+                .font(.system(size: 32))
+                .foregroundColor(AppColors.secondaryText.opacity(0.6))
+
+            // Time range
+            Text(formatTimeRange())
+                .font(.system(size: 28, weight: .bold))
+                .foregroundColor(AppColors.text)
+
+            // Limit description
+            Text("limit_time_description".localized(with: formatHours(appState.limitMinutes)))
+                .font(.system(size: 17))
+                .foregroundColor(AppColors.secondaryText)
+        }
+    }
+
+    // MARK: - Circular Timer View
+
+    private var circularTimerView: some View {
         VStack(spacing: 16) {
-            // Section Header
-            HStack {
-                Text("⏰ " + "time_slot".localized)
-                    .font(.headline)
-                    .foregroundColor(AppColors.text)
-                Spacer()
-            }
+            ZStack {
+                // Background circle
+                Circle()
+                    .stroke(Color.gray.opacity(0.15), lineWidth: 20)
+                    .frame(width: 240, height: 240)
 
-            // Time Range Display Box
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    Image(systemName: "clock")
-                        .foregroundColor(AppColors.accent)
-                    Text("time_slot_start".localized + ":")
+                // Progress circle
+                Circle()
+                    .trim(from: 0, to: CGFloat(min(Double(appState.usagePercentage) / 100.0, 1.0)))
+                    .stroke(
+                        Color(red: 1.0, green: 0.75, blue: 0.0), // Yellow/Gold color
+                        style: StrokeStyle(lineWidth: 20, lineCap: .round)
+                    )
+                    .frame(width: 240, height: 240)
+                    .rotationEffect(.degrees(-90))
+                    .animation(.easeInOut(duration: 0.5), value: appState.usagePercentage)
+
+                // Center content
+                VStack(spacing: 8) {
+                    // Current time remaining
+                    Text(formatTimeRemaining())
+                        .font(.system(size: 40, weight: .bold))
                         .foregroundColor(AppColors.text)
-                    Spacer()
-                    DatePicker("", selection: $appState.slotStartTime, displayedComponents: .hourAndMinute)
-                        .labelsHidden()
-                }
 
-                Divider()
+                    // Divider line
+                    Rectangle()
+                        .fill(AppColors.secondaryText.opacity(0.3))
+                        .frame(width: 60, height: 1)
 
-                HStack {
-                    Image(systemName: "clock.fill")
-                        .foregroundColor(AppColors.accent)
-                    Text("time_slot_end".localized + ":")
-                        .foregroundColor(AppColors.text)
-                    Spacer()
-                    DatePicker("", selection: $appState.slotEndTime, displayedComponents: .hourAndMinute)
-                        .labelsHidden()
-                }
-            }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(AppColors.secondaryBackground)
-            )
-
-            // Limit Time Section
-            HStack {
-                Text("⏱️ " + "limit_time".localized)
-                    .font(.headline)
-                    .foregroundColor(AppColors.text)
-                Spacer()
-            }
-
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
+                    // Total limit time
                     Text(formatHours(appState.limitMinutes))
-                        .font(.title2.bold())
-                        .foregroundColor(AppColors.accent)
-                    Spacer()
-                }
-
-                Slider(
-                    value: Binding(
-                        get: { Double(appState.limitMinutes) / 60.0 },
-                        set: { appState.limitMinutes = Int($0 * 60) }
-                    ),
-                    in: 0.5...8,
-                    step: 0.5
-                )
-                .accentColor(AppColors.accent)
-            }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(AppColors.secondaryBackground)
-            )
-
-            Divider()
-
-            // Control Toggle
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("control_enabled".localized)
-                        .font(.headline)
-                        .foregroundColor(AppColors.text)
-                    Text("control_enabled_description".localized)
-                        .font(.caption)
+                        .font(.system(size: 20))
                         .foregroundColor(AppColors.secondaryText)
                 }
-                Spacer()
-                Toggle("", isOn: $appState.isControlEnabled)
-                    .labelsHidden()
-                    .toggleStyle(SwitchToggleStyle(tint: AppColors.accent))
             }
+
+            // Time remaining text
+            Text(formatTimeRemainingDescription())
+                .font(.system(size: 15))
+                .foregroundColor(AppColors.secondaryText)
+
+            // Debug info (temporary)
+            #if DEBUG
+            VStack(spacing: 4) {
+                Text("Debug Info:")
+                    .font(.caption.bold())
+                    .foregroundColor(.orange)
+                Text("Control: \(appState.isControlEnabled ? "ON" : "OFF")")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+                Text("In Time Slot: \(appState.isWithinTimeSlot ? "YES" : "NO")")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+                Text("Usage: \(appState.todayUsageMinutes) min")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+            .padding(8)
+            .background(Color.orange.opacity(0.1))
+            .cornerRadius(8)
+            #endif
         }
-        .padding(20)
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(AppColors.cardBackground)
-                .adaptiveShadow(radius: 8, opacity: 0.08, y: 4)
-        )
-        .onChange(of: appState.slotStartTime) { _ in appState.saveSettings() }
-        .onChange(of: appState.slotEndTime) { _ in appState.saveSettings() }
-        .onChange(of: appState.limitMinutes) { _ in appState.saveSettings() }
-        .onChange(of: appState.isControlEnabled) { _ in appState.saveSettings() }
+    }
+
+    // MARK: - Control Toggle View
+
+    private var controlToggleView: some View {
+        VStack(spacing: 16) {
+            // Divider
+            Rectangle()
+                .fill(AppColors.secondaryText.opacity(0.2))
+                .frame(height: 1)
+                .padding(.horizontal, -24)
+
+            // Toggle
+            VStack(spacing: 12) {
+                // Custom toggle with smooth animation
+                HStack(spacing: 16) {
+                    Spacer()
+
+                    // Toggle text
+                    Text(appState.isControlEnabled ? "ON" : "OFF")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(AppColors.secondaryText)
+                        .frame(width: 40)
+                        .animation(.easeInOut(duration: 0.3), value: appState.isControlEnabled)
+
+                    // Custom animated toggle
+                    ZStack {
+                        // Background capsule
+                        Capsule()
+                            .fill(appState.isControlEnabled ? AppColors.accent : Color.gray.opacity(0.3))
+                            .frame(width: 51, height: 31)
+
+                        // Moving circle
+                        HStack {
+                            if !appState.isControlEnabled {
+                                Circle()
+                                    .fill(Color.white)
+                                    .frame(width: 27, height: 27)
+                                    .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 1)
+                                Spacer()
+                            } else {
+                                Spacer()
+                                Circle()
+                                    .fill(Color.white)
+                                    .frame(width: 27, height: 27)
+                                    .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 1)
+                            }
+                        }
+                        .padding(.horizontal, 2)
+                        .frame(width: 51, height: 31)
+                    }
+                    .onTapGesture {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.7, blendDuration: 0)) {
+                            appState.isControlEnabled.toggle()
+                            appState.saveSettings()
+                        }
+                    }
+
+                    Spacer()
+                }
+                .frame(maxWidth: 240)
+
+                // Status description
+                Text(appState.isControlEnabled ? "control_active".localized : "control_inactive".localized)
+                    .font(.system(size: 15))
+                    .foregroundColor(AppColors.secondaryText)
+                    .animation(.easeInOut(duration: 0.3), value: appState.isControlEnabled)
+            }
+
+            // Divider
+            Rectangle()
+                .fill(AppColors.secondaryText.opacity(0.2))
+                .frame(height: 1)
+                .padding(.horizontal, -24)
+        }
+    }
+
+    // MARK: - Settings Button View
+
+    private var settingsButtonView: some View {
+        Button(action: {
+            showSettings = true
+        }) {
+            HStack(spacing: 8) {
+                Image(systemName: "gearshape")
+                    .font(.system(size: 20))
+                Text("settings".localized)
+                    .font(.system(size: 17))
+            }
+            .foregroundColor(AppColors.text.opacity(0.7))
+        }
+    }
+
+    // MARK: - Helper Methods
+
+    private func formatTimeRange() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "a h:mm"
+        formatter.locale = Locale(identifier: localizationManager.currentLanguage.rawValue == "ko" ? "ko_KR" : "en_US")
+
+        let startStr = formatter.string(from: appState.slotStartTime)
+        let endStr = formatter.string(from: appState.slotEndTime)
+
+        return "\(startStr) ~ \(endStr)"
+    }
+
+    private func formatTimeRemaining() -> String {
+        let remaining = appState.remainingMinutes
+        let hours = remaining / 60
+        let minutes = remaining % 60
+
+        if hours > 0 {
+            return "\(hours)h \(minutes)m"
+        } else {
+            return "\(minutes)m"
+        }
+    }
+
+    private func formatTimeRemainingDescription() -> String {
+        let remaining = appState.remainingMinutes
+        if remaining > 0 {
+            return "min_remaining_description".localized(with: remaining)
+        } else {
+            return "locked_status".localized
+        }
     }
 
     private func formatHours(_ minutes: Int) -> String {
@@ -185,238 +328,6 @@ struct MainView: View {
         } else {
             return "hours_minutes_format".localized(with: hours)
         }
-    }
-
-    // MARK: - Current Status Section
-
-    private var currentStatusSection: some View {
-        VStack(spacing: 16) {
-            HStack {
-                Text("📊 " + "today_status".localized)
-                    .font(.headline)
-                    .foregroundColor(AppColors.text)
-                Spacer()
-            }
-
-            VStack(spacing: 12) {
-                // Status Badge
-                HStack {
-                    if appState.isWithinTimeSlot {
-                        statusIndicator(text: "🟢 " + "control_active".localized, color: .green)
-                    } else {
-                        statusIndicator(text: "⚪ " + "outside_time_slot".localized, color: .gray)
-                    }
-                    Spacer()
-                }
-
-                Divider()
-
-                // Time Info
-                HStack(spacing: 16) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("time_slot".localized)
-                            .font(.caption)
-                            .foregroundColor(AppColors.secondaryText)
-                        Text("\(timeFormatter.string(from: appState.slotStartTime)) - \(timeFormatter.string(from: appState.slotEndTime))")
-                            .font(.subheadline.bold())
-                            .foregroundColor(AppColors.text)
-                    }
-
-                    Spacer()
-
-                    VStack(alignment: .trailing, spacing: 4) {
-                        Text("limit_time".localized)
-                            .font(.caption)
-                            .foregroundColor(AppColors.secondaryText)
-                        Text(formatHours(appState.limitMinutes))
-                            .font(.subheadline.bold())
-                            .foregroundColor(AppColors.text)
-                    }
-                }
-            }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(AppColors.secondaryBackground)
-            )
-        }
-        .padding(20)
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(AppColors.cardBackground)
-                .adaptiveShadow(radius: 8, opacity: 0.08, y: 4)
-        )
-    }
-
-    private func statusIndicator(text: String, color: Color) -> some View {
-        HStack(spacing: 8) {
-            Circle()
-                .fill(color)
-                .frame(width: 10, height: 10)
-            Text(text)
-                .font(.subheadline.bold())
-                .foregroundColor(color)
-        }
-    }
-
-    // MARK: - Usage Progress Section
-
-    private var usageProgressSection: some View {
-        VStack(spacing: 16) {
-            HStack {
-                Text("📈 " + "usage_tracking".localized)
-                    .font(.headline)
-                    .foregroundColor(AppColors.text)
-                Spacer()
-            }
-
-            VStack(spacing: 16) {
-                usageTimeDisplay
-                linearProgressBar
-                Divider()
-                timeUntilLockDisplay
-                warningMessage
-                unlockButton
-            }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(AppColors.secondaryBackground)
-            )
-        }
-        .padding(20)
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(AppColors.cardBackground)
-                .adaptiveShadow(radius: 8, opacity: 0.08, y: 4)
-        )
-    }
-
-    private var usageTimeDisplay: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("usage_time".localized)
-                    .font(.caption)
-                    .foregroundColor(AppColors.secondaryText)
-                Text("\(appState.todayUsageMinutes) " + "minutes".localized + " / \(appState.limitMinutes) " + "minutes".localized)
-                    .font(.title3.bold())
-                    .foregroundColor(AppColors.text)
-            }
-            Spacer()
-            circularProgressIndicator
-        }
-    }
-
-    private var circularProgressIndicator: some View {
-        ZStack {
-            Circle()
-                .stroke(Color.gray.opacity(0.2), lineWidth: 8)
-                .frame(width: 60, height: 60)
-
-            Circle()
-                .trim(from: 0, to: CGFloat(min(Double(appState.usagePercentage) / 100.0, 1.0)))
-                .stroke(progressBarColor, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                .frame(width: 60, height: 60)
-                .rotationEffect(.degrees(-90))
-
-            Text("\(Int(appState.usagePercentage))%")
-                .font(.caption.bold())
-                .foregroundColor(progressBarColor)
-        }
-    }
-
-    private var linearProgressBar: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.gray.opacity(0.2))
-                    .frame(height: 12)
-
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(progressBarColor)
-                    .frame(
-                        width: geometry.size.width * CGFloat(min(Double(appState.usagePercentage) / 100.0, 1.0)),
-                        height: 12
-                    )
-            }
-        }
-        .frame(height: 12)
-    }
-
-    private var timeUntilLockDisplay: some View {
-        HStack {
-            Image(systemName: "clock.badge.exclamationmark")
-                .foregroundColor(appState.remainingMinutes > 0 ? AppColors.accent : .red)
-            Text("until_lock".localized + ":")
-                .foregroundColor(AppColors.text)
-            Spacer()
-            Text(appState.remainingMinutes > 0 ? "min_remaining".localized(with: appState.remainingMinutes) : "locked_status".localized)
-                .font(.subheadline.bold())
-                .foregroundColor(appState.remainingMinutes > 0 ? AppColors.accent : .red)
-        }
-    }
-
-    @ViewBuilder
-    private var warningMessage: some View {
-        if appState.usagePercentage >= 86 && appState.remainingMinutes > 0 {
-            HStack {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(.orange)
-                Text("warning_will_lock_soon".localized)
-                    .font(.subheadline)
-                    .foregroundColor(.orange)
-                Spacer()
-            }
-            .padding()
-            .background(Color.orange.opacity(0.1))
-            .cornerRadius(8)
-        }
-    }
-
-    @ViewBuilder
-    private var unlockButton: some View {
-        if appState.currentState == .locked {
-            Button(action: {
-                navigateToUnlock()
-            }) {
-                HStack {
-                    Image(systemName: "lock.open.fill")
-                    Text("creative_unlock".localized)
-                        .fontWeight(.semibold)
-                }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(
-                    LinearGradient(
-                        colors: [Color.blue, Color.purple],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
-                .foregroundColor(.white)
-                .cornerRadius(12)
-                .shadow(color: Color.blue.opacity(0.3), radius: 8, y: 4)
-            }
-        }
-    }
-
-    // MARK: - Helper Views
-
-    private var progressBarColor: Color {
-        let percentage = appState.usagePercentage
-        if percentage <= 60 {
-            return .green
-        } else if percentage <= 85 {
-            return .yellow
-        } else {
-            return .red
-        }
-    }
-
-    private var timeFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        return formatter
     }
 
     // MARK: - Alert
@@ -432,7 +343,7 @@ struct MainView: View {
         )
     }
 
-    // MARK: - Helper Methods
+    // MARK: - Notification Permission Methods
 
     private func checkNotificationPermission() {
         NotificationManager.shared.checkAuthorizationStatus()
@@ -448,10 +359,6 @@ struct MainView: View {
         Task {
             await NotificationManager.shared.requestAuthorization()
         }
-    }
-
-    private func navigateToUnlock() {
-        appState.startUnlockChallenge()
     }
 }
 

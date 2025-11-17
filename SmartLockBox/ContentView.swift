@@ -14,11 +14,11 @@ struct ContentView: View {
         Group {
             switch appState.currentState {
             case .normal:
-                MainView()
+                MainView_New()
             case .locked:
-                LockScreenView()
+                LockScreenView_New()
             case .unlockChallenge:
-                UnlockChallengeView()
+                UnlockChallengeView_New()
             }
         }
     }
