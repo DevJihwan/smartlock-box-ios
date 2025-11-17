@@ -63,45 +63,28 @@ class AIEvaluationService {
     
     // MARK: - API Key Management
 
-    /// API 키 로드 (Config.xcconfig → Info.plist → 환경변수 순서로 시도)
+    /// API 키 로드 (Configuration.plist → Info.plist → 환경변수 순서로 시도)
     private func getAPIKey(for key: String) -> String? {
         print("🔍 [\(key)] API 키 로드 시작...")
 
-        // Priority 1: Info.plist에서 읽기 (xcconfig에서 주입된 값)
+        // Priority 1: Configuration.plist에서 읽기
+        if let configPath = Bundle.main.path(forResource: "Configuration", ofType: "plist"),
+           let configDict = NSDictionary(contentsOfFile: configPath) as? [String: Any],
+           let apiKey = configDict[key] as? String,
+           !apiKey.isEmpty {
+            print("✅ [\(key)] Configuration.plist에서 API 키 로드 성공")
+            print("🔍 [\(key)] 키 시작: \(String(apiKey.prefix(15)))...")
+            return apiKey
+        } else {
+            print("⚠️ [\(key)] Configuration.plist에서 API 키를 찾을 수 없음")
+        }
+
+        // Priority 2: Info.plist에서 읽기 (xcconfig에서 주입된 값)
         if let plistKey = Bundle.main.object(forInfoDictionaryKey: key) as? String,
            !plistKey.isEmpty && !plistKey.hasPrefix("$") && !plistKey.hasPrefix("{") {
             print("✅ [\(key)] Info.plist에서 API 키 로드 성공")
             print("🔍 [\(key)] 키 시작: \(String(plistKey.prefix(15)))...")
             return plistKey
-        }
-
-        // Priority 2: Config.xcconfig 파일에서 직접 읽기
-        if let configPath = Bundle.main.path(forResource: "Config", ofType: "xcconfig") {
-            do {
-                let configContent = try String(contentsOfFile: configPath, encoding: .utf8)
-                print("🔍 [\(key)] Config.xcconfig 파일 발견")
-
-                let lines = configContent.components(separatedBy: .newlines)
-                for line in lines {
-                    let trimmedLine = line.trimmingCharacters(in: .whitespacesAndNewlines)
-                    if trimmedLine.hasPrefix(key) && trimmedLine.contains("=") {
-                        let parts = trimmedLine.components(separatedBy: "=")
-                        if parts.count >= 2 {
-                            let keyValue = parts[1].trimmingCharacters(in: .whitespacesAndNewlines)
-                            if !keyValue.isEmpty {
-                                print("✅ [\(key)] Config.xcconfig에서 API 키 로드 성공")
-                                print("🔍 [\(key)] 키 시작: \(String(keyValue.prefix(15)))...")
-                                return keyValue
-                            }
-                        }
-                    }
-                }
-                print("❌ [\(key)] Config.xcconfig에서 키를 찾을 수 없음")
-            } catch {
-                print("❌ [\(key)] Config.xcconfig 읽기 오류: \(error)")
-            }
-        } else {
-            print("❌ [\(key)] Config.xcconfig 파일을 찾을 수 없음")
         }
 
         // Priority 3: 환경 변수에서 확인
@@ -179,8 +162,12 @@ class AIEvaluationService {
     
     private func evaluateWithOpenAI(sentence: String, word1: String, word2: String) async throws -> AIEvaluationResult {
         guard !openAIAPIKey.isEmpty else {
-            // API 키가 없으면 개발 모드로 동작 (랜덤 결과)
-            return developmentModeEvaluation(provider: .openai)
+            print("❌ [OpenAI] API 키가 없습니다")
+            throw NSError(
+                domain: "AIEvaluationService",
+                code: -100,
+                userInfo: [NSLocalizedDescriptionKey: "OpenAI API 키가 설정되지 않았습니다. Config.xcconfig 파일에 OPENAI_API_KEY를 추가하세요."]
+            )
         }
         
         let url = URL(string: "https://api.openai.com/v1/chat/completions")!
@@ -247,8 +234,12 @@ class AIEvaluationService {
     
     private func evaluateWithClaude(sentence: String, word1: String, word2: String) async throws -> AIEvaluationResult {
         guard !anthropicAPIKey.isEmpty else {
-            // API 키가 없으면 개발 모드로 동작
-            return developmentModeEvaluation(provider: .claude)
+            print("❌ [Claude] API 키가 없습니다")
+            throw NSError(
+                domain: "AIEvaluationService",
+                code: -101,
+                userInfo: [NSLocalizedDescriptionKey: "Anthropic API 키가 설정되지 않았습니다. Config.xcconfig 파일에 ANTHROPIC_API_KEY를 추가하세요."]
+            )
         }
         
         let url = URL(string: "https://api.anthropic.com/v1/messages")!
@@ -336,18 +327,6 @@ class AIEvaluationService {
         """
     }
     
-    /// 개발 모드 평가 (API 키 없을 때)
-    private func developmentModeEvaluation(provider: AIProvider) -> AIEvaluationResult {
-        print("⚠️ 개발 모드: \(provider.rawValue) API 키 없음 - 랜덤 결과 반환")
-        
-        let isPass = Bool.random()
-        let feedbacks = isPass
-            ? ["창의적이고 감성적인 표현", "두 단어의 조화로운 활용", "독창적인 문장 구성"]
-            : ["단순한 단어 나열", "의미적 연관성 부족", "창의성이 부족함"]
-        
-        let feedback = feedbacks.randomElement() ?? ""
-        return isPass ? .pass(feedback: feedback) : .fail(feedback: feedback)
-    }
 }
 
 // MARK: - Combine Publishers (기존 호환성)

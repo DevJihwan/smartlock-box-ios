@@ -92,6 +92,7 @@ iOSInjectionProject/
 # API Keys (보안)
 Config.plist
 Config.xcconfig
+Configuration.plist
 *.plist.secret
 Secrets.swift
 APIKeys.swift

@@ -114,7 +114,30 @@ class AppStateManager: ObservableObject {
     var remainingAttempts: Int {
         return max(0, maxDailyAttempts - todayChallengeAttempts)
     }
-    
+
+    // MARK: - Streak Tracking
+
+    /// 연속 달성 일수
+    @Published var currentStreak: Int = 0 {
+        didSet {
+            UserDefaults.standard.set(currentStreak, forKey: "currentStreak")
+        }
+    }
+
+    /// 마지막 목표 달성 날짜
+    private var lastGoalMetDate: Date? {
+        get {
+            UserDefaults.standard.object(forKey: "lastGoalMetDate") as? Date
+        }
+        set {
+            if let date = newValue {
+                UserDefaults.standard.set(date, forKey: "lastGoalMetDate")
+            } else {
+                UserDefaults.standard.removeObject(forKey: "lastGoalMetDate")
+            }
+        }
+    }
+
     // MARK: - Screen Time Integration
 
     var screenTimeManager: ScreenTimeManager? = ScreenTimeManager.shared
@@ -123,7 +146,7 @@ class AppStateManager: ObservableObject {
 
     @Published var isControlEnabled: Bool = false
     @Published var slotStartTime: Date = Calendar.current.date(from: DateComponents(hour: 9, minute: 0))!
-    @Published var slotEndTime: Date = Calendar.current.date(from: DateComponents(hour: 15, minute: 0))!
+    @Published var slotEndTime: Date = Calendar.current.date(from: DateComponents(hour: 18, minute: 0))!  // Changed to 6 PM
     @Published var limitMinutes: Int = 120 // 2 hours by default
 
 
@@ -155,6 +178,8 @@ class AppStateManager: ObservableObject {
             limitMinutes = savedLimit
         }
 
+        // Load streak
+        currentStreak = UserDefaults.standard.integer(forKey: "currentStreak")
 
         // If no goal is set, ensure the app is not locked
         if !hasGoalSet {
@@ -223,9 +248,34 @@ class AppStateManager: ObservableObject {
     }
     
     private func updateUsage() {
+        // Debug log
+        print("⏱️ Update usage called - Control: \(isControlEnabled), InTimeSlot: \(isWithinTimeSlot), Locked: \(isLocked)")
+
         // v2.0: Only count usage when control is enabled and within time slot
-        guard isControlEnabled && isWithinTimeSlot else { return }
-        guard !isLocked else { return }
+        guard isControlEnabled else {
+            print("⚠️ Usage not counted - Control is disabled")
+            return
+        }
+
+        guard isWithinTimeSlot else {
+            print("⚠️ Usage not counted - Outside time slot")
+            let calendar = Calendar.current
+            let now = Date()
+            let currentHour = calendar.component(.hour, from: now)
+            let currentMinute = calendar.component(.minute, from: now)
+            let startHour = calendar.component(.hour, from: slotStartTime)
+            let startMinute = calendar.component(.minute, from: slotStartTime)
+            let endHour = calendar.component(.hour, from: slotEndTime)
+            let endMinute = calendar.component(.minute, from: slotEndTime)
+            print("   Current time: \(currentHour):\(currentMinute)")
+            print("   Time slot: \(startHour):\(startMinute) - \(endHour):\(endMinute)")
+            return
+        }
+
+        guard !isLocked else {
+            print("⚠️ Usage not counted - App is locked")
+            return
+        }
 
         // Update total usage
         todayUsageMinutes += 1
@@ -312,8 +362,12 @@ class AppStateManager: ObservableObject {
         isChallengeActive = false
 
         if success {
+            // Reset usage time when challenge is succeeded
+            todayUsageMinutes = 0
+            UserDefaults.standard.set(0, forKey: "todayUsageMinutes")
+
             disableLock()
-            print("✅ Challenge succeeded - Lock disabled")
+            print("✅ Challenge succeeded - Lock disabled, usage reset to 0")
         } else {
             currentState = .locked
             print("❌ Challenge failed - Lock remains")
@@ -360,6 +414,9 @@ class AppStateManager: ObservableObject {
     private func performDailyReset() {
         print("🔄 Performing daily reset")
 
+        // Check yesterday's goal achievement before reset
+        updateStreak()
+
         // Reset daily counters
         todayUsageMinutes = 0
         todayChallengeAttempts = 0
@@ -371,8 +428,61 @@ class AppStateManager: ObservableObject {
         UserDefaults.standard.set(0, forKey: "todayUsageMinutes")
         UserDefaults.standard.set(0, forKey: "todayChallengeAttempts")
 
-        // Check if should auto-unlock
+        // Unlock when daily reset happens (usage is now 0)
+        if isLocked {
+            disableLock()
+            print("🔓 Daily reset: Lock automatically disabled")
+        }
+
+        // Also check if should auto-unlock based on time
         checkAutoUnlock()
+    }
+
+    /// 연속 달성 일수 업데이트
+    private func updateStreak() {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+
+        // v2.0: Goal is to NOT exceed limit during time slot
+        let goalMet = todayUsageMinutes < limitMinutes
+
+        if goalMet {
+            // Check if this continues the streak
+            if let lastDate = lastGoalMetDate {
+                let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
+                let lastDateStart = calendar.startOfDay(for: lastDate)
+
+                if lastDateStart == yesterday {
+                    // Continue streak
+                    currentStreak += 1
+                    print("📈 Streak continued: \(currentStreak) days")
+                } else if lastDateStart < yesterday {
+                    // Streak broken, start new
+                    currentStreak = 1
+                    print("🔄 Streak broken, starting new: 1 day")
+                }
+                // If lastDate == today, don't update (already counted)
+            } else {
+                // First goal met
+                currentStreak = 1
+                print("🎉 First goal met! Streak: 1 day")
+            }
+
+            lastGoalMetDate = today
+        } else {
+            // Goal not met
+            if let lastDate = lastGoalMetDate {
+                let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
+                let lastDateStart = calendar.startOfDay(for: lastDate)
+
+                if lastDateStart == yesterday {
+                    // Streak broken
+                    currentStreak = 0
+                    lastGoalMetDate = nil
+                    print("💔 Goal not met, streak reset to 0")
+                }
+            }
+        }
     }
     
     // MARK: - Data Management

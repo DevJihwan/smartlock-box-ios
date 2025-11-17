@@ -30,6 +30,11 @@
 "warning_will_lock_soon" = "Warning: Will lock soon!";
 "creative_unlock" = "Creative Unlock";
 "locked_status" = "Locked";
+"streak_record" = "Achievement Streak";
+"streak_days" = "Days";
+"goal_progress" = "%d%% of %d hour goal";
+"stats_coming_soon" = "Statistics Coming Soon";
+"stats_description" = "Stay tuned";
 
 // MARK: - Lock Screen
 "thinkfree_locked" = "ThinkFree Locked";
@@ -103,3 +108,21 @@
 "api_error" = "API error occurred";
 "network_error" = "Network error";
 "unknown_error" = "Unknown error";
+
+// MARK: - Main Screen v2.0 Additional
+"limit_time_description" = "%@ Limit";
+"min_remaining_description" = "%d min remaining";
+"control_inactive" = "Control Inactive";
+
+// MARK: - Screen Time Settings
+"screen_time_permission" = "Screen Time Permission";
+"authorized" = "Authorized";
+"not_authorized" = "Permission Required";
+"request_permission" = "Request Permission";
+"permission_description" = "Screen Time permission is required to block apps";
+"blocked_apps" = "Apps to Block";
+"selected_apps_count" = "Selected apps: %d";
+"selected_domains_count" = "Selected websites: %d";
+"select_apps" = "Select Apps";
+"change_apps" = "Change Selection";
+"enable_permission_first" = "Please enable Screen Time permission first";

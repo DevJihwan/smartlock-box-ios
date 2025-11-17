@@ -37,26 +37,32 @@ class UnlockChallengeViewModel: ObservableObject {
             completion(false)
             return
         }
-        
+
         guard remainingAttempts > 0 else {
             completion(false)
             return
         }
-        
+
         isEvaluating = true
         remainingAttempts -= 1
-        
+
         // ChatGPT와 Claude 동시 평가
         let chatGPTPublisher = aiService.evaluateWithChatGPT(sentence: challenge.attempt, word1: challenge.word1, word2: challenge.word2)
+            .catch { error -> Just<AIEvaluationResult> in
+                print("❌ ChatGPT 평가 실패: \(error.localizedDescription)")
+                return Just(.fail(feedback: "API 오류: \(error.localizedDescription)"))
+            }
+
         let claudePublisher = aiService.evaluateWithClaude(sentence: challenge.attempt, word1: challenge.word1, word2: challenge.word2)
-        
+            .catch { error -> Just<AIEvaluationResult> in
+                print("❌ Claude 평가 실패: \(error.localizedDescription)")
+                return Just(.fail(feedback: "API 오류: \(error.localizedDescription)"))
+            }
+
         Publishers.Zip(chatGPTPublisher, claudePublisher)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completionStatus in
                 self?.isEvaluating = false
-                if case .failure = completionStatus {
-                    completion(false)
-                }
             }, receiveValue: { [weak self] chatGPTResult, claudeResult in
                 self?.challengeResult = ChallengeResult(
                     chatGPTResult: chatGPTResult,

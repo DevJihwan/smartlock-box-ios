@@ -30,6 +30,11 @@
 "warning_will_lock_soon" = "경고: 곧 잠금됩니다!";
 "creative_unlock" = "창의적 해제";
 "locked_status" = "잠김";
+"streak_record" = "연속 달성 기록";
+"streak_days" = "연속 일";
+"goal_progress" = "목표 %d시간 중 %d%%";
+"stats_coming_soon" = "통계 기능 준비 중";
+"stats_description" = "곧 찾아뵙겠습니다";
 
 // MARK: - 잠금 화면
 "thinkfree_locked" = "ThinkFree 잠금 중";
@@ -103,3 +108,21 @@
 "api_error" = "API 오류가 발생했습니다";
 "network_error" = "네트워크 오류";
 "unknown_error" = "알 수 없는 오류";
+
+// MARK: - 메인 화면 v2.0 추가
+"limit_time_description" = "%@ 제한";
+"min_remaining_description" = "%d분 남음";
+"control_inactive" = "제어 비활성";
+
+// MARK: - Screen Time 설정
+"screen_time_permission" = "Screen Time 권한";
+"authorized" = "권한 승인됨";
+"not_authorized" = "권한 필요";
+"request_permission" = "권한 요청하기";
+"permission_description" = "앱 차단 기능을 사용하려면 Screen Time 권한이 필요합니다";
+"blocked_apps" = "차단할 앱 선택";
+"selected_apps_count" = "선택된 앱: %d개";
+"selected_domains_count" = "선택된 웹사이트: %d개";
+"select_apps" = "앱 선택하기";
+"change_apps" = "선택 변경하기";
+"enable_permission_first" = "먼저 Screen Time 권한을 활성화해주세요";
